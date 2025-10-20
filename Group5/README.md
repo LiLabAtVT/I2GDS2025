@@ -1,8 +1,10 @@
 
 # Metagenomic Preprocessing and Taxonomic Classification
 Our pipeline aims to replicate the preprocessing and taxonomic classification steps from
-"[Short- and long-read metagenomics of urban and rural South African gut microbiomes reveal 
-a transitional composition and undescribed taxa](https://www.nature.com/articles/s41467-021-27917-x)" by Tamburini et al.
+"Short- and long-read metagenomics of urban and rural South African gut microbiomes reveal 
+a transitional composition and undescribed taxa" by Tamburini et al.
+
+Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.nature.com/articles/s41467-021-27917-x)
 
 ## 00. Download data from SRA
 
