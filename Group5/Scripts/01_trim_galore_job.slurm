@@ -10,15 +10,13 @@
 #SBATCH --output=trim_galore.%j.out
 #SBATCH --error=trim_galore.%j.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=hibyeon@vt.edu
+#SBATCH --mail-user=aegreen@vt.edu
 
 # ============================================================
 
-# 1. Activate environment
+# 1. Load Module
 
-source /apps/common/software/Miniconda3/24.7.1-0/etc/profile.d/conda.sh
-
-conda activate /home/hibyeon/.conda/envs/trimgalore_env
+module load Trim_Galore/0.6.10-GCCcore-12.3.0
 
 # ------------------------------
 
@@ -26,15 +24,9 @@ conda activate /home/hibyeon/.conda/envs/trimgalore_env
 
 # ------------------------------
 
-RAW_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/rawdata"
+RAW_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/00_rawdata"
 
-OUT_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/Trim_Galore"
-
-
-
-mkdir -p "$OUT_DIR"
-
-
+OUT_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/01_Trim_Galore"
 
 # ------------------------------
 
@@ -59,7 +51,7 @@ do
 
 
 
-    trim_galore --paired --cores 8 --quality 20 --length 20 --fastqc --fastqc_args "--outdir $OUT_DIR" --output_dir "$OUT_DIR" "$RAW_DIR/$R1" "$RAW_DIR/$R2"
+    trim_galore --paired --cores 8 --quality 30 --length 60 --fastqc --fastqc_args "--outdir $OUT_DIR" --output_dir "$OUT_DIR" "$RAW_DIR/$R1" "$RAW_DIR/$R2"
 
 
 
