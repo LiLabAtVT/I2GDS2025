@@ -20,6 +20,8 @@ instructions at the top to use your own ARC allocation and email for notificatio
 ## 02. Super Deduper
 The purpose of running Super Deduper is to remove PCR duplicates from paired-end or single-end sequencing reads before downstream analysis. Super Deduper identifies duplicates by read sequence and keeps only unique pairs.
 
+### 02a. activate conda environment for runnning super Deduper named ```htstream12``` 
+
 
 
 ## 03. BWA
