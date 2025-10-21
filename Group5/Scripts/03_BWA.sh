@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=BWA_G5-test
+#SBATCH --job-name=BWA_G5
 #SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH --nodes=1

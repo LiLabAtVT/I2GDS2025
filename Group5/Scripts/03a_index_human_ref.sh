@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
 #SBATCH --time=24:00:00
-#SBATCH --output=BWA.%j.out
-#SBATCH --error=BWA.%j.err
+#SBATCH --output=index_hg.%j.out
+#SBATCH --error=index_hg.%j.err
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=aegreen@vt.edu
 
