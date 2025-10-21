@@ -50,7 +50,7 @@ where you downloaded the reference genome, and runs the command used to index th
 
 ### Run BWA Analysis
 
-BWA analysis was run using a batch script: `03_BWA.sh`
+BWA analysis was run using a bash script: `03_BWA.sh`
 
 **Inputs needed:**
 * Input directory path: where all the sequence files going into BWA are located
@@ -59,7 +59,7 @@ BWA analysis was run using a batch script: `03_BWA.sh`
 
 **What the script does:**
 1. Loads the BWA module on ARC
-2. Defines the input directory where the samples going into BWA are located (in this case, the output sequences
+2. Defines the input directory where the samples going into BWA are located (In this case, the output sequences
 from super deduper) and the output directory where the files with human mapped sequences removed will be saved.
 3. Changes the working directory to the input directory, loops through all sequence files and runs them through 
 BWA, and then uses samtools to process the output from BWA and save the unmapped sequences as fastq files.
@@ -73,6 +73,19 @@ sample has two paired-read files and a singletons file as output for BWA.
 
 ## 04. Final quality check with FastQC
 
+FastQC as a final quality check before classification was run using a bash script: `04_fastqc.sh`
+
+**Inputs needed:**
+* Input directory path: where all the sequence files going into fastqc are located
+* Output directory path: Where all the sequence files coming out of fastqc should be saved
+
+**What the script does:**
+1. Loads the FastQC module on ARC
+2. Changes working directory to input directory (In this case, the BWA output folder)
+3. Runs FastQC on all input files and saves output files to the output directory
+
+**Notes:***
+This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.
 
 ## 05. Taxonomic Classification with Kraken2
 
