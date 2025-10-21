@@ -25,6 +25,8 @@ The purpose of running Super Deduper is to remove PCR duplicates from paired-end
 source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
 conda activate htstream12
 ```
+note: If your path/env differs, edit the two lines above.
+
 
 ## 03. BWA
 
