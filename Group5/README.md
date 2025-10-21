@@ -18,8 +18,8 @@ instructions at the top to use your own ARC allocation and email for notificatio
 
 
 ## 02. Super Deduper
-The purpose of running Super Deduper is to remove PCR duplicates from paired-end or single-end sequencing reads before downstream analysis. Super Deduper identifies duplicates by read sequence and keeps only unique pairs.
-
+The purpose of running Super Deduper is to remove PCR duplicates from paired-end sequence files before downstream analysis. This step ensures that identical reads produced by PCR amplification are not counted multiple times, improving the accuracy of abundance estimation and variant calling.
+Summary: 
 * Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
 * Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
 
