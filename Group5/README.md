@@ -52,8 +52,7 @@ Note: If your path/env differs, edit the two lines above.
 
 ### 02b. submit the slurm scripts
 ``` sbatch 02_run_superdeduper_cpu.slurm.slurm```
-
-
+Note: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
 
 ## 03. BWA
 
