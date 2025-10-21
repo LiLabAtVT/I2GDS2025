@@ -16,6 +16,21 @@ instructions at the top to use your own ARC allocation and email for notificatio
 
 ## 01. TrimGalore
 
+The purpose of TrimGalore is to trim sequences, remove short sequences, and remove sequences with low quality scores.
+
+TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
+
+**Inputs needed:**
+* Input directory path: where all the raw data files are located
+* Output directory path: where all the sequence files coming out of TrimGalore should be saved
+* Minimum quality score value (To replicate the paper, we used 30)
+* Minimum sequence length (To replicate the paper, we used 60)
+
+**What the script does:**
+1. Loads the TrimGalore module on ARC
+2. Defines the input directory where the raw data files are located and the output directory where the trimmed sequence files will be saved
+3. Changes the working directory to the input directory and loops through all sequence files to run them through 
+TrimGalore
 
 ## 02. Super Deduper
 The purpose of running Super Deduper is to remove PCR duplicates from paired-end or single-end sequencing reads before downstream analysis. Super Deduper identifies duplicates by read sequence and keeps only unique pairs.
@@ -61,6 +76,8 @@ where you downloaded the reference genome, and runs the command used to index th
 
 ### Run BWA Analysis
 
+The purpose of BWA is to remove all sequences that map to the host genome (in this case, the human genome)
+
 BWA analysis was run using a bash script: `03_BWA.sh`
 
 **Inputs needed:**
@@ -71,9 +88,9 @@ BWA analysis was run using a bash script: `03_BWA.sh`
 **What the script does:**
 1. Loads the BWA module on ARC
 2. Defines the input directory where the samples going into BWA are located (In this case, the output sequences
-from super deduper) and the output directory where the files with human mapped sequences removed will be saved.
+from super deduper) and the output directory where the files with human mapped sequences removed will be saved
 3. Changes the working directory to the input directory, loops through all sequence files and runs them through 
-BWA, and then uses samtools to process the output from BWA and save the unmapped sequences as fastq files.
+BWA, and then uses samtools to process the output from BWA and save the unmapped sequences as fastq files
 
 **Notes:**
 The output from BWA for each sample is three files instead of two like the input. This is because sometimes
