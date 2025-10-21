@@ -48,6 +48,8 @@ This script activates the Conda environment containing HTStream, searches for pa
 source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
 conda activate htstream12
 ```
+
+
 Note: If your path/env differs, edit the two lines above.
 
 ### 02b. submit the slurm scripts
