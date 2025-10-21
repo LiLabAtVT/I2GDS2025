@@ -2,13 +2,14 @@
 # Metagenomic Preprocessing and Taxonomic Classification
 Our pipeline aims to replicate the preprocessing and taxonomic classification steps from
 "Short- and long-read metagenomics of urban and rural South African gut microbiomes reveal 
-a transitional composition and undescribed taxa" by Tamburini et al.
+a transitional composition and undescribed taxa" by Tamburini et al. using the ARC 
+computing cluster at Virginia Tech.
 
 Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.nature.com/articles/s41467-021-27917-x)
 
 ### Important note for using scripts
 Make sure that when using any bash scripts from this page that you update the slurm 
-instructions at the top to use your allocation and email for notifications!
+instructions at the top to use your own ARC allocation and email for notifications!
 
 ## 00. Download data from SRA
 
