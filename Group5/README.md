@@ -18,6 +18,17 @@ instructions at the top to use your own ARC allocation and email for notificatio
 
 
 ## 02. Super Deduper
+The purpose of running Super Deduper is to remove PCR duplicates from paired-end or single-end sequencing reads before downstream analysis. Super Deduper identifies duplicates by read sequence and keeps only unique pairs.
+
+* Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
+* Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
+
+### 02a. activate conda environment for runnning super Deduper named ```htstream12``` 
+```
+source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
+conda activate htstream12
+```
+Note: If your path/env differs, edit the two lines above.
 
 
 ## 03. BWA
@@ -84,7 +95,7 @@ FastQC as a final quality check before classification was run using a bash scrip
 2. Changes working directory to input directory (In this case, the BWA output folder)
 3. Runs FastQC on all input files and saves output files to the output directory
 
-**Notes:***
+**Notes:**
 This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.
 
 ## 05. Taxonomic Classification with Kraken2
