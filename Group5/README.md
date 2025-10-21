@@ -30,6 +30,10 @@ conda activate htstream12
 ```
 Note: If your path/env differs, edit the two lines above.
 
+### 02b. submit the slurm scripts
+``` sbatch sdeduper_cpu.slurm```
+
+
 
 ## 03. BWA
 
