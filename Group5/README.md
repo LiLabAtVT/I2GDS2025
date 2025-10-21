@@ -84,7 +84,7 @@ FastQC as a final quality check before classification was run using a bash scrip
 2. Changes working directory to input directory (In this case, the BWA output folder)
 3. Runs FastQC on all input files and saves output files to the output directory
 
-**Notes:***
+**Notes:**
 This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.
 
 ## 05. Taxonomic Classification with Kraken2
