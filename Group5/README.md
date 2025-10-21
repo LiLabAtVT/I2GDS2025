@@ -23,6 +23,11 @@ Summary:
 * Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
 * Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
 
+For this step, we used the HTStream implementation of Super Deduper (hts_SuperDeduper) on the ARC cluster.
+All deduplication was performed using the script ```02_SuperDeduper.sh```.
+
+This script activates the Conda environment containing HTStream, searches for paired-end FASTQ files from the Trim Galore output, runs Super Deduper on each pair, and generates summary statistics for the number of reads removed.
+
 ### 02a. activate conda environment for runnning super Deduper named ```htstream12``` 
 ```
 source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
