@@ -45,7 +45,25 @@ where you downloaded the reference genome, and runs the command used to index th
 
 ### Run BWA Analysis
 
+BWA analysis was run using a batch script: `03_BWA.sh`
 
+Inputs needed:
+* Input directory path: where all the sequence files going into BWA are located
+* Output directory path: Where all the sequence files coming out of BWA should be saved
+* Path to human reference genome
+
+This script:
+1. Loads the BWA module on ARC
+2. Defines the input directory where the samples going into BWA are located (in this case, the output sequences
+from super deduper) and the output directory where the files with human mapped sequences removed will be saved.
+3. Changes the working directory to the input directory, loops through all sequence files and runs them through 
+BWA, and then uses samtools to process the output from BWA and save the unmapped sequences as fastq files.
+
+Notes:
+* The output from BWA for each sample is three files instead of two like the input. This is because sometimes
+when mapping sequences to the reference genome only one half of a pair will map to the reference. In this case, only 
+the one sequence that mapped is removed and the now unpaired sequence is saved to the singletons file. Thus, each
+sample has two paired-read files and a singletons file as output for BWA.
 
 
 ## 04. Final quality check with FastQC
