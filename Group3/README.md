@@ -88,4 +88,19 @@ The reference genome must be bisulfite-converted and indexed before running alig
 
 ### 05 File merging and format conversion (BamTools)
 
+The previous step provide sorted BAM files and that must be merged. **BamTools** is a collection of tools for working with BAM files. More information about BamTools can be found in this [Toolkit Tutorial document](https://raw.githubusercontent.com/wiki/pezmaster31/bamtools/Tutorial_Toolkit_BamTools-1.0.pdf). A [repository for BamTools is also on GitHub](https://github.com/pezmaster31/bamtools/tree/master). The tool used here is _merge_. It is also possible to use additional BamTools tools for filtering and sorting if required.
+
+BamTools is available on the VT ARC listed in the [Table of Software](https://www.docs.arc.vt.edu/software/01table.html).
+
+To complete the merge, use BamTools in a SLURM script. The main commands for BamTools in the script include specifying the directory containing the input files and the directory for the merged output files.
+
+In the script, the input and output directories are specified:
+```
+INDIR="04_bismark_align"
+OUTDIR="05_bamtools"
+```
+The script also includes an array in order to cycle through each of the cell's files using the `cell_ids.txt` file to provide the numbers.
+
+The specific merge code
+
 ### 06 Deduplication and QC (Picard)
