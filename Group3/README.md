@@ -12,15 +12,10 @@ To replicate the analysis, we use Virginia Tech’s ARC Computing Cluster.
 The pipeline includes the following steps:
 
  1.	UMI-tools: extraction of unique molecular identifiers (UMIs) and generation of a whitelist of valid cell barcodes
-
  2.	TrimGalore: adapter removal and quality trimming of raw reads
-
  3.	idemp: demultiplexing of reads based on cell barcodes
-
  4.	Bismark: alignment of bisulfite-treated reads to the reference genome
-
  5.	BamTools: merging and format conversion of multiple BAM files
-
  6.	Picard: removal of PCR duplicates and generation of final cleaned alignment files
 
 ### 00 Data Download
