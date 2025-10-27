@@ -90,7 +90,7 @@ The reference genome must be bisulfite-converted and indexed before running alig
 
 The previous step provide sorted BAM files and that must be merged. **BamTools** is a collection of tools for working with BAM files. More information about BamTools can be found in this [Toolkit Tutorial document](https://raw.githubusercontent.com/wiki/pezmaster31/bamtools/Tutorial_Toolkit_BamTools-1.0.pdf). A [repository for BamTools is also on GitHub](https://github.com/pezmaster31/bamtools/tree/master). The tool used here is _merge_. It is also possible to use additional BamTools tools for filtering and sorting if required.
 
-BamTools is available on the VT ARC listed in the [Table of Software](https://www.docs.arc.vt.edu/software/01table.html).
+BamTools is available on the VT ARC listed in the [Table of Software](https://www.docs.arc.vt.edu/software/01table.html). The version loaded on ARC is 2.5.2 (_as of October 2025_).
 
 To complete the merge, use BamTools in a SLURM script. The main commands for BamTools in the script include specifying the directory containing the input files and the directory for the merged output files.
 
@@ -101,6 +101,42 @@ OUTDIR="05_bamtools"
 ```
 The script also includes an array in order to cycle through each of the cell's files using the `cell_ids.txt` file to provide the numbers.
 
-The specific merge code
+The specific merge code is:
+```
+bamtools merge \
+  -in "${R1_BAM}" \
+  -in "${R2_BAM}" \
+  -out "${MERGED_BAM}"
+```
+`merge` is the command in BamTools. The two `-in` statements indicated the files to be combined into the merged file in `-out`.
 
-### 06 Deduplication and QC (Picard)
+### 06 Deduplication (Picard)
+
+With single cell genomic analysis, PCR amplification of sequences is necessary to allow sequencing but can also lead to duplication of sequences. Removing PCR duplicates is a cleaning procedue. For this pipeline, Picard is used. Picard is a Java based set of tools for manipulating sequencing data in BAM files as well as other file formats. Information about Picard can be found [at the Broad Institute](https://broadinstitute.github.io/picard/index.html). Resources can also be found [in a GitHub repository](https://github.com/broadinstitute/picard). For this pipeline, we used the `MarkDuplicates` tool and `REMOVE_DUPLICATES=true` in the SLURM script.
+
+The script starts with loading `picard` and `samtools`. SAMTools will be used for sorting and indexing the BAM files. Both `picard` and `samtools` are installedon the VT ARC listed in the [Table of Software](https://www.docs.arc.vt.edu/software/01table.html). Picard is version 3.3.0 and SAMTools is version 1.21 (_as of October 2025_).
+```
+module load picard
+module load samtools
+```
+A SLURM array is used, as in the previous step, to cycle through all 1000 cells in the single cell dataset, each with its own BAM file.
+```
+BAM_FILE=$(ls $IN_DIR/*.merged.bam | sed -n "${SLURM_ARRAY_TASK_ID}p")
+```
+Subsequently, `samtools` is used to sort the the BAM files according to genomic coordinates and outputs a new sorted file.
+```
+samtools sort -@4 -o $OUT_DIR/${BASE}.sorted.bam "$BAM_FILE"
+```
+Then `picard` is called to remove the duplicates. `I=` indicates where the inputfiles are located with `O=` providing the directory and new name of the files with duplicates removed. `M=` sets up a metric file.
+```
+picard MarkDuplicates \
+    I=$OUT_DIR/${BASE}.sorted.bam \
+    O=$OUT_DIR/${BASE}.dedup.bam \
+    M=$OUT_DIR/${BASE}.dedup.metrics.txt \
+    REMOVE_DUPLICATES=true \
+    VALIDATION_STRINGENCY=SILENT
+```
+And finally, `samtools` is used to create an index file. This index file can be used to accelerate finding specific regions of the BAM files allowing faster processing in downstream steps.
+```
+samtools index $OUT_DIR/${BASE}.dedup.bam
+```
