@@ -139,8 +139,10 @@ log "All BWA filtering complete."
 
 </details>
 
+## Spades
+
 ## Diamond
 
-## Spades
+## Kraken
 
 
