@@ -11,7 +11,7 @@ test
 ```
 code
 ```
-
+</details>
 
 
 ## bbduk
