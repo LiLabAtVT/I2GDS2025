@@ -165,7 +165,7 @@ bamtools merge \
 
 With single cell genomic analysis, PCR amplification of sequences is necessary to allow sequencing but can also lead to duplication of sequences. Removing PCR duplicates is a cleaning procedue. For this pipeline, Picard is used. Picard is a Java based set of tools for manipulating sequencing data in BAM files as well as other file formats. Information about Picard can be found [at the Broad Institute](https://broadinstitute.github.io/picard/index.html). Resources can also be found [in a GitHub repository](https://github.com/broadinstitute/picard). For this pipeline, we used the `MarkDuplicates` tool and `REMOVE_DUPLICATES=true` in the SLURM script.
 
-The script starts with loading `picard` and `samtools`. SAMTools will be used for sorting and indexing the BAM files. Both `picard` and `samtools` are installedon the VT ARC listed in the [Table of Software](https://www.docs.arc.vt.edu/software/01table.html). Picard is version 3.3.0 and SAMTools is version 1.21 (_as of October 2025_).
+The script starts with loading `picard` and `samtools`. SAMTools will be used for sorting and indexing the BAM files. Both `picard` and `samtools` are installed on the VT ARC listed in the [Table of Software](https://www.docs.arc.vt.edu/software/01table.html). Picard is version 3.3.0 and SAMTools is version 1.21 (_as of October 2025_).
 ```
 module load picard
 module load samtools
