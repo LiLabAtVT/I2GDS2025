@@ -45,7 +45,7 @@ The test data is labeled "Group1_TestData" in the following ARC Directory: /proj
 It consists of **12 bacterial samples** (forward & reverse reads) in FASTQ format (.fastq.gz), which have been deposited in the Sequence Read Archive (SRA) of the National Center for Biotechnology Information (NCBI) under the Bioproject Accession numbers; **SRP540554 (16S rRNA)** and **SRP540675 (ITS)**.
 
 We downloaded the provided script to retrieve each samples' reads: ena-file-download-read_run-SRP540554-fastq_ftp-20250915-1609.sh
-This tutorial will focus on the bacterial samples (Link: http)://identifiers.org/insdc.sra:SRP540554)
+This tutorial will focus on the bacterial samples (Link: http://identifiers.org/insdc.sra:SRP540554)
 
 Here are the provided materials for this tutorial before we move to QIIME2:
 - Manifest file ('Needed Materials' folder)
