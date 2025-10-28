@@ -25,8 +25,7 @@ conda activate qiime2-amplicon-2025.7
 conda config --env --set subdir osx-64
 ```
 Verify your installation:
-```<img width="1437" height="878" alt="g1-16s-fig2" src="https://github.com/user-attachments/assets/1ce8c46c-df08-4614-b5f6-5dc81c77f8f6" />
-{r}
+```{linux}
 # Test your installation
 conda deactivate
 conda activate qiime2-amplicon-2025.7
@@ -63,6 +62,8 @@ Please remember to change the directory paths to your own specific path!
  This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. The output file will be a .qzv file, so it can be viewed in QIIME2 View (//https://view.qiime2.org/)
 
  Use this script under 'Needed Materials': data_import.sh
+INPUT: "bacteria_manifest.tsv"
+OUTPUT: "qualityplot.qzv"
  
  ```{linux}
 #!/bin/bash
@@ -95,6 +96,8 @@ The DADA2 (Divisive Amplicon Denoising Algorithm 2) will do the following steps:
 - Demultiplexing and denoising of raw sequence datasets in FASTQ format
 
  Use this script under 'Needed Materials': denoise.sh
+INPUT: "data.qza"
+OUTPUT: "denoising_stats.qza"
  
 ```{linux}
 #!/bin/bash
@@ -111,7 +114,7 @@ eval "$(conda shell.bash hook)"
 conda activate qiime2-amplicon-2025.7
 
 qiime dada2 denoise-paired \
---i-demultiplexed-seqs /home/peterfs/practice/QIIME/data_test.qza \
+--i-demultiplexed-seqs /home/peterfs/practice/QIIME/data.qza \
 --p-trunc-len-f 0 \
 --p-trunc-len-r 200 \
 --o-representative-sequences /home/peterfs/practice/QIIME/sequences.qza \
@@ -123,6 +126,20 @@ qiime dada2 denoise-paired \
 Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 138 classifier (available in Group 1's 'Needed Materials' folder.  In this final step, a taxa bar plot will be created to visualize community structure of your samples. 
 
  Use this script under 'Needed Materials': classify.sh 
+ INPUT:
+ - Step 1: "sequences.qza" and "table.qza"
+ - Step 2: "rep_seqs_97.qza" and "silva-138-99-nb-classifier.qza"
+ - Step 3: "updated_taxonomy.qza"
+ - Step 4: "table_97.qza"  and "updated_taxonomy.qza"
+ - Step 5: "feature-frequency-filtered-table.qza", "bacteria_manifest.tsv", and "updated_taxonomy.qza"
+   
+OUTPUT:
+- Step 1:  "table_97.qza" and "rep_seqs_97.qza"
+ - Step 2: "updated_taxonomy.qza"
+ - Step 3: "taxa-meta.qzv"
+ - Step 4: "tax-class-filter-table.qza"
+ - Step 5: "taxa-barplot.qzv"
+   
 ```{linux}
 #!/bin/bash
 #SBATCH -J Classifying
