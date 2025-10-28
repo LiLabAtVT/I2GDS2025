@@ -206,4 +206,77 @@ log "DIAMOND BLASTx complete."
 
 ## Kraken
 
+<details>
+  <summary>Click to expand code</summary>
+```
+#!/bin/bash
 
+#SBATCH -t 70:00:00
+#SBATCH -p normal_q
+#SBATCH -A introtogds
+#SBATCH --output=kraken2_%j.out
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=200GB
+#SBATCH --output=kraken2_%j.out
+#SBATCH --error=kraken2_%j.err
+
+#Set downloaded directory (where the github folders are located)
+cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
+
+#Set conda environment
+source ~/.bashrc
+
+conda activate g4_viruses
+
+#Parameters
+DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/kraken2/k2_db"
+SPADES_DIR="outputs/spades_outputs"
+THREADS=16
+
+#Log file setup
+LOGFILE="logs/k2_classify_${SLURM_JOB_ID}.log"
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
+
+log "Starting Kraken2 classification job on $(hostname)"
+log "Using database: $DB"
+log "Scanning SPAdes assemblies in: $SPADES_DIR"
+
+#Main loop
+for CONTIG_PATH in "${SPADES_DIR}"/sample*_test_data/contigs.fasta; do
+    #Skip if no files found
+    [ -e "$CONTIG_PATH" ] || { log "No contigs.fasta files found in $SPADES_DIR"; break; }
+
+    #Extract sample name (e.g., sample1_test_data)
+    SAMPLE_DIR=$(basename "$(dirname "$CONTIG_PATH")")
+    SAMPLE="${SAMPLE_DIR%%_test_data}"
+
+    log "Processing sample: $SAMPLE"
+
+    #Define output directory and files
+    OUT_DIR="${SAMPLE_DIR}"
+    REPORT="${OUT_DIR}/${SAMPLE}_assembly_report_test_data.txt"
+    OUTPUT="${OUT_DIR}/${SAMPLE}_assembly_kraken_test_data.out"
+    CLASSIFIED="${OUT_DIR}/${SAMPLE}_assembly_classified_test_data.fastq"
+
+    #Run Kraken2 classification
+    k2 classify \
+        --db "$DB" \
+        "$CONTIG_PATH" \
+        --threads "$THREADS" \
+        --report "$REPORT" \
+        --output "$OUTPUT" \
+        --classified-out "$CLASSIFIED"
+
+    #Compress large outputs
+    gzip -f "$OUTPUT" "$CLASSIFIED"
+
+    log "Finished processing $SAMPLE"
+    log "--------------------------------"
+done
+
+log "All samples processed successfully."
+```
+
+</details>
