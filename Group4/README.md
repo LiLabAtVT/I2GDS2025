@@ -16,6 +16,8 @@ Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgu
 
 # Analysis Pipeline
 
+The following steps outline the main pipeline to analyze the reads from the reference paper. The final results will allow you to see species types in each sample. 
+
 ## Trim Galore
 
 Trim Galore is used to clean high-throughput sequencing reads by automatically trimming adapters and low-quality bases. It serves as a wrapper around Cutadapt and FastQC, combining adapter removal with quality control checks in a single step. By removing unwanted sequences and short or poor-quality reads, Trim Galore improves the overall accuracy and reliability of downstream analyses such as read alignment and assembly. 
