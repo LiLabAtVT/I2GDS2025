@@ -48,6 +48,7 @@ TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 TrimGalore
 
 ## 02. Super Deduper
+### 02a. Purpose and preparation
 The purpose of SuperDeduper is to remove PCR and optical duplicate reads from paired-end FASTQ files generated after adapter trimming (in this case, from Trim Galore).
 This step ensures that downstream analyses such as assembly or host mapping are not biased by artificially duplicated reads.
 
