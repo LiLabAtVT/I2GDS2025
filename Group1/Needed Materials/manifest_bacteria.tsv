@@ -1,0 +1,13 @@
+sample-id	forward-absolute-filepath	reverse-absolute-filepath
+Sample 1	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100668_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100668_2.fastq.gz
+Sample 2	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100669_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100669_2.fastq.gz
+Sample 3	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100670_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100670_2.fastq.gz
+Sample 4	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100671_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100671_2.fastq.gz
+Sample 5	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100672_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100672_2.fastq.gz
+Sample 6	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100673_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100673_2.fastq.gz
+Sample 7	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100674_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100674_2.fastq.gz
+Sample 8	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100675_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100675_2.fastq.gz
+Sample 9	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100676_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100676_2.fastq.gz
+Sample 10	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100677_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100677_2.fastq.gz
+Sample 11	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100678_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100678_2.fastq.gz
+Sample 12	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100679_1.fastq.gz	/projects/intro2gds/I2GDS2025/G1_16S/bacteria/SRR31100679_2.fastq.gz
