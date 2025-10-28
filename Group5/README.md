@@ -113,7 +113,10 @@ BWA analysis was run using a bash script: `03_BWA.sh`
 * Path to human reference genome
 
 **Input**: Paired FASTQ/FASTQ.GZ files for each sample from SuperDeduper output
+* Example: `SRR17048876_R1.fastq.gz` and `SRR17048876_R2.fastq.gz`
+
 **Output**: Paired FASTQ/FASTQ.GZ files for each sample along with a singletons file where any sequences whose pair mapped to the human reference is saved
+* Example: `SRR17048876_1.fq.gz`, `SRR17048876_2.fq.gz`, and `SRR17048876_singletons.fq.gz`
 
 **What the script does:**
 1. Loads the BWA module on ARC
