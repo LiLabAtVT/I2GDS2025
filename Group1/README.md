@@ -230,3 +230,4 @@ biom convert \
 ```
 # References
 QIIME2 Code: Riddley, M. "Mia's QIIME2 Workflow" (file:///C:/Users/hanif/OneDrive/Documents/thesis%20prep/Mia's%20QIIME2%20Workflow.pdf)
+<img width="1078" height="659" alt="image" src="https://github.com/user-attachments/assets/5c07f9fd-cac3-4347-8608-a169bb4ae55b" />
