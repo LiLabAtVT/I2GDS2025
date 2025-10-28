@@ -52,28 +52,36 @@ The purpose of SuperDeduper is to remove PCR and optical duplicate reads from pa
 This step ensures that downstream analyses such as assembly or host mapping are not biased by artificially duplicated reads.
 
 Before running the analysis, first create a directory for all SuperDeduper output files:
-```mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/02_after_deduper/  # change to your preferred directory path
+```
+mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/02_after_deduper/  
+```
+SuperDeduper analysis was run using a bash script:
+```
+02_run_superdeduper_new.slurm
 ```
 Summary: 
 * Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
 * Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
 
-For this step, we used the HTStream implementation of Super Deduper (hts_SuperDeduper) on the ARC cluster.
-All deduplication was performed using the script ```02_run_superdeduper_cpu.slurm.sh```.
 
-This script activates the Conda environment containing HTStream, searches for paired-end FASTQ files from the Trim Galore output, runs Super Deduper on each pair, and generates summary statistics for the number of reads removed.
-
-### Activate conda environment for runnning super Deduper named ```htstream12``` 
-```
-source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
-conda activate htstream12
-```
-**Note**: If your path/env differs, edit the two lines above.
 
 ### 02b. submit the slurm scripts
 ``` sbatch 02_run_superdeduper_cpu.slurm.slurm```
 
 **Note**: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
+
+**What the script does:**
+1. Loads the conda environment (htstream12) that contains the HTStream toolkit, including SuperDeduper.
+2. Defines both the input and output directory paths.
+3. Creates the output directory if it does not already exist.
+4. Scans through all *_1_val_1.fq files in the input folder.
+5. For each detected sample, identifies its mate file (*_2_val_2.fq) and runs:
+```
+hts_SuperDeduper -1 R1 -2 R2 -f prefix -F
+```
+6. Checks whether both deduplicated files (```_R1.fastq.gz``` and ```_R2.fastq.gz```) were successfully created.
+7. Prints progress messages such as ```[INFO]```, ```[OK]```, or ```[WARN]``` to help track pipeline execution.
+
 
 ## 03. BWA
 
