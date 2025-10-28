@@ -222,6 +222,11 @@ mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/04_fastqc/ # change to your pre
 2. Changes working directory to input directory (In this case, the BWA output folder)
 3. Runs FastQC on all input files and saves output files to the output directory
 
+Once all batch script parameters and filepaths are updated in the script, navigate to the directory that your script is located in and use the following line of code to submit the job on ARC.
+```
+sbatch 04_fastqc.sh
+```
+
 ***Notes**:*
 *This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.*
 
