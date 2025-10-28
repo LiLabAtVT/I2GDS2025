@@ -10,7 +10,7 @@ Reference Paper: https://doi-org.ezproxy.lib.vt.edu/10.1016/j.watres.2024.121425
 
 3. Paste link into ARC terminal, choose preferred location\
 ```
-   `curl -O https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.2.1/sratoolkit.3.2.1-alma_linux64.tar.gz`
+   curl -O https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.2.1/sratoolkit.3.2.1-alma_linux64.tar.gz
 ```
   
 
