@@ -34,6 +34,7 @@ TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 
 **Inputs**: Raw paired FASTQ/FASTQ.GZ files for each sample
 * Example: `SRR17048876_1.fastq` and `SRR17048876_2.fastq`
+
 **Outputs**: Trimmed FASTQ files, .html and .zip FastQC output files, and a .txt trimming report file for raw sequence file
 * Example: `SRR17048876_1_val_1.fq`, `SRR17048876_1_val_1_fastqc.html`, `SRR17048876_1_val_1_fastqc.zip`, and `SRR17048876_1.fastq_trimming_report.txt`
 
