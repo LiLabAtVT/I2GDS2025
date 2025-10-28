@@ -48,8 +48,12 @@ TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 TrimGalore
 
 ## 02. Super Deduper
-The purpose of running Super Deduper is to remove PCR duplicates from paired-end sequence files before downstream analysis. This step ensures that identical reads produced by PCR amplification are not counted multiple times, improving the accuracy of abundance estimation and variant calling.
+The purpose of SuperDeduper is to remove PCR and optical duplicate reads from paired-end FASTQ files generated after adapter trimming (in this case, from Trim Galore).
+This step ensures that downstream analyses such as assembly or host mapping are not biased by artificially duplicated reads.
 
+Before running the analysis, first create a directory for all SuperDeduper output files:
+```mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/02_after_deduper/  # change to your preferred directory path
+```
 Summary: 
 * Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
 * Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
