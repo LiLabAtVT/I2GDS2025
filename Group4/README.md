@@ -69,10 +69,10 @@ log "Trim Galore completed successfully."
 ```
 
 
-## BWA
+## BWA- Burrow-Wheeler Aligner that aligns DNA sequences against a large reference genome. This uses three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first is for Illumina reads up to 100 bp, the second and third uses reads up from 70 bp to a few megabases. 
 
-## Diamond
+## Diamond- Sequence aligner for protein and translated DNA searches. This uses pairwise alignment of proteins and translated DNA at 100x-10,000x speed of BLAST. 
 
-## Spades
+## SPAdes- This is used for assembling and analyzing sequencing data from Illumina and IonTorrent technologies. This is for smaller genomes (bacteria) and not intended for larger genomes (larger eukaryotes). This supports paired-end reads, mate-pairs (including high quality Nextera Mate Pairs) and unpaired reads.
 
 ## Fastq
