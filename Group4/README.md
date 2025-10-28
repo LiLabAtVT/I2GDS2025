@@ -141,4 +141,4 @@ log "All BWA filtering complete."
 
 ## Spades
 
-## Fastq
+
