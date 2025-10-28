@@ -67,7 +67,7 @@ done
 
 log "Trim Galore completed successfully."
 ```
-
+</details>
 
 ## BWA
 
@@ -125,6 +125,8 @@ done
 
 log "All BWA filtering complete."
 ```
+
+</details>
 
 ## Diamond
 
