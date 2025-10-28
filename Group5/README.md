@@ -12,10 +12,10 @@ Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.
 ## Important Notes! Please read before continuing.
 
 ### Changing bash script parameters before use
-All scripts are found in the scripts folder of GitHub. Make sure that when using any bash scripts from this page that you update the slurm instructions at the top to use your own ARC allocation and email for notifications! There are comments in all the scripts to help you see which parameters to change.
+*All scripts are found in the scripts folder of GitHub. Make sure that when using any bash scripts from this page that you update the slurm instructions at the top to use your own ARC allocation and email for notifications! There are comments in all the scripts to help you see which parameters to change.*
 
 ### Changing filepaths in scripts
-Each section below details the file paths that need to be changed in each script and all scripts contain comments on where to update the filepaths. To avoid getting errors, make sure to change all file paths to your own input/output folders. All scripts have been edited to have a non-existent filepath in all the places where you need to input your own filepath.
+*Each section below details the file paths that need to be changed in each script and all scripts contain comments on where to update the filepaths. To avoid getting errors, make sure to change all file paths to your own input/output folders. All scripts have been edited to have a non-existent filepath in all the places where you need to input your own filepath.*
 
 ## 00. Test Dataset
 The raw test dataset for peer review can be found at the path: `/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/rawdata`
@@ -48,8 +48,7 @@ TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 **What the script does:**
 1. Loads the TrimGalore module on ARC
 2. Defines the input directory where the raw data files are located and the output directory where the trimmed sequence files will be saved
-3. Changes the working directory to the input directory and loops through all sequence files to run them through 
-TrimGalore
+3. Changes the working directory to the input directory and loops through all sequence files to run them through TrimGalore
 
 Once all batch script parameters and filepaths are updated in the script, navigate to the directory that your script is located in and use the following line of code to submit the job on ARC.
 ```
@@ -154,6 +153,8 @@ This final step of obtaining the reference genome was completed with a bash scri
 This script loads the ARC module used to access BWA commands, set the current directory to the folder
 where you downloaded the reference genome, and runs the command used to index the reference genome. 
 
+***Note**: If you have any issues downloading and indexing the human reference genome or you are short on time, a folder with the already downloaded and indexed reference genome is provided at this path: `/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/03a_Human_ref`*
+
 ### Run BWA Analysis
 
 The purpose of BWA is to remove all sequences that map to the host genome (in this case, the human genome).
@@ -188,9 +189,8 @@ Once all batch script parameters and filepaths are updated in the script, naviga
 sbatch 03_BWA.sh
 ```
 
-**Notes**:
-The output from BWA for each sample is three files instead of two like the input. This is because sometimes
-when mapping sequences to the reference genome only one half of a pair will map to the reference. In this case, only the one sequence that mapped is removed and the now unpaired sequence is saved to the singletons file. Thus, each sample has two paired-read files and a singletons file as output for BWA.
+***Notes**:*
+*The output from BWA for each sample is three files instead of two like the input. This is because sometimes when mapping sequences to the reference genome only one half of a pair will map to the reference. In this case, only the one sequence that mapped is removed and the now unpaired sequence is saved to the singletons file. Thus, each sample has two paired-read files and a singletons file as output for BWA.*
 
 
 ## 04. Final quality check with FastQC
@@ -217,6 +217,6 @@ mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/04_fastqc/ # change to your pre
 2. Changes working directory to input directory (In this case, the BWA output folder)
 3. Runs FastQC on all input files and saves output files to the output directory
 
-**Notes**:
-This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.
+***Notes**:*
+*This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.*
 
