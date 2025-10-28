@@ -47,7 +47,7 @@ In the experiment, we obtained many cells, but we only wanted to analyze those w
 ```
 umi_tools whitelist \
   --subset-reads=500000000 \
-  --stdin $R2".fastq.gz" \
+  --stdin $R2".fastq" \
   --error-correct-threshold=1 \
   --extract-method=regex \
   --bc-pattern='(?P<discard_1>TAAGTAGAAGATGGTATATGAGAT){s<=4}(?P<cell_1>.{15})(?P<umi_1>.{0})' \
@@ -60,13 +60,19 @@ umi_tools extract \
   --extract-method=regex \
   --bc-pattern='(?P<discard_1>TAAGTAGAAGATGGTATATGAGAT){s<=4}(?P<cell_1>.{15})(?P<umi_1>.{0})' \
   --error-correct-cell 1 \
-  --stdin $R2".fastq.gz" --stdout $R2"_extracted.fastq.gz" \
-  --read2-in $R1".fastq.gz" --read2-out=$R1"_extracted.fastq.gz" \
+  --stdin $R2".fastq" --stdout $R2"_extracted.fastq" \
+  --read2-in $R1".fastq" --read2-out=$R1"_extracted.fastq" \
   --filter-cell-barcode --whitelist=whitelist_1bp_5000_allreads.txt
   ```
 Here, the barcodes are extracted again based on the fixed position and output to the extracted.fastq.gz file. These extracted barcodes are then matched against the whitelist generated in the previous step.
 
 ### 02 Adapter trimming (TrimGalore)
+`Trim Galore` is used to remove sequencing adapter sequences, trim low-quality bases, and filter out short reads. Here, we use it to perform trimming and cleaning on the extracted FASTQ files.
+The script is as follows.
+  ```
+trim_galore --paired --quality 20 --length 20 SRR19391270_1.fastq.gz SRR19391270_2.fastq.gz
+  ```
+This script removes bases with a quality score below Q20, discards reads shorter than 20 bp, and automatically detects and synchronizes trimming of paired-end reads.
 
 ### 03 Read demultiplexing (idemp)
 The purpose of idemp is to demultiplex reads based on cell barcodes. After extracting UMIs and generating a whitelist with UMI-tools, idemp uses that whitelist to assign each read to its corresponding cell, creating separate FASTQ files for each cell.
