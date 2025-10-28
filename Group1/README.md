@@ -1,23 +1,22 @@
 # Introduction to Group 1 16S Amplicon Pipeline
-Our article examines the relative abundance, taxonomic profiles, and community structure of bacterial and fungal communities associated with parsley (Petroselinum crispum) and celery (Apium graveolens) roots via monocropping and intercropping systems.  The study aims to provide a baseline understanding of how intercropping influences rhizosphere microbial dynamics.
+Our article examines the relative abundance, taxonomic profiles, and community structure of bacterial and fungal communities associated with parsley (*Petroselinum crispum*) and celery (*Apium graveolens*) roots via monocropping and intercropping systems.  The study aims to provide a baseline understanding of how intercropping influences rhizosphere microbial dynamics.
 
 Article: https://bmcgenomdata.biomedcentral.com/articles/10.1186/s12863-025-01351-0#additional-information
 
 This pipeline utilizes QIIME2's (Quantitative Insights Into Microbial Ecology 2) "Amplicon" Distribution, a suite of plug-ins that provide broad analytic functionality to support microbiome marker gene analysis from raw sequencing data to pubication-quality visualizations and statistics.
-We expect to reproduce taxonomic composition tables for both bacteria and fungi:
+We expect to reproduce taxonomic composition tables for both bacteria and fungi.
 
-![g1-16s-fig2.png]
 
 ## Installing QIIME2 into Conda environment
 Installing the base distribution's conda environment: QIIME 2 recommends creating a new environment specifically for the QIIME 2 distribution, as they are many dependencies that you wouldn't want in an existing environment
-```{r}
+```{linux}
 # Installation for Linux/Windows users
 conda env create \
   --name qiime2-amplicon-2025.7 \
   --file https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.7/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml
 ```
 
-```{r}
+```{linux}
 # Installation for MacOS users (Apple Silicon)
 CONDA_SUBDIR=osx-64 conda env create \
   --name qiime2-amplicon-2025.7 \
@@ -63,7 +62,6 @@ Please remember to change the directory paths to your own specific path!
 ## Data Import & Quality Information
  This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. The output file will be a .qzv file, so it can be viewed in QIIME2 View (//https://view.qiime2.org/)
 
- ![quality_plot2.png]
  Use this script under 'Needed Materials': data_import.sh
  
  ```{linux}
