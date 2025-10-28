@@ -51,6 +51,11 @@ TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 3. Changes the working directory to the input directory and loops through all sequence files to run them through 
 TrimGalore
 
+Once all batch script parameters and filepaths are updated in the script, navigate to the directory that your script is located in and use the following line of code to submit the job on ARC.
+```
+sbatch 01_trim_galore_job.slurm
+```
+
 ## 02. Super Deduper
 
 The purpose of SuperDeduper is to remove PCR and optical duplicate reads from paired-end FASTQ files generated after adapter trimming (in this case, from Trim Galore).
@@ -60,16 +65,8 @@ Before running the analysis, first create a directory for all SuperDeduper outpu
 ```
 mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/02_after_deduper/  
 ```
-SuperDeduper analysis was run using a bash script: `02_run_superdeduper_new.slurm`
 
-
-
-Summary: 
-* Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
-* Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
-
-
-### 02b. Preparation of the environment
+### 02a. Preparation of the environment
 To run superdeduper, we first need to build a conda virtual environment that contains the HTStream toolkit, which can provide the ```hts_SuperDeduper``` program. 
 
 First, we need to load Miniconda
@@ -77,11 +74,9 @@ First, we need to load Miniconda
 ## Load Miniconda module (if available)
 module load miniconda3
 
-
 ## check miniconda version
 conda --version
 ```
-
 Secondly, we create a virtual environment called htstream12
 ```
 # Create and activate the environment
@@ -89,35 +84,33 @@ conda create -y -n htstream12 python=3.10
 conda activate htstream12
 ```
 Thirdly, Install HTStream (which includes SuperDeduper). HTStream can be installed via Bioconda, which provides precompiled packages for bioinformatics tools.
-
-(1) Add the proper Conda channels in the correct priority order:
 ```
+# 1. Add the proper Conda channels in the correct priority order:
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
-```
-(2) Install HTStream 
-```
+
+# 2. Install HTStream 
 conda install -y htstream
-```
-(3) Verify the correct installation of SuperDeduper
-```
+
+# 3. Verify the correct installation of SuperDeduper
 # Check if command is recognized
 which hts_SuperDeduper
-
 # Check version
 hts_SuperDeduper --version
 ```
+### Run SuperDeduper Analysis
+Once the conda environment was set up, SuperDeduper analysis was run using a bash script: `02_run_superdeduper_new.slurm`
 
-### 02c. Submit the slurm scripts
-``` sbatch 02_run_superdeduper_new.slurm```
+**Script values to change for your specific setup:**
+* Input directory path: Where all the output files from TrimGalore are located
+* Output directory path: where all the sequence files coming out of SuperDeduper should be saved
 
-Summary: 
-* Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
-* Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
+**Inputs**: Paired FASTQ/FASTQ.GZ files from TrimGalore output
+* Example: `SRR17048876_1_val_1.fq` and `SRR17048876_1_val_.fq`
 
-
-**Note**: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
+**Outputs**: Deduplicated paired FASTQ files
+* Example: 	`SRR17048876_R1.fastq.gz` and `	SRR17048876_R2.fastq.gz`
 
 **What the script does:**
 1. Loads the conda environment (htstream12) that contains the HTStream toolkit, including SuperDeduper.
@@ -131,6 +124,10 @@ hts_SuperDeduper -1 R1 -2 R2 -f prefix -F
 6. Checks whether both deduplicated files (```_R1.fastq.gz``` and ```_R2.fastq.gz```) were successfully created.
 7. Prints progress messages such as ```[INFO]```, ```[OK]```, or ```[WARN]``` to help track pipeline execution.
 
+Once all batch script parameters and filepaths are updated in the script, navigate to the directory that your script is located in and use the following line of code to submit the job on ARC.
+```
+sbatch 02_run_superdeduper_new.slurm
+```
 
 ## 03. BWA
 
@@ -188,6 +185,11 @@ BWA analysis was run using a bash script: `03_BWA.sh`
 from super deduper) and the output directory where the files with human mapped sequences removed will be saved
 3. Changes the working directory to the input directory, loops through all sequence files and runs them through 
 BWA, and then uses samtools to process the output from BWA and save the unmapped sequences as fastq files
+
+Once all batch script parameters and filepaths are updated in the script, navigate to the directory that your script is located in and use the following line of code to submit the job on ARC.
+```
+sbatch 03_BWA.sh
+```
 
 **Notes**:
 The output from BWA for each sample is three files instead of two like the input. This is because sometimes
