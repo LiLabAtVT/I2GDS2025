@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=Fastqc_G5
-#SBATCH --account=introtogds
+#SBATCH --account=introtogds #Make sure this is an account you have access to
 #SBATCH --partition=normal_q
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=8
@@ -9,7 +9,7 @@
 #SBATCH --output=fastqc.%j.out
 #SBATCH --error=fastqc.%j.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=aegreen@vt.edu
+#SBATCH --mail-user=userid@vt.edu #insert your email here
 
 # ============================================================
 

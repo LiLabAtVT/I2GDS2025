@@ -1,12 +1,14 @@
 #!/bin/bash                          
 #SBATCH --job-name=sdeduper_cpu       
-#SBATCH --account=introtogds          
+#SBATCH --account=introtogds #Make sure this is an account you have access to      
 #SBATCH --partition=normal_q          
 #SBATCH --time=06:00:00               
 #SBATCH --cpus-per-task=8             
 #SBATCH --mem=32G                        
 #SBATCH --output=sdeduper.%j.out  
-#SBATCH --error=sduduper.%j.err   
+#SBATCH --error=sduduper.%j.err  
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=userid@vt.edu #insert your email here 
 
 shopt -s nullglob                     # If no files match a glob, expand to empty (not the pattern)
 

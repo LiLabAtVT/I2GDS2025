@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=index_hg_G5
-#SBATCH --account=introtogds
-#SBATCH --partition=normal_q
+#SBATCH --account=introtogds #Make sure this is an account you have access to
+#SBATCH --partition=normal_q 
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
@@ -9,7 +9,7 @@
 #SBATCH --output=index_hg.%j.out
 #SBATCH --error=index_hg.%j.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=aegreen@vt.edu
+#SBATCH --mail-user=userid@vt.edu #insert your email here
 
 # ============================================================
 

@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name=trim_galore_G5
-#SBATCH --account=introtogds
+#SBATCH --job-name=trim_galore_G5 
+#SBATCH --account=introtogds #Make sure this is an account you have access to
 #SBATCH --partition=normal_q
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -10,7 +10,7 @@
 #SBATCH --output=trim_galore.%j.out
 #SBATCH --error=trim_galore.%j.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=aegreen@vt.edu
+#SBATCH --mail-user=userid@vt.edu #insert your email here
 
 # ============================================================
 
@@ -24,7 +24,7 @@ module load Trim_Galore/0.6.10-GCCcore-12.3.0
 
 # ------------------------------
 
-RAW_DIR= "/projects/intro2gds/I2GDS2025/G5_MG_AMR/00_rawdata"
+RAW_DIR= "/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata"
 
 OUT_DIR= "insert/your/trimgalore/output/filepath/here"  #make sure you change this to your preferred directory
 
