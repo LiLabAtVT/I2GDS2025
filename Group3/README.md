@@ -17,6 +17,8 @@ The pipeline includes the following steps:
  4.	Bismark: alignment of bisulfite-treated reads to the reference genome
  5.	BamTools: merging and format conversion of multiple BAM files
  6.	Picard: removal of PCR duplicates and generation of final cleaned alignment files
+<img width="3076" height="1815" alt="image" src="https://github.com/user-attachments/assets/929b9e6a-11d3-4dd9-bf86-7e735d83b8fc" />
+
 
 ### 00 Data Download and subset extraction (SRAtools)
 

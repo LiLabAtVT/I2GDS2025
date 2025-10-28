@@ -1,6 +1,10 @@
 # Introduction to Group 1 16S Amplicon Pipeline
+Our article examines the relative abundance, taxonomic profiles, and community structure of bacterial and fungal communities associated with parsley (Petroselinum crispum) and celery (Apium graveolens) roots via monocropping and intercropping systems.  The study aims to provide a baseline understanding of how intercropping influences rhizosphere microbial dynamics.
+
+Article: https://bmcgenomdata.biomedcentral.com/articles/10.1186/s12863-025-01351-0#additional-information
+
 This pipeline utilizes QIIME2's (Quantitative Insights Into Microbial Ecology 2) "Amplicon" Distribution, a suite of plug-ins that provide broad analytic functionality to support microbiome marker gene analysis from raw sequencing data to pubication-quality visualizations and statistics.
-# Installing QIIME2 into Conda environment
+## Installing QIIME2 into Conda environment
 Installing the base distribution's conda environment: QIIME 2 recommends creating a new environment specifically for the QIIME 2 distribution, as they are many dependencies that you wouldn't want in an existing environment
 ```{r}
 # Installation for Linux/Windows users
@@ -32,18 +36,26 @@ OR
 source activate qiime2-amplicon-2025.7
 ```
 
-# Test Data
+## Test Data
 The test data is labeled "Group1_TestData" in the following ARC Directory: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval
-It consists of **12 bacterial samples** (forward & reverse reads) from Babalola et al "Dataset of 16S rRNA and ITS gene amplicon sequencing of celery and parsley rhizosphere soils". The objectives are to examine the relative abundances, taxonomic profiles, and community structure of bacterial and fungal communities associated with parsley and celery roots via monocropping and intercropping systems.
+It consists of **12 bacterial samples** (forward & reverse reads) in FASTQ format (.fastq.gz), which have been deposited in the Sequence Read Archive (SRA) of the National Center for Biotechnology Information (NCBI) under the Bioproject Accession numbers; **SRP540554 (16S rRNA)** and **SRP540675 (ITS)**.
 
+We downloaded the provided script to retrieve each samples' reads: ena-file-download-read_run-SRP540554-fastq_ftp-20250915-1609.sh
+This tutorial will focus on the bacterial samples (Link: http)://identifiers.org/insdc.sra:SRP540554)
+
+Here are the provided materials for this tutorial before we move to QIIME2:
+- Manifest file (add here)
+- Test data ()
+- Classifier ()
+- Bash scripts ()
 # QIIME2 Pipeline
 The goal is to generate high-resolution OTUs (operational taxonomic unit). OTUs are employed to classify groups of similar sequences at 97% similarity.
 We have provided our manifest file (TSV format) into our test data; it will be used throughout this pipeline. The name is "bacteria_manifest.tsv".
 
-# REMEMBER!
+### REMEMBER!
 Please remember to change the directory paths to your own specific path!
 
-# Data Import & Quality Information
+## Data Import & Quality Information
  This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. 
  ```{linux}
 qiime tools import \
@@ -57,7 +69,7 @@ qiime demux summarize \
 --o-visualization /home/peterfs/practice/QIIME/qualityplot.qzv\
 ```
 
-# Denoising via DADA2
+## Denoising via DADA2
 The DADA2 (Divisive Amplicon Denoising Algorithm 2) will do the following steps:
 - Quality filtering, trimming, error correction, dereplication, and chimera removal 
 - Demultiplexing and denoising of raw sequence datasets in FASTQ format
@@ -72,7 +84,7 @@ qiime dada2 denoise-paired \
 --o-denoising-stats /home/peterfs/practice/QIIME/denoising_stats.qza
 ```
 
-# Clustering and Taxonomy Information
+## Clustering and Taxonomy Information
 Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 138 classifier (available in Group 1's 'Test Data' folder.  In this final step, a 
 taxa bar plot will be created to visualize community structure of your samples. 
 
