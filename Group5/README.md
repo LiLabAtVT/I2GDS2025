@@ -9,8 +9,11 @@ Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.
 
 ![Flowchart diagram of the pipeline for peer review](G5_Pipeline_Diagram.drawio.png "Pipeline Flowchart")
 
-### Important note for using scripts
+### Important note for using bash scripts
 All scripts are found in the scripts folder of GitHub. Make sure that when using any bash scripts from this page that you update the slurm instructions at the top to use your own ARC allocation and email for notifications!
+
+### Important note on filepaths
+Each section below details the file paths that need to be changed in each script and all scripts contain comments on where to update the filepaths. To avoid getting errors, make sure to change all file paths to your own input/output folders. All scripts have been edited to have a non-existent filepath in all the places where you need to input your own filepath.
 
 ## 00. Test Dataset
 
@@ -144,7 +147,10 @@ mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/04_fastqc/ # change to your pre
 * Output directory path: Where all the sequence files coming out of fastqc should be saved
 
 **Input**: Paired FASTQ/FASTQ.GZ files and singleton files for each sample from BWA output
+* Example: `SRR17048876_1.fq.gz`, `SRR17048876_2.fq.gz`, and `SRR17048876_singletons.fq.gz`
+
 **Output**: .html and .zip files containing the sequence quality info for each sequence file
+* Example: `SRR17048876_1_fastqc.html` and `SRR17048876_1_fastqc.zip`
 
 **What the script does:**
 1. Loads the FastQC module on ARC
