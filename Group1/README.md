@@ -1,19 +1,22 @@
 # Introduction to Group 1 16S Amplicon Pipeline
-Our article examines the relative abundance, taxonomic profiles, and community structure of bacterial and fungal communities associated with parsley (Petroselinum crispum) and celery (Apium graveolens) roots via monocropping and intercropping systems.  The study aims to provide a baseline understanding of how intercropping influences rhizosphere microbial dynamics.
+Our article examines the relative abundance, taxonomic profiles, and community structure of bacterial and fungal communities associated with parsley (*Petroselinum crispum*) and celery (*Apium graveolens*) roots via monocropping and intercropping systems.  The study aims to provide a baseline understanding of how intercropping influences rhizosphere microbial dynamics.
 
 Article: https://bmcgenomdata.biomedcentral.com/articles/10.1186/s12863-025-01351-0#additional-information
 
 This pipeline utilizes QIIME2's (Quantitative Insights Into Microbial Ecology 2) "Amplicon" Distribution, a suite of plug-ins that provide broad analytic functionality to support microbiome marker gene analysis from raw sequencing data to pubication-quality visualizations and statistics.
+We expect to reproduce taxonomic composition tables for both bacteria and fungi.
+
+
 ## Installing QIIME2 into Conda environment
 Installing the base distribution's conda environment: QIIME 2 recommends creating a new environment specifically for the QIIME 2 distribution, as they are many dependencies that you wouldn't want in an existing environment
-```{r}
+```{linux}
 # Installation for Linux/Windows users
 conda env create \
   --name qiime2-amplicon-2025.7 \
   --file https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.7/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml
 ```
 
-```{r}
+```{linux}
 # Installation for MacOS users (Apple Silicon)
 CONDA_SUBDIR=osx-64 conda env create \
   --name qiime2-amplicon-2025.7 \
@@ -22,7 +25,8 @@ conda activate qiime2-amplicon-2025.7
 conda config --env --set subdir osx-64
 ```
 Verify your installation:
-```{r}
+```<img width="1437" height="878" alt="g1-16s-fig2" src="https://github.com/user-attachments/assets/1ce8c46c-df08-4614-b5f6-5dc81c77f8f6" />
+{r}
 # Test your installation
 conda deactivate
 conda activate qiime2-amplicon-2025.7
@@ -41,13 +45,13 @@ The test data is labeled "Group1_TestData" in the following ARC Directory: /proj
 It consists of **12 bacterial samples** (forward & reverse reads) in FASTQ format (.fastq.gz), which have been deposited in the Sequence Read Archive (SRA) of the National Center for Biotechnology Information (NCBI) under the Bioproject Accession numbers; **SRP540554 (16S rRNA)** and **SRP540675 (ITS)**.
 
 We downloaded the provided script to retrieve each samples' reads: ena-file-download-read_run-SRP540554-fastq_ftp-20250915-1609.sh
-This tutorial will focus on the bacterial samples (Link: http)://identifiers.org/insdc.sra:SRP540554)
+This tutorial will focus on the bacterial samples (Link: http://identifiers.org/insdc.sra:SRP540554)
 
 Here are the provided materials for this tutorial before we move to QIIME2:
-- Manifest file (add here)
-- Test data ()
-- Classifier ()
-- Bash scripts ()
+- Manifest file ('Needed Materials' folder)
+- Test data ('Needed Materials' folder)
+- Classifier (silva-138-99-nb-classifier.qza)
+- Bash scripts ('Needed Materials' folder)
 # QIIME2 Pipeline
 The goal is to generate high-resolution OTUs (operational taxonomic unit). OTUs are employed to classify groups of similar sequences at 97% similarity.
 We have provided our manifest file (TSV format) into our test data; it will be used throughout this pipeline. The name is "bacteria_manifest.tsv".
@@ -56,8 +60,24 @@ We have provided our manifest file (TSV format) into our test data; it will be u
 Please remember to change the directory paths to your own specific path!
 
 ## Data Import & Quality Information
- This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. 
+ This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. The output file will be a .qzv file, so it can be viewed in QIIME2 View (//https://view.qiime2.org/)
+
+ Use this script under 'Needed Materials': data_import.sh
+ 
  ```{linux}
+#!/bin/bash
+#SBATCH -J Job Name
+#SBATCH --account=introtogds
+#SBATCH --partition=normal_q
+#SBATCH --time=0-08:00:00
+#SBATCH --mem=2G
+#SBATCH --mail-user=yourusername@vt.edu
+#SBATCH --mail-type=BEGIN
+#SBATCH --mail-type=END
+#SBATCH --mail-type=FAIL
+eval "$(conda shell.bash hook)"
+conda activate qiime2-amplicon-2025.7
+
 qiime tools import \
 --type 'SampleData[PairedEndSequencesWithQuality]' \
 --input-path /home/peterfs/practice/files/bacteria_manifest.tsv \
@@ -73,8 +93,23 @@ qiime demux summarize \
 The DADA2 (Divisive Amplicon Denoising Algorithm 2) will do the following steps:
 - Quality filtering, trimming, error correction, dereplication, and chimera removal 
 - Demultiplexing and denoising of raw sequence datasets in FASTQ format
-  
+
+ Use this script under 'Needed Materials': denoise.sh
+ 
 ```{linux}
+#!/bin/bash
+#SBATCH -J Job Name
+#SBATCH --account=introtogds
+#SBATCH --partition=normal_q
+#SBATCH --time=0-20:00:00
+#SBATCH --mem=20G
+#SBATCH --mail-user=peterfs@vt.edu
+#SBATCH --mail-type=BEGIN
+#SBATCH --mail-type=END
+#SBATCH --mail-type=FAIL
+eval "$(conda shell.bash hook)"
+conda activate qiime2-amplicon-2025.7
+
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs /home/peterfs/practice/QIIME/data_test.qza \
 --p-trunc-len-f 0 \
@@ -85,10 +120,22 @@ qiime dada2 denoise-paired \
 ```
 
 ## Clustering and Taxonomy Information
-Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 138 classifier (available in Group 1's 'Test Data' folder.  In this final step, a 
-taxa bar plot will be created to visualize community structure of your samples. 
+Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 138 classifier (available in Group 1's 'Needed Materials' folder.  In this final step, a taxa bar plot will be created to visualize community structure of your samples. 
 
+ Use this script under 'Needed Materials': classify.sh 
 ```{linux}
+#!/bin/bash
+#SBATCH -J Classifying
+#SBATCH --account=introtogds
+#SBATCH --partition=normal_q
+#SBATCH --time=0-20:00:00
+#SBATCH --mem=20G
+#SBATCH --mail-user=peterfs@vt.edu
+#SBATCH --mail-type=BEGIN
+#SBATCH --mail-type=END
+#SBATCH --mail-type=FAIL
+
+eval "$(conda shell.bash hook)"
 conda activate qiime2-amplicon-2025.7
 
 # Step 1: Cluster features de novo
@@ -131,3 +178,38 @@ qiime taxa barplot \
 --o-visualization /home/peterfs/practice/QIIME/taxa-barplot.qzv
 ```
 Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
+
+## Exporting Taxonomic Information
+After visualization, feel free to export the OTU abundance file (TSV format) in the level you want for downstream analysis (e.g. Phylum = Level 2)
+
+```{linux}
+qiime tools export --input-path filtered_table97.qza --output-path exported
+qiime tools export --input-path updated_taxonomy.qza --output-path exported
+
+cp taxonomy.tsv biom-taxonomy.tsv
+
+#Change the first line of biom-taxonomy.tsv (i.e. the header) to this:
+#OTUID taxonomy confidence
+biom add-metadata 
+-i feature-table.biom 
+-o table-with-taxonomy.biom 
+--observation-metadata-fp biom-taxonomy.tsv 
+--sc-separated taxonomy
+
+qiime taxa collapse \
+ --i-table /path/to/your/directory/feature-frequency-filtered-table.qza \
+ --i-taxonomy /path/to/your/directory/updated_taxonomy.qza \
+ --p-level 2 \
+ --o-collapsed-table level2-table.qza\
+
+qiime tools export \
+ --input-path level2-table.qza \
+ --output-path exported_table\
+
+biom convert \
+ -i exported_table/feature-table.biom \
+ -o exported_table/level2-table.tsv \
+ --to-tsv
+```
+# References
+QIIME2 Code: Riddley, M. "Mia's QIIME2 Workflow" (file:///C:/Users/hanif/OneDrive/Documents/thesis%20prep/Mia's%20QIIME2%20Workflow.pdf)
