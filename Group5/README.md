@@ -65,9 +65,28 @@ Summary:
 * Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
 
 
+### 02b. Preparation of the environment
+To run superdeduper, we first need to build a conda virtual environment that contains the HTStream toolkit, which can provide the ```hts_SuperDeduper``` program. 
 
-### 02b. submit the slurm scripts
+
+
+
+### 02c. Submit the slurm scripts
 ``` sbatch 02_run_superdeduper_cpu.slurm.slurm```
+
+```
+# Load Miniconda module (if available)
+module load miniconda3
+
+# or manually source your local installation
+source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
+
+## You can check whether Conda is available by typing:
+conda --version
+
+```
+
+
 
 **Note**: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
 
