@@ -179,3 +179,35 @@ Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
 
 ## Exporting Taxonomic Information
 After visualization, feel free to export the OTU abundance file (TSV format) in the level you want for downstream analysis (e.g. Phylum = Level 2)
+
+```{linux}
+qiime tools export --input-path filtered_table97.qza --output-path exported
+qiime tools export --input-path updated_taxonomy.qza --output-path exported
+
+cp taxonomy.tsv biom-taxonomy.tsv
+
+#Change the first line of biom-taxonomy.tsv (i.e. the header) to this:
+#OTUID taxonomy confidence
+biom add-metadata 
+-i feature-table.biom 
+-o table-with-taxonomy.biom 
+--observation-metadata-fp biom-taxonomy.tsv 
+--sc-separated taxonomy
+
+qiime taxa collapse \
+ --i-table /path/to/your/directory/feature-frequency-filtered-table.qza \
+ --i-taxonomy /path/to/your/directory/updated_taxonomy.qza \
+ --p-level 2 \
+ --o-collapsed-table level2-table.qza\
+
+qiime tools export \
+ --input-path level2-table.qza \
+ --output-path exported_table\
+
+biom convert \
+ -i exported_table/feature-table.biom \
+ -o exported_table/level2-table.tsv \
+ --to-tsv
+```
+# References
+QIIME2 Code: Riddley, M. "Mia's QIIME2 Workflow" (file:///C:/Users/hanif/OneDrive/Documents/thesis%20prep/Mia's%20QIIME2%20Workflow.pdf)
