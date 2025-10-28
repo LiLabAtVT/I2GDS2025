@@ -8,8 +8,8 @@
 # Analysis Pipeline
 
 # Trim Galore
-
-`#!/bin/bash
+```
+#!/bin/bash
 
 #SBATCH -t 70:00:00
 #SBATCH -p normal_q
@@ -59,7 +59,8 @@ for FILE in "${FASTQ_FILES[@]}"; do
     log "Finished sample: $SAMPLE"
 done
 
-log "Trim Galore completed successfully."`
+log "Trim Galore completed successfully."
+```
 
 
 ## BWA
