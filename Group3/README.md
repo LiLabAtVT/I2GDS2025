@@ -20,11 +20,17 @@ The pipeline includes the following steps:
 
 ### 00 Data Download and subset extraction (SRAtools)
 
-SRAtools (Sequence Read Archive Toolkit) is a set of command-line tools provided by NCBI (National Center for Biotechnology Information) for downloading, viewing, and converting sequencing data from the SRA (Sequence Read Archive) database. First, we locate the file we need on the NCBI website, and then use the prefetch tool to download it.
-For example, if the file we need is SRR1234567, the specific command is:
-```bash
-prefetch SRR1234567
+SRAtools (Sequence Read Archive Toolkit) is a set of command-line tools provided by NCBI (National Center for Biotechnology Information) for downloading, viewing, and converting sequencing data from the SRA (Sequence Read Archive) database. First, we locate the file we need on the NCBI website, and then use the `prefetch` tool to download it.
+For example, if the file we need is SRR19391270, the specific command is:
 ```
+prefetch	SRR19391270
+```
+After downloading the file, we will obtain a file named SRR19391270.sra. Next, we need to use the `fasterq-dump` program to convert it into the FASTQ format, which can be processed further.
+The script is as follows:
+```
+fasterq-dump --split-files -e 8 SRR19391270.sra -O .
+```
+
 
 
 
