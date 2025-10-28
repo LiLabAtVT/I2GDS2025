@@ -30,9 +30,14 @@ The script is as follows:
 ```
 fasterq-dump --split-files -e 8 SRR19391270.sra -O .
 ```
+This command can split the SRA file into two paired-end sequencing files for subsequent processing.
 
-
-
+Because the original file is very large. The `Seqtk` tool was used to extract a portion of the data for script testing.. The command for data extraction is as follows.
+```
+seqtk sample -s77 SRR19391270_1.fastq 0.2 > sub_R1.fastq
+seqtk sample -s77 SRR19391270_2.fastq 0.2 > sub_R2.fastq
+```
+The s77 repersents random seeds. which is used to randomly extract the reads. 0.2 means 20% of data will be extrated, and the extracted data will be output to sub_R1.fastq and sub_R2.fastq.
 
 
 ### 01 UMI extraction and whitelist creation (UMI-tools)
