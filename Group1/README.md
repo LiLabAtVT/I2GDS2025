@@ -5,7 +5,7 @@ Article: https://bmcgenomdata.biomedcentral.com/articles/10.1186/s12863-025-0135
 
 This pipeline utilizes QIIME2's (Quantitative Insights Into Microbial Ecology 2) "Amplicon" Distribution, a suite of plug-ins that provide broad analytic functionality to support microbiome marker gene analysis from raw sequencing data to pubication-quality visualizations and statistics.
 We expect to reproduce taxonomic composition tables for both bacteria and fungi.
-<img width="1078" height="659" alt="image" src="https://github.com/user-attachments/assets/8210a433-4b7a-4c40-aecd-a499ed9a6afc" />
+<img width="350" height="200" alt="image" src="https://github.com/user-attachments/assets/8210a433-4b7a-4c40-aecd-a499ed9a6afc" />
 
 
 ## Installing QIIME2 into Conda environment
@@ -63,9 +63,12 @@ Please remember to change the directory paths to your own specific path!
  This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. The output file will be a .qzv file, so it can be viewed in QIIME2 View (//https://view.qiime2.org/)
 
  Use this script under 'Needed Materials': data_import.sh
+
 INPUT: "bacteria_manifest.tsv"
+
 OUTPUT: "qualityplot.qzv"
- <img width="1920" height="796" alt="image" src="https://github.com/user-attachments/assets/9bfb7530-2794-40fd-927b-670a64fb307a" />
+
+ <img width="1320" height="450" alt="image" src="https://github.com/user-attachments/assets/9bfb7530-2794-40fd-927b-670a64fb307a" />
 
  ```{linux}
 #!/bin/bash
@@ -98,7 +101,9 @@ The DADA2 (Divisive Amplicon Denoising Algorithm 2) will do the following steps:
 - Demultiplexing and denoising of raw sequence datasets in FASTQ format
 
  Use this script under 'Needed Materials': denoise.sh
+ 
 INPUT: "data.qza"
+
 OUTPUT: "denoising_stats.qza"
  
 ```{linux}
@@ -128,7 +133,9 @@ qiime dada2 denoise-paired \
 Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 138 classifier (available in Group 1's 'Needed Materials' folder.  In this final step, a taxa bar plot will be created to visualize community structure of your samples. 
 
  Use this script under 'Needed Materials': classify.sh 
+ 
  INPUT:
+ 
  - Step 1: "sequences.qza" and "table.qza"
  - Step 2: "rep_seqs_97.qza" and "silva-138-99-nb-classifier.qza"
  - Step 3: "updated_taxonomy.qza"
@@ -136,6 +143,7 @@ Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 
  - Step 5: "feature-frequency-filtered-table.qza", "bacteria_manifest.tsv", and "updated_taxonomy.qza"
    
 OUTPUT:
+
 - Step 1:  "table_97.qza" and "rep_seqs_97.qza"
  - Step 2: "updated_taxonomy.qza"
  - Step 3: "taxa-meta.qzv"
