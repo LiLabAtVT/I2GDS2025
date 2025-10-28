@@ -192,7 +192,7 @@ sbatch 03_BWA.sh
 ***Notes**:*
 *The output from BWA for each sample is three files instead of two like the input. This is because sometimes when mapping sequences to the reference genome only one half of a pair will map to the reference. In this case, only the one sequence that mapped is removed and the now unpaired sequence is saved to the singletons file. Thus, each sample has two paired-read files and a singletons file as output for BWA.*
 
-## Peer Reviewers please stop here! No need to do more than the first three steps :)
+## Peer Reviewers please stop here! No need to do more than the first 3 steps :)
 ---
 
 ## 04. Final quality check with FastQC
