@@ -4,6 +4,10 @@ Our article examines the relative abundance, taxonomic profiles, and community s
 Article: https://bmcgenomdata.biomedcentral.com/articles/10.1186/s12863-025-01351-0#additional-information
 
 This pipeline utilizes QIIME2's (Quantitative Insights Into Microbial Ecology 2) "Amplicon" Distribution, a suite of plug-ins that provide broad analytic functionality to support microbiome marker gene analysis from raw sequencing data to pubication-quality visualizations and statistics.
+We expect to reproduce taxonomic composition tables for both bacteria and fungi:
+
+![g1-16s-fig2.png]
+
 ## Installing QIIME2 into Conda environment
 Installing the base distribution's conda environment: QIIME 2 recommends creating a new environment specifically for the QIIME 2 distribution, as they are many dependencies that you wouldn't want in an existing environment
 ```{r}
@@ -22,7 +26,8 @@ conda activate qiime2-amplicon-2025.7
 conda config --env --set subdir osx-64
 ```
 Verify your installation:
-```{r}
+```<img width="1437" height="878" alt="g1-16s-fig2" src="https://github.com/user-attachments/assets/1ce8c46c-df08-4614-b5f6-5dc81c77f8f6" />
+{r}
 # Test your installation
 conda deactivate
 conda activate qiime2-amplicon-2025.7
@@ -58,8 +63,7 @@ Please remember to change the directory paths to your own specific path!
 ## Data Import & Quality Information
  This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. The output file will be a .qzv file, so it can be viewed in QIIME2 View (//https://view.qiime2.org/)
 
- 
- 
+ ![quality_plot2.png]
  Use this script under 'Needed Materials': data_import.sh
  
  ```{linux}
