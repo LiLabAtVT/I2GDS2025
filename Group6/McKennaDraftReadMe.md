@@ -12,7 +12,7 @@ conda create vsearchenv
 source activate vsearchenv
 ```
 
-You should now see (vsearchenv) [yourPID@ ____ to indicate that you've entered the environment
+You should now see (vsearchenv) \[yourPID@clustername directoryname\]$, indicating that you've entered the vsearchenv environment
 
 **Step 2**\
 Install vsearch in environment
