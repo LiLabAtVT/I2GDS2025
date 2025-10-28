@@ -10,8 +10,7 @@ Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.
 ![Flowchart diagram of the pipeline for peer review](G5_Pipeline_Diagram.drawio.png "Pipeline Flowchart")
 
 ### Important note for using scripts
-Make sure that when using any bash scripts from this page that you update the slurm 
-instructions at the top to use your own ARC allocation and email for notifications!
+All scripts are found in the scripts folder of GitHub. Make sure that when using any bash scripts from this page that you update the slurm instructions at the top to use your own ARC allocation and email for notifications!
 
 ## 00. Test Dataset
 
@@ -33,8 +32,8 @@ TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 * Minimum quality score value (To replicate the paper, we used 30)
 * Minimum sequence length (To replicate the paper, we used 60)
 
-**Inputs**: Raw paired FASTQ/FASTQ.GZ files for each sample
-**Outputs**: Trimmed FASTQ files, .html and .zip FastQC output files, and a .txt trimming report file for each sample
+**Inputs**: Raw paired FASTQ/FASTQ.GZ files for each sample - Example: `SRR17048876_1.fastq` and `SRR17048876_2.fastq`
+**Outputs**: Trimmed FASTQ files, .html and .zip FastQC output files, and a .txt trimming report file for raw sequence file - Example: `SRR17048876_1_val_1.fq`, `SRR17048876_1_val_1_fastqc.html`, `SRR17048876_1_val_1_fastqc.zip`, and `SRR17048876_1.fastq_trimming_report.txt`
 
 **What the script does:**
 1. Loads the TrimGalore module on ARC
