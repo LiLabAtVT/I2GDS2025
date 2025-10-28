@@ -102,11 +102,11 @@ which hts_SuperDeduper
 hts_SuperDeduper --version
 ```
 ### Run SuperDeduper Analysis
-Once the conda environment was set up, SuperDeduper analysis was run using a bash script: `02_run_superdeduper_new.slurm`
+Once the conda environment was set up, SuperDeduper analysis was run using a bash script: `02_run_superdeduper_cpu.slurm`
 
 **Script values to change for your specific setup:**
 * Input directory path: Where all the output files from TrimGalore are located
-* Output directory path: where all the sequence files coming out of SuperDeduper should be saved
+* Output directory path: Where all the sequence files coming out of SuperDeduper should be saved
 
 **Inputs**: Paired FASTQ/FASTQ.GZ files from TrimGalore output
 * Example: `SRR17048876_1_val_1.fq` and `SRR17048876_1_val_.fq`
@@ -125,7 +125,7 @@ Once the conda environment was set up, SuperDeduper analysis was run using a bas
 
 Once all batch script parameters and filepaths are updated in the script, navigate to the directory that your script is located in and use the following line of code to submit the job on ARC.
 ```
-sbatch 02_run_superdeduper_new.slurm
+sbatch 02_run_superdeduper_cpu.slurm
 ```
 
 ## 03. BWA
