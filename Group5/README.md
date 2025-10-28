@@ -106,7 +106,7 @@ hts_SuperDeduper --version
 ```
 
 ### 02c. Submit the slurm scripts
-``` sbatch 02_run_superdeduper_cpu.slurm.slurm```
+``` sbatch 02_run_superdeduper_new.slurm```
 
 
 **Note**: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
