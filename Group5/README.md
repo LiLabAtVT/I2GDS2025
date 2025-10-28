@@ -20,13 +20,21 @@ instructions at the top to use your own ARC allocation and email for notificatio
 
 The purpose of TrimGalore is to trim sequences, remove short sequences, and remove sequences with low quality scores.
 
+Before running any analysis, first create a directory for all TrimGalore output files.
+```
+mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/01_Trim_Galore/ # change to your preferred directory path
+```
+
 TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 
-**Inputs needed:**
+**Script values to change for your specific setup:**
 * Input directory path: where all the raw data files are located
 * Output directory path: where all the sequence files coming out of TrimGalore should be saved
 * Minimum quality score value (To replicate the paper, we used 30)
 * Minimum sequence length (To replicate the paper, we used 60)
+
+**Inputs**: Raw paired FASTQ/FASTQ.GZ files for each sample
+**Outputs**: Trimmed FASTQ files, .html and .zip FastQC output files, and a .txt trimming report file for each sample
 
 **What the script does:**
 1. Loads the TrimGalore module on ARC
@@ -36,6 +44,7 @@ TrimGalore
 
 ## 02. Super Deduper
 The purpose of running Super Deduper is to remove PCR duplicates from paired-end sequence files before downstream analysis. This step ensures that identical reads produced by PCR amplification are not counted multiple times, improving the accuracy of abundance estimation and variant calling.
+
 Summary: 
 * Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
 * Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
@@ -55,7 +64,7 @@ conda activate htstream12
 ### 02b. submit the slurm scripts
 ``` sbatch 02_run_superdeduper_cpu.slurm.slurm```
 
-*Note: Make sure to navigate to the directory where the SLURM script is located before submitting the job.*
+**Note**: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
 
 ## 03. BWA
 
@@ -70,7 +79,7 @@ it to a usable format for BWA.
 
 1. Download reference genome
 ```
-mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref/ # change to preferred directory path
+mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref/ # change to your preferred directory path
 cd /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref/
 wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.2bit;
 ```
@@ -87,14 +96,22 @@ where you downloaded the reference genome, and runs the command used to index th
 
 ### Run BWA Analysis
 
-The purpose of BWA is to remove all sequences that map to the host genome (in this case, the human genome)
+The purpose of BWA is to remove all sequences that map to the host genome (in this case, the human genome).
+
+Before running any analysis, first create a directory for all BWA output files.
+```
+mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/03_BWA/ # change to your preferred directory path
+```
 
 BWA analysis was run using a bash script: `03_BWA.sh`
 
-**Inputs needed:**
-* Input directory path: where all the sequence files going into BWA are located
+**Paths in script to change for your specific setup:**
+* Input directory path: Where all the paired sequence files going into BWA are located
 * Output directory path: Where all the sequence files coming out of BWA should be saved
 * Path to human reference genome
+
+**Input**: Paired FASTQ/FASTQ.GZ files for each sample from SuperDeduper output
+**Output**: Paired FASTQ/FASTQ.GZ files for each sample along with a singletons file where any sequences whose pair mapped to the human reference is saved
 
 **What the script does:**
 1. Loads the BWA module on ARC
@@ -105,18 +122,24 @@ BWA, and then uses samtools to process the output from BWA and save the unmapped
 
 **Notes**:
 The output from BWA for each sample is three files instead of two like the input. This is because sometimes
-when mapping sequences to the reference genome only one half of a pair will map to the reference. In this case, only 
-the one sequence that mapped is removed and the now unpaired sequence is saved to the singletons file. Thus, each
-sample has two paired-read files and a singletons file as output for BWA.
+when mapping sequences to the reference genome only one half of a pair will map to the reference. In this case, only the one sequence that mapped is removed and the now unpaired sequence is saved to the singletons file. Thus, each sample has two paired-read files and a singletons file as output for BWA.
 
 
 ## 04. Final quality check with FastQC
 
 FastQC as a final quality check before classification was run using a bash script: `04_fastqc.sh`
 
-**Inputs needed:**
+Before running any analysis, first create a directory for all FastQC output files.
+```
+mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/04_fastqc/ # change to your preferred directory path
+```
+
+**Paths in script to change for your specific setup:**
 * Input directory path: where all the sequence files going into fastqc are located
 * Output directory path: Where all the sequence files coming out of fastqc should be saved
+
+**Input**: Paired FASTQ/FASTQ.GZ files and singleton files for each sample from BWA output
+**Output**: .html and .zip files containing the sequence quality info for each sequence file
 
 **What the script does:**
 1. Loads the FastQC module on ARC
