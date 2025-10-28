@@ -1,0 +1,711 @@
+Path to Cutadapt set as: 'cutadapt' (default)
+Cutadapt seems to be working fine (tested command 'cutadapt --version')
+Cutadapt version: 4.9
+Cutadapt seems to be using Python 3! Proceeding with multi-core enabled Cutadapt using 8 cores
+Parallel gzip (pigz) detected. Proceeding with multicore (de)compression using 8 cores
+
+igzip detected. Using igzip for decompressing
+
+No quality encoding type selected. Assuming that the data provided uses Sanger encoded Phred scores (default)
+
+Output will be written into the directory: /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/
+
+
+AUTO-DETECTING ADAPTER TYPE
+===========================
+Attempting to auto-detect adapter type from the first 1 million sequences of the first file (>> /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_1.fastq <<)
+
+Found perfect matches for the following adapter sequences:
+Adapter type	Count	Sequence	Sequences analysed	Percentage
+Illumina	0	AGATCGGAAGAGC	25000	0.00
+smallRNA	0	TGGAATTCTCGG	25000	0.00
+Nextera	0	CTGTCTCTTATA	25000	0.00
+Unable to auto-detect most prominent adapter from the first specified file (count Illumina: 0, count smallRNA: 0, count Nextera: 0)
+Defaulting to Illumina universal adapter ( AGATCGGAAGAGC ). Specify -a SEQUENCE to avoid this behavior).
+
+Writing report to '/projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/SRR17048876_1.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_1.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.6.10
+Cutadapt version: 4.9
+Python version: 3.11.3
+Number of cores used for trimming: 8
+Quality Phred score cutoff: 30
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; default (inconclusive auto-detection))
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 60 bp
+Running FastQC on the data once trimming has completed
+Running FastQC with the following extra arguments: '--outdir /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore'
+
+Cutadapt seems to be fairly up-to-date (version 4.9). Setting -j 8
+Writing final adapter and quality trimmed output to SRR17048876_1_trimmed.fq
+
+
+  >>> Now performing quality (cutoff '-q 30') and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_1.fastq <<< 
+This is cutadapt 4.9 with Python 3.11.3
+Command line parameters: -j 8 -e 0.1 -q 30 -O 1 -a AGATCGGAAGAGC /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_1.fastq
+Processing single-end reads on 8 cores ...
+Finished in 0.186 s (7.447 µs/read; 8.06 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  25,000
+Reads with adapters:                     9,507 (38.0%)
+Reads written (passing filters):        25,000 (100.0%)
+
+Total basepairs processed:     3,489,915 bp
+Quality-trimmed:                   1,987 bp (0.1%)
+Total written (filtered):      3,473,932 bp (99.5%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 9507 times
+
+Minimum overlap: 1
+No. of allowed errors:
+1-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 31.5%
+  C: 28.2%
+  G: 22.2%
+  T: 18.1%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	6611	6250.0	0	6611
+2	2188	1562.5	0	2188
+3	517	390.6	0	517
+4	152	97.7	0	152
+5	21	24.4	0	21
+6	8	6.1	0	8
+7	1	1.5	0	1
+9	3	0.1	0	0 3
+73	1	0.0	1	0 1
+79	1	0.0	1	0 1
+110	1	0.0	1	0 1
+120	1	0.0	1	0 1
+139	1	0.0	1	0 1
+142	1	0.0	1	0 1
+
+RUN STATISTICS FOR INPUT FILE: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_1.fastq
+=============================================
+25000 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Writing report to '/projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/SRR17048876_2.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_2.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.6.10
+Cutadapt version: 4.9
+Python version: 3.11.3
+Number of cores used for trimming: 8
+Quality Phred score cutoff: 30
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; default (inconclusive auto-detection))
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 60 bp
+Running FastQC on the data once trimming has completed
+Running FastQC with the following extra arguments: '--outdir /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore'
+
+Cutadapt seems to be fairly up-to-date (version 4.9). Setting -j -j 8
+Writing final adapter and quality trimmed output to SRR17048876_2_trimmed.fq
+
+
+  >>> Now performing quality (cutoff '-q 30') and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_2.fastq <<< 
+This is cutadapt 4.9 with Python 3.11.3
+Command line parameters: -j 8 -e 0.1 -q 30 -O 1 -a AGATCGGAAGAGC /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_2.fastq
+Processing single-end reads on 8 cores ...
+Finished in 0.163 s (6.532 µs/read; 9.19 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  25,000
+Reads with adapters:                     9,487 (37.9%)
+Reads written (passing filters):        25,000 (100.0%)
+
+Total basepairs processed:     3,476,917 bp
+Quality-trimmed:                   5,167 bp (0.1%)
+Total written (filtered):      3,458,364 bp (99.5%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 9487 times
+
+Minimum overlap: 1
+No. of allowed errors:
+1-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 31.5%
+  C: 28.0%
+  G: 22.4%
+  T: 18.1%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	6784	6250.0	0	6784
+2	2053	1562.5	0	2053
+3	470	390.6	0	470
+4	148	97.7	0	148
+5	19	24.4	0	19
+6	5	6.1	0	5
+7	1	1.5	0	1
+10	3	0.0	1	0 3
+17	1	0.0	1	0 1
+72	1	0.0	1	0 1
+110	1	0.0	1	0 1
+133	1	0.0	1	0 1
+
+RUN STATISTICS FOR INPUT FILE: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048876_2.fastq
+=============================================
+25000 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Validate paired-end files SRR17048876_1_trimmed.fq and SRR17048876_2_trimmed.fq
+file_1: SRR17048876_1_trimmed.fq, file_2: SRR17048876_2_trimmed.fq
+
+
+>>>>> Now validing the length of the 2 paired-end infiles: SRR17048876_1_trimmed.fq and SRR17048876_2_trimmed.fq <<<<<
+Writing validated paired-end Read 1 reads to SRR17048876_1_val_1.fq
+Writing validated paired-end Read 2 reads to SRR17048876_2_val_2.fq
+
+Total number of sequences analysed: 25000
+
+Number of sequence pairs removed because at least one read was shorter than the length cutoff (60 bp): 93 (0.37%)
+
+
+  >>> Now running FastQC on the validated data SRR17048876_1_val_1.fq<<<
+
+Started analysis of SRR17048876_1_val_1.fq
+Approx 5% complete for SRR17048876_1_val_1.fq
+Approx 10% complete for SRR17048876_1_val_1.fq
+Approx 15% complete for SRR17048876_1_val_1.fq
+Approx 20% complete for SRR17048876_1_val_1.fq
+Approx 25% complete for SRR17048876_1_val_1.fq
+Approx 30% complete for SRR17048876_1_val_1.fq
+Approx 35% complete for SRR17048876_1_val_1.fq
+Approx 40% complete for SRR17048876_1_val_1.fq
+Approx 45% complete for SRR17048876_1_val_1.fq
+Approx 50% complete for SRR17048876_1_val_1.fq
+Approx 55% complete for SRR17048876_1_val_1.fq
+Approx 60% complete for SRR17048876_1_val_1.fq
+Approx 65% complete for SRR17048876_1_val_1.fq
+Approx 70% complete for SRR17048876_1_val_1.fq
+Approx 75% complete for SRR17048876_1_val_1.fq
+Approx 80% complete for SRR17048876_1_val_1.fq
+Approx 85% complete for SRR17048876_1_val_1.fq
+Approx 90% complete for SRR17048876_1_val_1.fq
+Approx 95% complete for SRR17048876_1_val_1.fq
+
+  >>> Now running FastQC on the validated data SRR17048876_2_val_2.fq<<<
+
+Started analysis of SRR17048876_2_val_2.fq
+Approx 5% complete for SRR17048876_2_val_2.fq
+Approx 10% complete for SRR17048876_2_val_2.fq
+Approx 15% complete for SRR17048876_2_val_2.fq
+Approx 20% complete for SRR17048876_2_val_2.fq
+Approx 25% complete for SRR17048876_2_val_2.fq
+Approx 30% complete for SRR17048876_2_val_2.fq
+Approx 35% complete for SRR17048876_2_val_2.fq
+Approx 40% complete for SRR17048876_2_val_2.fq
+Approx 45% complete for SRR17048876_2_val_2.fq
+Approx 50% complete for SRR17048876_2_val_2.fq
+Approx 55% complete for SRR17048876_2_val_2.fq
+Approx 60% complete for SRR17048876_2_val_2.fq
+Approx 65% complete for SRR17048876_2_val_2.fq
+Approx 70% complete for SRR17048876_2_val_2.fq
+Approx 75% complete for SRR17048876_2_val_2.fq
+Approx 80% complete for SRR17048876_2_val_2.fq
+Approx 85% complete for SRR17048876_2_val_2.fq
+Approx 90% complete for SRR17048876_2_val_2.fq
+Approx 95% complete for SRR17048876_2_val_2.fq
+Deleting both intermediate output files SRR17048876_1_trimmed.fq and SRR17048876_2_trimmed.fq
+
+====================================================================================================
+
+Path to Cutadapt set as: 'cutadapt' (default)
+Cutadapt seems to be working fine (tested command 'cutadapt --version')
+Cutadapt version: 4.9
+Cutadapt seems to be using Python 3! Proceeding with multi-core enabled Cutadapt using 8 cores
+Parallel gzip (pigz) detected. Proceeding with multicore (de)compression using 8 cores
+
+igzip detected. Using igzip for decompressing
+
+No quality encoding type selected. Assuming that the data provided uses Sanger encoded Phred scores (default)
+
+Output will be written into the directory: /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/
+
+
+AUTO-DETECTING ADAPTER TYPE
+===========================
+Attempting to auto-detect adapter type from the first 1 million sequences of the first file (>> /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_1.fastq <<)
+
+Found perfect matches for the following adapter sequences:
+Adapter type	Count	Sequence	Sequences analysed	Percentage
+Nextera	0	CTGTCTCTTATA	25000	0.00
+Illumina	0	AGATCGGAAGAGC	25000	0.00
+smallRNA	0	TGGAATTCTCGG	25000	0.00
+Unable to auto-detect most prominent adapter from the first specified file (count Nextera: 0, count Illumina: 0, count smallRNA: 0)
+Defaulting to Illumina universal adapter ( AGATCGGAAGAGC ). Specify -a SEQUENCE to avoid this behavior).
+
+Writing report to '/projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/SRR17048877_1.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_1.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.6.10
+Cutadapt version: 4.9
+Python version: 3.11.3
+Number of cores used for trimming: 8
+Quality Phred score cutoff: 30
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; default (inconclusive auto-detection))
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 60 bp
+Running FastQC on the data once trimming has completed
+Running FastQC with the following extra arguments: '--outdir /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore'
+
+Cutadapt seems to be fairly up-to-date (version 4.9). Setting -j 8
+Writing final adapter and quality trimmed output to SRR17048877_1_trimmed.fq
+
+
+  >>> Now performing quality (cutoff '-q 30') and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_1.fastq <<< 
+This is cutadapt 4.9 with Python 3.11.3
+Command line parameters: -j 8 -e 0.1 -q 30 -O 1 -a AGATCGGAAGAGC /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_1.fastq
+Processing single-end reads on 8 cores ...
+Finished in 0.125 s (4.993 µs/read; 12.02 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  25,000
+Reads with adapters:                     8,499 (34.0%)
+Reads written (passing filters):        25,000 (100.0%)
+
+Total basepairs processed:     3,332,293 bp
+Quality-trimmed:                   2,375 bp (0.1%)
+Total written (filtered):      3,317,602 bp (99.6%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 8499 times
+
+Minimum overlap: 1
+No. of allowed errors:
+1-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 30.7%
+  C: 28.6%
+  G: 24.2%
+  T: 16.5%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	5901	6250.0	0	5901
+2	2034	1562.5	0	2034
+3	401	390.6	0	401
+4	131	97.7	0	131
+5	15	24.4	0	15
+6	6	6.1	0	6
+7	3	1.5	0	3
+10	1	0.0	1	0 1
+11	2	0.0	1	0 2
+61	1	0.0	1	0 1
+64	1	0.0	1	0 1
+75	1	0.0	1	0 1
+110	1	0.0	1	0 1
+146	1	0.0	1	0 1
+
+RUN STATISTICS FOR INPUT FILE: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_1.fastq
+=============================================
+25000 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Writing report to '/projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/SRR17048877_2.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_2.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.6.10
+Cutadapt version: 4.9
+Python version: 3.11.3
+Number of cores used for trimming: 8
+Quality Phred score cutoff: 30
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; default (inconclusive auto-detection))
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 60 bp
+Running FastQC on the data once trimming has completed
+Running FastQC with the following extra arguments: '--outdir /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore'
+
+Cutadapt seems to be fairly up-to-date (version 4.9). Setting -j -j 8
+Writing final adapter and quality trimmed output to SRR17048877_2_trimmed.fq
+
+
+  >>> Now performing quality (cutoff '-q 30') and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_2.fastq <<< 
+This is cutadapt 4.9 with Python 3.11.3
+Command line parameters: -j 8 -e 0.1 -q 30 -O 1 -a AGATCGGAAGAGC /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_2.fastq
+Processing single-end reads on 8 cores ...
+Finished in 0.161 s (6.444 µs/read; 9.31 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  25,000
+Reads with adapters:                     8,504 (34.0%)
+Reads written (passing filters):        25,000 (100.0%)
+
+Total basepairs processed:     3,321,169 bp
+Quality-trimmed:                   3,786 bp (0.1%)
+Total written (filtered):      3,305,060 bp (99.5%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 8504 times
+
+Minimum overlap: 1
+No. of allowed errors:
+1-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 31.4%
+  C: 27.9%
+  G: 24.3%
+  T: 16.4%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	5888	6250.0	0	5888
+2	2014	1562.5	0	2014
+3	416	390.6	0	416
+4	144	97.7	0	144
+5	21	24.4	0	21
+6	10	6.1	0	10
+7	1	1.5	0	1
+9	1	0.1	0	0 1
+10	4	0.0	1	1 3
+59	1	0.0	1	0 1
+67	1	0.0	1	0 1
+75	1	0.0	1	0 1
+76	1	0.0	1	0 1
+85	1	0.0	1	0 1
+
+RUN STATISTICS FOR INPUT FILE: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048877_2.fastq
+=============================================
+25000 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Validate paired-end files SRR17048877_1_trimmed.fq and SRR17048877_2_trimmed.fq
+file_1: SRR17048877_1_trimmed.fq, file_2: SRR17048877_2_trimmed.fq
+
+
+>>>>> Now validing the length of the 2 paired-end infiles: SRR17048877_1_trimmed.fq and SRR17048877_2_trimmed.fq <<<<<
+Writing validated paired-end Read 1 reads to SRR17048877_1_val_1.fq
+Writing validated paired-end Read 2 reads to SRR17048877_2_val_2.fq
+
+Total number of sequences analysed: 25000
+
+Number of sequence pairs removed because at least one read was shorter than the length cutoff (60 bp): 132 (0.53%)
+
+
+  >>> Now running FastQC on the validated data SRR17048877_1_val_1.fq<<<
+
+Started analysis of SRR17048877_1_val_1.fq
+Approx 5% complete for SRR17048877_1_val_1.fq
+Approx 10% complete for SRR17048877_1_val_1.fq
+Approx 15% complete for SRR17048877_1_val_1.fq
+Approx 20% complete for SRR17048877_1_val_1.fq
+Approx 25% complete for SRR17048877_1_val_1.fq
+Approx 30% complete for SRR17048877_1_val_1.fq
+Approx 35% complete for SRR17048877_1_val_1.fq
+Approx 40% complete for SRR17048877_1_val_1.fq
+Approx 45% complete for SRR17048877_1_val_1.fq
+Approx 50% complete for SRR17048877_1_val_1.fq
+Approx 55% complete for SRR17048877_1_val_1.fq
+Approx 60% complete for SRR17048877_1_val_1.fq
+Approx 65% complete for SRR17048877_1_val_1.fq
+Approx 70% complete for SRR17048877_1_val_1.fq
+Approx 75% complete for SRR17048877_1_val_1.fq
+Approx 80% complete for SRR17048877_1_val_1.fq
+Approx 85% complete for SRR17048877_1_val_1.fq
+Approx 90% complete for SRR17048877_1_val_1.fq
+Approx 95% complete for SRR17048877_1_val_1.fq
+
+  >>> Now running FastQC on the validated data SRR17048877_2_val_2.fq<<<
+
+Started analysis of SRR17048877_2_val_2.fq
+Approx 5% complete for SRR17048877_2_val_2.fq
+Approx 10% complete for SRR17048877_2_val_2.fq
+Approx 15% complete for SRR17048877_2_val_2.fq
+Approx 20% complete for SRR17048877_2_val_2.fq
+Approx 25% complete for SRR17048877_2_val_2.fq
+Approx 30% complete for SRR17048877_2_val_2.fq
+Approx 35% complete for SRR17048877_2_val_2.fq
+Approx 40% complete for SRR17048877_2_val_2.fq
+Approx 45% complete for SRR17048877_2_val_2.fq
+Approx 50% complete for SRR17048877_2_val_2.fq
+Approx 55% complete for SRR17048877_2_val_2.fq
+Approx 60% complete for SRR17048877_2_val_2.fq
+Approx 65% complete for SRR17048877_2_val_2.fq
+Approx 70% complete for SRR17048877_2_val_2.fq
+Approx 75% complete for SRR17048877_2_val_2.fq
+Approx 80% complete for SRR17048877_2_val_2.fq
+Approx 85% complete for SRR17048877_2_val_2.fq
+Approx 90% complete for SRR17048877_2_val_2.fq
+Approx 95% complete for SRR17048877_2_val_2.fq
+Deleting both intermediate output files SRR17048877_1_trimmed.fq and SRR17048877_2_trimmed.fq
+
+====================================================================================================
+
+Path to Cutadapt set as: 'cutadapt' (default)
+Cutadapt seems to be working fine (tested command 'cutadapt --version')
+Cutadapt version: 4.9
+Cutadapt seems to be using Python 3! Proceeding with multi-core enabled Cutadapt using 8 cores
+Parallel gzip (pigz) detected. Proceeding with multicore (de)compression using 8 cores
+
+igzip detected. Using igzip for decompressing
+
+No quality encoding type selected. Assuming that the data provided uses Sanger encoded Phred scores (default)
+
+Output will be written into the directory: /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/
+
+
+AUTO-DETECTING ADAPTER TYPE
+===========================
+Attempting to auto-detect adapter type from the first 1 million sequences of the first file (>> /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_1.fastq <<)
+
+Found perfect matches for the following adapter sequences:
+Adapter type	Count	Sequence	Sequences analysed	Percentage
+Illumina	0	AGATCGGAAGAGC	25000	0.00
+smallRNA	0	TGGAATTCTCGG	25000	0.00
+Nextera	0	CTGTCTCTTATA	25000	0.00
+Unable to auto-detect most prominent adapter from the first specified file (count Illumina: 0, count smallRNA: 0, count Nextera: 0)
+Defaulting to Illumina universal adapter ( AGATCGGAAGAGC ). Specify -a SEQUENCE to avoid this behavior).
+
+Writing report to '/projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/SRR17048878_1.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_1.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.6.10
+Cutadapt version: 4.9
+Python version: 3.11.3
+Number of cores used for trimming: 8
+Quality Phred score cutoff: 30
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; default (inconclusive auto-detection))
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 60 bp
+Running FastQC on the data once trimming has completed
+Running FastQC with the following extra arguments: '--outdir /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore'
+
+Cutadapt seems to be fairly up-to-date (version 4.9). Setting -j 8
+Writing final adapter and quality trimmed output to SRR17048878_1_trimmed.fq
+
+
+  >>> Now performing quality (cutoff '-q 30') and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_1.fastq <<< 
+This is cutadapt 4.9 with Python 3.11.3
+Command line parameters: -j 8 -e 0.1 -q 30 -O 1 -a AGATCGGAAGAGC /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_1.fastq
+Processing single-end reads on 8 cores ...
+Finished in 0.120 s (4.783 µs/read; 12.54 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  25,000
+Reads with adapters:                     9,456 (37.8%)
+Reads written (passing filters):        25,000 (100.0%)
+
+Total basepairs processed:     3,505,757 bp
+Quality-trimmed:                   3,249 bp (0.1%)
+Total written (filtered):      3,488,994 bp (99.5%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 9456 times
+
+Minimum overlap: 1
+No. of allowed errors:
+1-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 29.9%
+  C: 29.7%
+  G: 22.1%
+  T: 18.3%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	6637	6250.0	0	6637
+2	2168	1562.5	0	2168
+3	470	390.6	0	470
+4	153	97.7	0	153
+5	9	24.4	0	9
+6	9	6.1	0	9
+7	1	1.5	0	1
+9	1	0.1	0	0 1
+10	3	0.0	1	0 3
+21	1	0.0	1	0 1
+53	1	0.0	1	0 1
+73	1	0.0	1	0 1
+92	1	0.0	1	0 1
+135	1	0.0	1	0 1
+
+RUN STATISTICS FOR INPUT FILE: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_1.fastq
+=============================================
+25000 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Writing report to '/projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore/SRR17048878_2.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_2.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.6.10
+Cutadapt version: 4.9
+Python version: 3.11.3
+Number of cores used for trimming: 8
+Quality Phred score cutoff: 30
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; default (inconclusive auto-detection))
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 60 bp
+Running FastQC on the data once trimming has completed
+Running FastQC with the following extra arguments: '--outdir /projects/intro2gds/I2GDS2025/G5_MG_AMR/TEST_forPeerReview/01_Trim_Galore'
+
+Cutadapt seems to be fairly up-to-date (version 4.9). Setting -j -j 8
+Writing final adapter and quality trimmed output to SRR17048878_2_trimmed.fq
+
+
+  >>> Now performing quality (cutoff '-q 30') and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_2.fastq <<< 
+This is cutadapt 4.9 with Python 3.11.3
+Command line parameters: -j 8 -e 0.1 -q 30 -O 1 -a AGATCGGAAGAGC /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_2.fastq
+Processing single-end reads on 8 cores ...
+Finished in 0.140 s (5.582 µs/read; 10.75 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  25,000
+Reads with adapters:                     9,479 (37.9%)
+Reads written (passing filters):        25,000 (100.0%)
+
+Total basepairs processed:     3,488,691 bp
+Quality-trimmed:                   5,146 bp (0.1%)
+Total written (filtered):      3,470,373 bp (99.5%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 9479 times
+
+Minimum overlap: 1
+No. of allowed errors:
+1-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 29.6%
+  C: 29.5%
+  G: 22.7%
+  T: 18.2%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	6717	6250.0	0	6717
+2	2104	1562.5	0	2104
+3	481	390.6	0	481
+4	146	97.7	0	146
+5	16	24.4	0	16
+6	8	6.1	0	8
+7	1	1.5	0	1
+10	3	0.0	1	0 3
+11	2	0.0	1	0 2
+33	1	0.0	1	0 1
+
+RUN STATISTICS FOR INPUT FILE: /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/SRR17048878_2.fastq
+=============================================
+25000 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Validate paired-end files SRR17048878_1_trimmed.fq and SRR17048878_2_trimmed.fq
+file_1: SRR17048878_1_trimmed.fq, file_2: SRR17048878_2_trimmed.fq
+
+
+>>>>> Now validing the length of the 2 paired-end infiles: SRR17048878_1_trimmed.fq and SRR17048878_2_trimmed.fq <<<<<
+Writing validated paired-end Read 1 reads to SRR17048878_1_val_1.fq
+Writing validated paired-end Read 2 reads to SRR17048878_2_val_2.fq
+
+Total number of sequences analysed: 25000
+
+Number of sequence pairs removed because at least one read was shorter than the length cutoff (60 bp): 100 (0.40%)
+
+
+  >>> Now running FastQC on the validated data SRR17048878_1_val_1.fq<<<
+
+Started analysis of SRR17048878_1_val_1.fq
+Approx 5% complete for SRR17048878_1_val_1.fq
+Approx 10% complete for SRR17048878_1_val_1.fq
+Approx 15% complete for SRR17048878_1_val_1.fq
+Approx 20% complete for SRR17048878_1_val_1.fq
+Approx 25% complete for SRR17048878_1_val_1.fq
+Approx 30% complete for SRR17048878_1_val_1.fq
+Approx 35% complete for SRR17048878_1_val_1.fq
+Approx 40% complete for SRR17048878_1_val_1.fq
+Approx 45% complete for SRR17048878_1_val_1.fq
+Approx 50% complete for SRR17048878_1_val_1.fq
+Approx 55% complete for SRR17048878_1_val_1.fq
+Approx 60% complete for SRR17048878_1_val_1.fq
+Approx 65% complete for SRR17048878_1_val_1.fq
+Approx 70% complete for SRR17048878_1_val_1.fq
+Approx 75% complete for SRR17048878_1_val_1.fq
+Approx 80% complete for SRR17048878_1_val_1.fq
+Approx 85% complete for SRR17048878_1_val_1.fq
+Approx 90% complete for SRR17048878_1_val_1.fq
+Approx 95% complete for SRR17048878_1_val_1.fq
+
+  >>> Now running FastQC on the validated data SRR17048878_2_val_2.fq<<<
+
+Started analysis of SRR17048878_2_val_2.fq
+Approx 5% complete for SRR17048878_2_val_2.fq
+Approx 10% complete for SRR17048878_2_val_2.fq
+Approx 15% complete for SRR17048878_2_val_2.fq
+Approx 20% complete for SRR17048878_2_val_2.fq
+Approx 25% complete for SRR17048878_2_val_2.fq
+Approx 30% complete for SRR17048878_2_val_2.fq
+Approx 35% complete for SRR17048878_2_val_2.fq
+Approx 40% complete for SRR17048878_2_val_2.fq
+Approx 45% complete for SRR17048878_2_val_2.fq
+Approx 50% complete for SRR17048878_2_val_2.fq
+Approx 55% complete for SRR17048878_2_val_2.fq
+Approx 60% complete for SRR17048878_2_val_2.fq
+Approx 65% complete for SRR17048878_2_val_2.fq
+Approx 70% complete for SRR17048878_2_val_2.fq
+Approx 75% complete for SRR17048878_2_val_2.fq
+Approx 80% complete for SRR17048878_2_val_2.fq
+Approx 85% complete for SRR17048878_2_val_2.fq
+Approx 90% complete for SRR17048878_2_val_2.fq
+Approx 95% complete for SRR17048878_2_val_2.fq
+Deleting both intermediate output files SRR17048878_1_trimmed.fq and SRR17048878_2_trimmed.fq
+
+====================================================================================================
+

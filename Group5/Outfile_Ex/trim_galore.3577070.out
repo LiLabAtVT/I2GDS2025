@@ -1,0 +1,22 @@
+Processing sample: SRR17048876
+pigz 2.8
+igzip command line interface 2.30.0
+null
+Analysis complete for SRR17048876_1_val_1.fq
+null
+Analysis complete for SRR17048876_2_val_2.fq
+Processing sample: SRR17048877
+pigz 2.8
+igzip command line interface 2.30.0
+null
+Analysis complete for SRR17048877_1_val_1.fq
+null
+Analysis complete for SRR17048877_2_val_2.fq
+Processing sample: SRR17048878
+pigz 2.8
+igzip command line interface 2.30.0
+null
+Analysis complete for SRR17048878_1_val_1.fq
+null
+Analysis complete for SRR17048878_2_val_2.fq
+All samples processed successfully.
