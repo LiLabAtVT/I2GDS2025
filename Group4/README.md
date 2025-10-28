@@ -143,7 +143,7 @@ log "All BWA filtering complete."
 
 </details>
 
-## Spades
+## Spades- This is used for assembling and analyzing sequencing data from Illumina and IonTorrent technologies. This is for smaller genomes (bacteria) and not intended for larger genomes (larger eukaryotes). This supports paired-end reads, mate-pairs (including high quality Nextera Mate Pairs) and unpaired reads.
 
 <details>
   <summary>Click to expand code</summary>
@@ -193,7 +193,7 @@ log "SPAdes assemblies complete."
 
 </details>
 
-## Diamond
+## Diamond- Sequence aligner for protein and translated DNA searches. This uses pairwise alignment of proteins and translated DNA at 100x-10,000x speed of BLAST. 
 
 <details>
   <summary>Click to expand code</summary>
