@@ -7,6 +7,8 @@
 
 ## BWA
 
+## Diamond
+
 ## Spades
 
 ## Fastq
