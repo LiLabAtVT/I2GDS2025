@@ -7,7 +7,7 @@
 
 # Analysis Pipeline
 
-# Trim Galore
+## Trim Galore
 
 Trim Galore is used to conduct a quality control on the sample files. 
 
