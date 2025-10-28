@@ -38,7 +38,7 @@ do
 
     echo "Processing sample: $SAMPLE"
 
-    # Change below file path to wherever the filepath for your human reference genome is located
+    # Change below file path to exact location of your reference genome file
      bwa mem /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref/hg19.fa "$IN_DIR/$R1" "$IN_DIR/$R2" | \
 	     samtools fastq -t -T BX -f 4 \
 	     -1 "$OUT_DIR/${SAMPLE}_1.fq.gz" \
