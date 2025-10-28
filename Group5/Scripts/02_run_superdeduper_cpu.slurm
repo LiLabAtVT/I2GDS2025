@@ -13,7 +13,7 @@
 shopt -s nullglob                     # If no files match a glob, expand to empty (not the pattern)
 
 # ---- Paths ----
-INDIR= "insert/your/input/directory/filepath/here" #make sure you change this to your output directory from TrimGalore     
+INDIR="insert/your/input/directory/filepath/here" #make sure you change this to your output directory from TrimGalore     
 OUTDIR="insert/your/output/directory/filepath/here" #make sure you change this to your preferred directory 
 
 # ---- Activate software environment ----
