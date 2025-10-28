@@ -18,7 +18,16 @@ The pipeline includes the following steps:
  5.	BamTools: merging and format conversion of multiple BAM files
  6.	Picard: removal of PCR duplicates and generation of final cleaned alignment files
 
-### 00 Data Download
+### 00 Data Download and subset extraction (SRAtools)
+
+SRAtools (Sequence Read Archive Toolkit) is a set of command-line tools provided by NCBI (National Center for Biotechnology Information) for downloading, viewing, and converting sequencing data from the SRA (Sequence Read Archive) database. First, we locate the file we need on the NCBI website, and then use the prefetch tool to download it.
+For example, if the file we need is SRR1234567, the specific command is:
+```bash
+prefetch SRR1234567
+```
+
+
+
 
 ### 01 UMI extraction and whitelist creation (UMI-tools)
 
