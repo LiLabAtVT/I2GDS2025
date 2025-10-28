@@ -252,7 +252,7 @@ log "DIAMOND BLASTx complete."
 
 </details>
 
-## Kraken
+## Kraken2- This is a very fast way to assign taxonomic labels using k-mers to metagenomic DNA sequences. 
 
 <details>
   <summary>Click to expand code</summary>
