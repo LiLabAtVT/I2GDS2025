@@ -9,20 +9,24 @@ Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.
 
 ![Flowchart diagram of the pipeline for peer review](G5_Pipeline_Diagram.drawio.png "Pipeline Flowchart")
 
-### Important note for using bash scripts
-All scripts are found in the scripts folder of GitHub. Make sure that when using any bash scripts from this page that you update the slurm instructions at the top to use your own ARC allocation and email for notifications!
+## Important Notes! Please read before continuing.
 
-### Important note on filepaths
+### Changing bash script parameters before use
+All scripts are found in the scripts folder of GitHub. Make sure that when using any bash scripts from this page that you update the slurm instructions at the top to use your own ARC allocation and email for notifications! There are comments in all the scripts to help you see which parameters to change.
+
+### Changing filepaths in scripts
 Each section below details the file paths that need to be changed in each script and all scripts contain comments on where to update the filepaths. To avoid getting errors, make sure to change all file paths to your own input/output folders. All scripts have been edited to have a non-existent filepath in all the places where you need to input your own filepath.
 
 ## 00. Test Dataset
+The raw test dataset for peer review can be found at the path: `/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/rawdata`
 
+This data consists of 3 paired FASTQ files (6 sequence files in total) that have been subsetted and will run through the pipeline very quickly.
 
 ## 01. TrimGalore
 
 The purpose of TrimGalore is to trim sequences, remove short sequences, and remove sequences with low quality scores.
 
-Before running any analysis, first create a directory for all TrimGalore output files.
+Before running the analysis, first create a directory for all TrimGalore output files.
 ```
 mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/01_Trim_Galore/ # change to your preferred directory path
 ```
@@ -48,7 +52,7 @@ TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
 TrimGalore
 
 ## 02. Super Deduper
-### 02a. Purpose and preparation
+
 The purpose of SuperDeduper is to remove PCR and optical duplicate reads from paired-end FASTQ files generated after adapter trimming (in this case, from Trim Galore).
 This step ensures that downstream analyses such as assembly or host mapping are not biased by artificially duplicated reads.
 
@@ -56,10 +60,10 @@ Before running the analysis, first create a directory for all SuperDeduper outpu
 ```
 mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/02_after_deduper/  
 ```
-SuperDeduper analysis was run using a bash script:
-```
-02_run_superdeduper_new.slurm
-```
+SuperDeduper analysis was run using a bash script: `02_run_superdeduper_new.slurm`
+
+
+
 Summary: 
 * Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
 * Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
@@ -76,7 +80,7 @@ module load miniconda3
 
 ## check miniconda version
 conda --version
-````
+```
 
 Secondly, we create a virtual environment called htstream12
 ```
@@ -107,6 +111,10 @@ hts_SuperDeduper --version
 
 ### 02c. Submit the slurm scripts
 ``` sbatch 02_run_superdeduper_new.slurm```
+
+Summary: 
+* Input: Paired FASTQ/FASTQ.GZ files in INDIR (defaults to Trim Galore outputs).
+* Output: Deduplicated FASTQ.GZ files in OUTDIR, plus a TSV summary.
 
 
 **Note**: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
