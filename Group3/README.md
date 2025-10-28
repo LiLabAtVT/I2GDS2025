@@ -25,19 +25,18 @@ For example, if the file we need is SRR19391270, the specific command is:
 ```
 prefetch	SRR19391270
 ```
-After downloading the file, we will obtain a file named SRR19391270.sra. Next, we need to use the `fasterq-dump` program to convert it into the FASTQ format, which can be processed further.
-The script is as follows:
+After downloading the file, we will obtain a file named SRR19391270.sra. Next, we need to use the `fasterq-dump` program to convert it into the FASTQ format, which can be processed further. The script is as follows:
 ```
 fasterq-dump --split-files -e 8 SRR19391270.sra -O .
 ```
 This command can split the SRA file into two paired-end sequencing files for subsequent processing.
 
-Because the original file is very large, The `Seqtk` tool was used to extract a portion of the data for script testing. The command for data extraction is as follows.
+Because the original file is very large, the `Seqtk` tool was used to extract a portion of the data for scripesting. The command for data extraction is as follows.
 ```
 seqtk sample -s77 SRR19391270_1.fastq 0.2 > sub_R1.fastq
 seqtk sample -s77 SRR19391270_2.fastq 0.2 > sub_R2.fastq
 ```
-The s77 represents random seeds, which is used to randomly extract the reads. 0.2 means 20% of data will be extracted, and the extracted data will be output to sub_R1.fastq and sub_R2.fastq.
+The s77 represents random seed, which is used to randomly extract the reads. 0.2 means 20% of data will be extracted, and the extracted data will be output to sub_R1.fastq and sub_R2.fastq.
 
 
 ### 01 UMI extraction and whitelist creation (UMI-tools)
@@ -47,21 +46,21 @@ In the experiment, we obtained many cells, but we only wanted to analyze those w
 ```
 umi_tools whitelist \
   --subset-reads=500000000 \
-  --stdin $sub_R2" \
+  --stdin "$sub_R2" \
   --error-correct-threshold=1 \
   --extract-method=regex \
   --bc-pattern='(?P<discard_1>TAAGTAGAAGATGGTATATGAGAT){s<=4}(?P<cell_1>.{15})(?P<umi_1>.{0})' \
   --set-cell-number=5000 \
   --log2stderr > whitelist_1bp_5000_allreads.txt
 ```
-Here, up to 500,000,000 reads are analyzed with the threshold set to 1. The fixed sequence TAAGTAGAAGATGGTATATGAGAT is used to locate the barcode region, and the 15 bases immediately following this sequence are extracted as the barcode. Based on the read counts, the top 5,000 most frequent barcodes are selected, and a whitelist file is generated accordingly. Then, the fastq file will be extrated based on the whitelist.The script is as follows:
+Here, up to 500,000,000 reads are analyzed with the threshold set to 1. The fixed sequence TAAGTAGAAGATGGTATATGAGAT is used to locate the barcode region, and the 15 bases immediately following this sequence are extracted as the barcode. Based on the read counts, the top 5,000 most frequent barcodes are selected, and a whitelist file is generated accordingly. Then, the fastq file will be extracted based on the whitelist. The script is as follows:
 ```
 umi_tools extract \
   --extract-method=regex \
   --bc-pattern='(?P<discard_1>TAAGTAGAAGATGGTATATGAGAT){s<=4}(?P<cell_1>.{15})(?P<umi_1>.{0})' \
   --error-correct-cell 1 \
-  --stdin $sub_R2" --stdout $R2"_extracted.fastq" \
-  --read2-in $sub_R1" --read2-out=$sub_R1"_extracted.fastq" \
+  --stdin "$sub_R2" --stdout "${sub_R2}_extracted.fastq" \
+  --read2-in "$sub_R1" --read2-out "${sub_R1}_extracted.fastq" \
   --filter-cell-barcode --whitelist=whitelist_1bp_5000_allreads.txt
   ```
 Here, the barcodes are extracted again based on the fixed position and output to the extracted.fastq file. These extracted barcodes are then matched against the whitelist generated in the previous step.
@@ -70,7 +69,7 @@ Here, the barcodes are extracted again based on the fixed position and output to
 `Trim Galore` is used to remove sequencing adapter sequences, trim low-quality bases, and filter out short reads. Here, we use it to perform trimming and cleaning on the extracted FASTQ files.
 The script is as follows.
   ```
-trim_galore --paired --quality 20 --length 20 SRR19391270_1.fastq SRR19391270_2.fastq
+trim_galore --paired --quality 20 --length 20 "sub_R1"_extracted.fastq "sub_R2"_extracted.fastq
   ```
 This script removes bases with a quality score below Q20, discards reads shorter than 20 bp, and automatically detects and synchronizes trimming of paired-end reads.
 
