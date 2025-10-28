@@ -68,24 +68,45 @@ Summary:
 ### 02b. Preparation of the environment
 To run superdeduper, we first need to build a conda virtual environment that contains the HTStream toolkit, which can provide the ```hts_SuperDeduper``` program. 
 
+First, we need to load Miniconda
+```
+## Load Miniconda module (if available)
+module load miniconda3
 
 
+## check miniconda version
+conda --version
+````
+
+Secondly, we create a virtual environment called htstream12
+```
+# Create and activate the environment
+conda create -y -n htstream12 python=3.10
+conda activate htstream12
+```
+Thirdly, Install HTStream (which includes SuperDeduper). HTStream can be installed via Bioconda, which provides precompiled packages for bioinformatics tools.
+
+(1) Add the proper Conda channels in the correct priority order:
+```
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
+(2) Install HTStream 
+```
+conda install -y htstream
+```
+(3) Verify the correct installation of SuperDeduper
+```
+# Check if command is recognized
+which hts_SuperDeduper
+
+# Check version
+hts_SuperDeduper --version
+```
 
 ### 02c. Submit the slurm scripts
 ``` sbatch 02_run_superdeduper_cpu.slurm.slurm```
-
-```
-# Load Miniconda module (if available)
-module load miniconda3
-
-# or manually source your local installation
-source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
-
-## You can check whether Conda is available by typing:
-conda --version
-
-```
-
 
 
 **Note**: Make sure to navigate to the directory where the SLURM script is located before submitting the job.
