@@ -9,7 +9,7 @@
 
 ## Trim Galore
 
-Trim Galore is used to conduct a quality control on the sample files. 
+Trim Galore is used to clean high-throughput sequencing reads by automatically trimming adapters and low-quality bases. It serves as a wrapper around Cutadapt and FastQC, combining adapter removal with quality control checks in a single step. By removing unwanted sequences and short or poor-quality reads, Trim Galore improves the overall accuracy and reliability of downstream analyses such as read alignment and assembly. 
 
 <details>
   <summary>Click to expand code</summary>
