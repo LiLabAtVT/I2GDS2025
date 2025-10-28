@@ -13,6 +13,7 @@ Trim Galore is used to conduct a quality control on the sample files.
 
 <details>
   <summary>Click to expand code</summary>
+  
 ```
 #!/bin/bash
 
