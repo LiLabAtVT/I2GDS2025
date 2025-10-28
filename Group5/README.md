@@ -117,10 +117,7 @@ Once the conda environment was set up, SuperDeduper analysis was run using a bas
 2. Defines both the input and output directory paths.
 3. Creates the output directory if it does not already exist.
 4. Scans through all *_1_val_1.fq files in the input folder.
-5. For each detected sample, identifies its mate file (*_2_val_2.fq) and runs:
-```
-hts_SuperDeduper -1 R1 -2 R2 -f prefix -F
-```
+5. For each detected sample, identifies its mate file (*_2_val_2.fq) and runs SuperDeduper
 6. Checks whether both deduplicated files (```_R1.fastq.gz``` and ```_R2.fastq.gz```) were successfully created.
 7. Prints progress messages such as ```[INFO]```, ```[OK]```, or ```[WARN]``` to help track pipeline execution.
 
