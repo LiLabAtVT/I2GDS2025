@@ -145,6 +145,65 @@ log "All BWA filtering complete."
 
 ## Diamond
 
+<details>
+  <summary>Click to expand code</summary>
+  
+```
+#!/bin/bash
+
+#SBATCH -t 70:00:00
+#SBATCH -p normal_q
+#SBATCH -A introtogds
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=200GB
+#SBATCH --output=diamond_%j.out
+#SBATCH --error=diamond_%j.err
+
+#Set downloaded directory (where the github folders are located)
+cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
+
+#Set conda environment
+source ~/.bashrc
+conda activate g4_viruses
+
+DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/diamond/nr"
+SPADES_DIR="outputs/spades_outputs"
+THREADS=16
+
+LOGFILE="diamond_${SLURM_JOB_ID}.log"
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
+
+log "Starting DIAMOND BLASTx job on $(hostname)"
+log "Database: $DB"
+
+for CONTIG in "$SPADES_DIR"/sample*_test_data/contigs.fasta; do
+  [ -e "$CONTIG" ] || { log "No contigs.fasta found in $SPADES_DIR"; break; }
+
+  SAMPLE_DIR=$(basename "$(dirname "$CONTIG")")
+  SAMPLE="${SAMPLE_DIR%%_test_data}"
+  OUT_FILE="${SAMPLE_DIR}_assembly_test_data.daa"
+
+  log "Running DIAMOND for $SAMPLE"
+
+  diamond blastx \
+    -d "$DB" \
+    -q "$CONTIG" \
+    -o "$OUT_FILE" \
+    -p "$THREADS" \
+    --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore staxids sscinames stitle \
+    --max-target-seqs 1 \
+    --more-sensitive
+
+  log "Finished DIAMOND for $SAMPLE"
+done
+
+log "DIAMOND BLASTx complete."
+```
+
+</details>
+
 ## Kraken
 
 
