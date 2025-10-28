@@ -5,6 +5,7 @@ Article: https://bmcgenomdata.biomedcentral.com/articles/10.1186/s12863-025-0135
 
 This pipeline utilizes QIIME2's (Quantitative Insights Into Microbial Ecology 2) "Amplicon" Distribution, a suite of plug-ins that provide broad analytic functionality to support microbiome marker gene analysis from raw sequencing data to pubication-quality visualizations and statistics.
 We expect to reproduce taxonomic composition tables for both bacteria and fungi.
+<img width="1078" height="659" alt="image" src="https://github.com/user-attachments/assets/8210a433-4b7a-4c40-aecd-a499ed9a6afc" />
 
 
 ## Installing QIIME2 into Conda environment
@@ -64,7 +65,8 @@ Please remember to change the directory paths to your own specific path!
  Use this script under 'Needed Materials': data_import.sh
 INPUT: "bacteria_manifest.tsv"
 OUTPUT: "qualityplot.qzv"
- 
+ <img width="1920" height="796" alt="image" src="https://github.com/user-attachments/assets/9bfb7530-2794-40fd-927b-670a64fb307a" />
+
  ```{linux}
 #!/bin/bash
 #SBATCH -J Job Name
@@ -230,3 +232,4 @@ biom convert \
 ```
 # References
 QIIME2 Code: Riddley, M. "Mia's QIIME2 Workflow" (file:///C:/Users/hanif/OneDrive/Documents/thesis%20prep/Mia's%20QIIME2%20Workflow.pdf)
+

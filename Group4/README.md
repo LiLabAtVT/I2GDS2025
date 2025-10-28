@@ -4,6 +4,7 @@ The goal of this project is to replicate the pipeline as seen in
 
 Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgun Sequencing of Airborne eDNA Achieves Rapid Assessment of Whole Biomes, Population Genetics and Genomic Variation.” Nature Ecology & Evolution 9 (6): 1043–60. https://doi.org/10.1038/s41559-025-02711-w.
 
+<img width="1024" height="1536" alt="ChatGPT Image Oct 28, 2025, 01_27_45 PM" src="https://github.com/user-attachments/assets/cc87eab9-e028-43c9-98fe-b567e862b32a" />
 
 
 # Environment Setup
@@ -14,6 +15,8 @@ Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgu
 # Data Download
 
 # Analysis Pipeline
+
+The following steps outline the main pipeline to analyze the reads from the reference paper. The final results will allow you to see species types in each sample. 
 
 ## Trim Galore
 
@@ -77,7 +80,9 @@ log "Trim Galore completed successfully."
 ```
 </details>
 
-## BWA
+## BWA 
+
+Burrow-Wheeler Aligner for short-read alignment. This maps DNA sequences against a large reference genome, such as the human genome. This uses 3 algorithms- BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to a few megabases.
 
 <details>
   <summary>Click to expand code</summary>
@@ -138,8 +143,190 @@ log "All BWA filtering complete."
 
 </details>
 
-## Diamond
-
 ## Spades
 
+<details>
+  <summary>Click to expand code</summary>
 
+```
+#!/bin/bash
+
+#SBATCH -t 70:00:00
+#SBATCH -p normal_q
+#SBATCH -A introtogds
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=200GB
+#SBATCH --output=spades_%j.out
+#SBATCH --error=spades_%j.err
+
+#Set downloaded directory (where the github folders are located)
+cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
+
+#Set Conda Environment
+source ~/.bashrc
+conda activate g4_viruses
+
+INPUT_DIR="outputs/bwa_outputs"
+OUTPUT_DIR="outputs/spades_outputs"
+THREADS=16
+
+LOGFILE="logs/spades_${SLURM_JOB_ID}.log"
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
+
+log "Starting SPAdes assemblies"
+mkdir -p "$OUTPUT_DIR"
+cd "$OUTPUT_DIR" || exit
+
+for FILE in outputs/bwa_outputs/cleaned_reads_sample*_test_data.fastq.gz; do
+  [ -e "$FILE" ] || { log "No cleaned reads found"; break; }
+  SAMPLE=$(basename "$FILE" .fastq.gz | sed 's/cleaned_reads_//')
+  log "Running SPAdes for $SAMPLE"
+
+  spades.py --s1 "$FILE" -t "$THREADS" -o "${SAMPLE}" --only-assembler
+  log "Finished SPAdes for $SAMPLE"
+done
+
+log "SPAdes assemblies complete."
+```
+
+</details>
+
+## Diamond
+
+<details>
+  <summary>Click to expand code</summary>
+  
+```
+#!/bin/bash
+
+#SBATCH -t 70:00:00
+#SBATCH -p normal_q
+#SBATCH -A introtogds
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=200GB
+#SBATCH --output=diamond_%j.out
+#SBATCH --error=diamond_%j.err
+
+#Set downloaded directory (where the github folders are located)
+cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
+
+#Set conda environment
+source ~/.bashrc
+conda activate g4_viruses
+
+DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/diamond/nr"
+SPADES_DIR="outputs/spades_outputs"
+THREADS=16
+
+LOGFILE="diamond_${SLURM_JOB_ID}.log"
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
+
+log "Starting DIAMOND BLASTx job on $(hostname)"
+log "Database: $DB"
+
+for CONTIG in "$SPADES_DIR"/sample*_test_data/contigs.fasta; do
+  [ -e "$CONTIG" ] || { log "No contigs.fasta found in $SPADES_DIR"; break; }
+
+  SAMPLE_DIR=$(basename "$(dirname "$CONTIG")")
+  SAMPLE="${SAMPLE_DIR%%_test_data}"
+  OUT_FILE="${SAMPLE_DIR}_assembly_test_data.daa"
+
+  log "Running DIAMOND for $SAMPLE"
+
+  diamond blastx \
+    -d "$DB" \
+    -q "$CONTIG" \
+    -o "$OUT_FILE" \
+    -p "$THREADS" \
+    --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore staxids sscinames stitle \
+    --max-target-seqs 1 \
+    --more-sensitive
+
+  log "Finished DIAMOND for $SAMPLE"
+done
+
+log "DIAMOND BLASTx complete."
+```
+
+</details>
+
+## Kraken
+
+<details>
+  <summary>Click to expand code</summary>
+```
+#!/bin/bash
+
+#SBATCH -t 70:00:00
+#SBATCH -p normal_q
+#SBATCH -A introtogds
+#SBATCH --output=kraken2_%j.out
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=200GB
+#SBATCH --output=kraken2_%j.out
+#SBATCH --error=kraken2_%j.err
+
+#Set downloaded directory (where the github folders are located)
+cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
+
+#Set conda environment
+source ~/.bashrc
+
+conda activate g4_viruses
+
+#Parameters
+DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/kraken2/k2_db"
+SPADES_DIR="outputs/spades_outputs"
+THREADS=16
+
+#Log file setup
+LOGFILE="logs/k2_classify_${SLURM_JOB_ID}.log"
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
+
+log "Starting Kraken2 classification job on $(hostname)"
+log "Using database: $DB"
+log "Scanning SPAdes assemblies in: $SPADES_DIR"
+
+#Main loop
+for CONTIG_PATH in "${SPADES_DIR}"/sample*_test_data/contigs.fasta; do
+    #Skip if no files found
+    [ -e "$CONTIG_PATH" ] || { log "No contigs.fasta files found in $SPADES_DIR"; break; }
+
+    #Extract sample name (e.g., sample1_test_data)
+    SAMPLE_DIR=$(basename "$(dirname "$CONTIG_PATH")")
+    SAMPLE="${SAMPLE_DIR%%_test_data}"
+
+    log "Processing sample: $SAMPLE"
+
+    #Define output directory and files
+    OUT_DIR="${SAMPLE_DIR}"
+    REPORT="${OUT_DIR}/${SAMPLE}_assembly_report_test_data.txt"
+    OUTPUT="${OUT_DIR}/${SAMPLE}_assembly_kraken_test_data.out"
+    CLASSIFIED="${OUT_DIR}/${SAMPLE}_assembly_classified_test_data.fastq"
+
+    #Run Kraken2 classification
+    k2 classify \
+        --db "$DB" \
+        "$CONTIG_PATH" \
+        --threads "$THREADS" \
+        --report "$REPORT" \
+        --output "$OUTPUT" \
+        --classified-out "$CLASSIFIED"
+
+    #Compress large outputs
+    gzip -f "$OUTPUT" "$CLASSIFIED"
+
+    log "Finished processing $SAMPLE"
+    log "--------------------------------"
+done
+
+log "All samples processed successfully."
+```
+
+</details>
