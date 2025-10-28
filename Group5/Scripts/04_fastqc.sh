@@ -20,9 +20,10 @@ module load FastQC/0.12.1-Java-11
 
 # Change directory
 
-cd /projects/intro2gds/I2GDS2025/G5_MG_AMR/03_BWA
+cd /insert/your/input/directory/here #make sure you change this to your output directory from BWA
 
 # Run fastqc on all files
 
-fastqc -o /projects/intro2gds/I2GDS2025/G5_MG_AMR/04_fastqc *.fq.gz
+#change filepath below to your preferred output directory
+fastqc -o /insert/your/output/directory/here *.fq.gz
 

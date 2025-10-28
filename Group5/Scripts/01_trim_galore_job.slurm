@@ -24,9 +24,9 @@ module load Trim_Galore/0.6.10-GCCcore-12.3.0
 
 # ------------------------------
 
-RAW_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/00_rawdata"
+RAW_DIR= "/projects/intro2gds/I2GDS2025/G5_MG_AMR/00_rawdata"
 
-OUT_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/01_Trim_Galore"
+OUT_DIR= "insert/your/trimgalore/output/filepath/here"  #make sure you change this to your preferred directory
 
 # ------------------------------
 

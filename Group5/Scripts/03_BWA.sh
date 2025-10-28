@@ -20,9 +20,9 @@ module load BWA/0.7.18-GCCcore-13.3.0
 # 2. Define directories
 # ------------------------------
 
-IN_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/02_after_deduper"
+IN_DIR="insert/your/input/directory/filepath/here" #make sure you change this to your output directory from SuperDeduper
 
-OUT_DIR="/projects/intro2gds/I2GDS2025/G5_MG_AMR/03_BWA"
+OUT_DIR="insert/your/output/directory/filepath/here" #make sure you change this to your preferred directory 
 
 # ------------------------------
 # 3. Run BWA for each sample
@@ -38,6 +38,7 @@ do
 
     echo "Processing sample: $SAMPLE"
 
+    # Change below file path to wherever the filepath for your human reference genome is located
      bwa mem /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref/hg19.fa "$IN_DIR/$R1" "$IN_DIR/$R2" | \
 	     samtools fastq -t -T BX -f 4 \
 	     -1 "$OUT_DIR/${SAMPLE}_1.fq.gz" \

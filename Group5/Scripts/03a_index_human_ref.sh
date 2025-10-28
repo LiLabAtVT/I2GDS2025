@@ -17,7 +17,7 @@
 module load BWA/0.7.18-GCCcore-13.3.0
 
 # 2. Change directory
-cd /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref
+cd /insert/human/ref/genome/filepath/here #change to whatever directory you downloaded your human reference genome in
 
 # 3. Index the human reference genome for BWA
 
