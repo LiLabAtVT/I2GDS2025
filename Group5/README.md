@@ -25,7 +25,8 @@ The raw test dataset for peer review can be found at the path: `/projects/intro2
 
 This data consists of 3 paired FASTQ files (6 sequence files in total) that have been subsetted and will run through the pipeline very quickly.
 
-## 01. TrimGalore
+<details>
+<summary>## 01. TrimGalore</summary>
 
 The purpose of TrimGalore is to trim sequences, remove short sequences, and remove sequences with low quality scores.
 
@@ -57,6 +58,7 @@ Once all batch script parameters and filepaths are updated in the script, naviga
 ```
 sbatch 01_trim_galore_job.slurm
 ```
+</details>
 
 ## 02. Super Deduper
 
