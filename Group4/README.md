@@ -80,7 +80,7 @@ log "Trim Galore completed successfully."
 ```
 </details>
 
-## BWA
+## BWA-Burrow-Wheeler Aligner for short-read alignment. This maps DNA sequences against a large reference genome, such as the human genome. This uses 3 algorithms- BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to a few megabases.
 
 <details>
   <summary>Click to expand code</summary>
