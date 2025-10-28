@@ -84,6 +84,8 @@ log "Trim Galore completed successfully."
 #SBATCH --mail-user=###mitchellgercken@vt.edu
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=200GB
+#SBATCH --output=bwa_%j.out
+#SBATCH --error=bwa_%j.err
 
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
