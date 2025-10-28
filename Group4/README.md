@@ -1,3 +1,7 @@
+# Project Overview
+
+The goal of this project is to replicate the pipeline as seen in 
+
 # Environment Setup
 `interact -A introtogds -p normal_q -t 1:00:00`
 
