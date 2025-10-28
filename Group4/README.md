@@ -21,10 +21,10 @@
 #SBATCH --output=trim_galore_%j.out
 #SBATCH --error=trim_galore_%j.err
 
-# Path to main folder
+#Path to main folder
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
-# Resolve script directory and repo root
+#Resolve script directory and repo root
 
 INPUT_DIR="test_data"
 OUTPUT_DIR="outputs/trimmed_outputs"
@@ -33,7 +33,7 @@ THREADS=8
 
 mkdir -p "$OUTPUT_DIR" "$LOG_DIR"
 
-# --- Logging function ---
+#--- Logging function ---
 LOGFILE="$LOG_DIR/trim_galore_${SLURM_JOB_ID}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
@@ -41,11 +41,11 @@ log "Starting Trim Galore job on $(hostname)"
 log "Input directory: $INPUT_DIR"
 log "Output directory: $OUTPUT_DIR"
 
-# --- Activate conda environment ---
+#--- Activate conda environment ---
 source ~/.bashrc
 conda activate g4_viruses
 
-# --- Main loop ---
+#--- Main loop ---
 
 FASTQ_FILES=(test_data/sample*_test_data.fastq.gz)
 [ ${#FASTQ_FILES[@]} -gt 0 ] || { log "No FASTQ files found in $INPUT_DIR"; exit 1; }
