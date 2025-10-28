@@ -71,6 +71,61 @@ log "Trim Galore completed successfully."
 
 ## BWA
 
+<details>
+  <summary>Click to expand code</summary>
+
+```
+#!/bin/bash
+
+#SBATCH -t 70:00:00
+#SBATCH -p normal_q
+#SBATCH -A introtogds
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=200GB
+
+cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
+
+#Set Conda Environment
+source ~/.bashrc
+conda activate g4_viruses
+
+REF="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/bwa/human_ref.fna"
+INPUT_DIR="outputs/trimmed_outputs"
+OUTPUT_DIR="outputs/bwa_outputs"
+THREADS=16
+
+LOGFILE="logs/bwa_filter_${SLURM_JOB_ID}.log"
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
+
+log "Starting BWA filtering on $(hostname)"
+log "Reference: $REF"
+mkdir -p "$OUTPUT_DIR"
+
+for FILE in "$INPUT_DIR"/*_trimmed.fq.gz; do
+  [ -e "$FILE" ] || { log "No trimmed FASTQ found in $INPUT_DIR"; break; }
+  SAMPLE=$(basename "$FILE" _trimmed.fq.gz)
+  log "Processing $SAMPLE"
+
+  SAM="${OUTPUT_DIR}/aln-${SAMPLE}.sam"
+  SORTED="${OUTPUT_DIR}/aln-${SAMPLE}.sorted.bam"
+  NONHOST="${OUTPUT_DIR}/non_host_reads_${SAMPLE}.bam"
+  CLEANED="${OUTPUT_DIR}/cleaned_reads_${SAMPLE}.fastq"
+
+  bwa mem "$REF" "$FILE" > "$SAM"
+  samtools view -@ "$THREADS" -Sb "$SAM" | samtools sort -@ "$THREADS" -o "$SORTED"
+  samtools index "$SORTED"
+  samtools view -@ "$THREADS" -b -f 4 "$SORTED" > "$NONHOST"
+  samtools fastq -@ "$THREADS" -0 "$CLEANED" "$NONHOST"
+
+  gzip -f "$SAM" "$SORTED" "$SORTED.bai" "$NONHOST" "$CLEANED"
+  log "Finished $SAMPLE"
+done
+
+log "All BWA filtering complete."
+```
+
 ## Diamond
 
 ## Spades
