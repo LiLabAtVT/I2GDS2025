@@ -7,11 +7,13 @@ computing cluster at Virginia Tech.
 
 Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.nature.com/articles/s41467-021-27917-x)
 
+![Flowchart diagram of the pipeline for peer review](G5_Pipeline_Diagram.drawio.png "Pipeline Flowchart")
+
 ### Important note for using scripts
 Make sure that when using any bash scripts from this page that you update the slurm 
 instructions at the top to use your own ARC allocation and email for notifications!
 
-## 00. Download data from SRA
+## 00. Test Dataset
 
 
 ## 01. TrimGalore
@@ -43,19 +45,16 @@ All deduplication was performed using the script ```02_run_superdeduper_cpu.slur
 
 This script activates the Conda environment containing HTStream, searches for paired-end FASTQ files from the Trim Galore output, runs Super Deduper on each pair, and generates summary statistics for the number of reads removed.
 
-### 02a. activate conda environment for runnning super Deduper named ```htstream12``` 
+### Activate conda environment for runnning super Deduper named ```htstream12``` 
 ```
 source /projects/intro2gds/I2GDS2025/tools/miniconda3/etc/profile.d/conda.sh
 conda activate htstream12
 ```
-
-
-*Note: If your path/env differs, edit the two lines above.*
+**Note**: If your path/env differs, edit the two lines above.
 
 ### 02b. submit the slurm scripts
-```
-sbatch 02_run_superdeduper_cpu.slurm.slurm
-```
+``` sbatch 02_run_superdeduper_cpu.slurm.slurm```
+
 *Note: Make sure to navigate to the directory where the SLURM script is located before submitting the job.*
 
 ## 03. BWA
@@ -104,7 +103,7 @@ from super deduper) and the output directory where the files with human mapped s
 3. Changes the working directory to the input directory, loops through all sequence files and runs them through 
 BWA, and then uses samtools to process the output from BWA and save the unmapped sequences as fastq files
 
-**Notes:**
+**Notes**:
 The output from BWA for each sample is three files instead of two like the input. This is because sometimes
 when mapping sequences to the reference genome only one half of a pair will map to the reference. In this case, only 
 the one sequence that mapped is removed and the now unpaired sequence is saved to the singletons file. Thus, each
@@ -124,9 +123,6 @@ FastQC as a final quality check before classification was run using a bash scrip
 2. Changes working directory to input directory (In this case, the BWA output folder)
 3. Runs FastQC on all input files and saves output files to the output directory
 
-**Notes:**
+**Notes**:
 This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.
 
-## 05. Taxonomic Classification with Kraken2
-
-### 05a. Build (download) reference databases for Kraken2
