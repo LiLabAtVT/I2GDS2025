@@ -239,5 +239,17 @@ biom convert \
  --to-tsv
 ```
 # References
-QIIME2 Code: Riddley, M. "Mia's QIIME2 Workflow" (file:///C:/Users/hanif/OneDrive/Documents/thesis%20prep/Mia's%20QIIME2%20Workflow.pdf)
+QIIME2: ​
 
+https://doi.org/10.1038/s41587-019-0209-9​
+
+QIIME2 Code: 
+
+Riddley, M. "Mia's QIIME2 Workflow" [Mia's QIIME2 Workflow.pdf](https://github.com/user-attachments/files/23196285/Mia.s.QIIME2.Workflow.pdf)
+
+
+SILVA:​
+
+Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO (2013) The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucl. Acids Res. 41 (D1): D590-D596.​
+Yilmaz P, Parfrey LW, Yarza P, Gerken J, Pruesse E, Quast C, Schweer T, Peplies J, Ludwig W, Glöckner FO (2014) The SILVA and "All-species Living Tree Project (LTP)" taxonomic frameworks. Nucl. Acids Res. 42:D643-D648​
+Glöckner FO, Yilmaz P, Quast C, Gerken J, Beccati A, Ciuprina A, Bruns G, Yarza P, Peplies J, Westram R, Ludwig W (2017) 25 years of serving the community with ribosomal RNA gene reference databases and tools. J. Biotechnol.
