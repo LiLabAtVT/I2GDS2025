@@ -68,7 +68,7 @@ INPUT: "bacteria_manifest.tsv"
 
 OUTPUT: "qualityplot.qzv"
 
- <img width="1320" height="450" alt="image" src="https://github.com/user-attachments/assets/9bfb7530-2794-40fd-927b-670a64fb307a" />
+ <img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/9bfb7530-2794-40fd-927b-670a64fb307a" />
 
  ```{linux}
 #!/bin/bash
