@@ -32,7 +32,7 @@ conda install bioconda::trimmomatic
 ### X.5 Trimmomatic Script
 
 #### X.5.1 Explanation of Trimmomatic.sh
-**Make a list of "sample names"** \
+**Make a list of sample names**.\
 This will be used to cycle through your samples using a for loop. \
 For example, if we have the file "SRR12900993_1.fastq.gz", then the code below will produce "SRR12900993".
 ```
