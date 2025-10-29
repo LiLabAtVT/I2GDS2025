@@ -124,9 +124,10 @@ conda activate g4_viruses
 REF="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/bwa/human_ref.fna"
 INPUT_DIR="outputs/trimmed_outputs"
 OUTPUT_DIR="outputs/bwa_outputs"
+LOG_DIR="logs"
 THREADS=16
 
-LOGFILE="logs/bwa_filter_${SLURM_JOB_ID}.log"
+LOGFILE="$LOG_DIR/bwa_${SLURM_JOB_ID}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
 log "Starting BWA filtering on $(hostname)"
