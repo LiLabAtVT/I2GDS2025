@@ -121,7 +121,30 @@ Each foward and reverse file will give 2 output files:
 
 Typically, analysis only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
 
-## bbduk (Decontaminating data)
+## 4. bbduk (Decontaminating data)
+
+### 4.1 Introduction
+bbduk is a multifaceted tool which has the capabilities to do trimming, read quality filtering, and more; but we will only use it for decontamination. 
+Decontamination will remove sequecnes that are known to be human, dog, cat, or mouse. 
+
+### 4.2 Creating Environment
+First, create a new environment on ARC. Naming it "bbduk" matches the script below:
+```
+conda create -n bbduk
+```
+
+After creating the environment, activate it:
+```
+source activate bbduk
+```
+
+### 4.3 Downloading bbduk
+Next, download trimmomatic:
+```
+conda install bioconda::bbmap
+```
+
+
 
 <details>
 <summary> script</summary>
@@ -129,12 +152,12 @@ Typically, analysis only moves forward with the paired reads. However, unpaired 
 ```
 #!/bin/bash
 
-#SBATCH --account=prudenlab
+#SBATCH --account=YourAccount #Change
 #SBATCH --partition=normal_q
 #SBATCH --mem=200G
 #SBATCH -t 7-00:00:00
 #SBATCH --mail-type=START,END,FAIL
-#SBATCH --mail-user=dceglio@vt.edu
+#SBATCH --mail-user=username@vt.edu #Change
 
 module load Miniconda3
 
