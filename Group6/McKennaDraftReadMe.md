@@ -20,3 +20,8 @@ Install vsearch in environment
 conda install bioconda::vsearch
 ```
 Press "y" when prompted to complete installation
+
+**Step 3**\
+Use code below to access bbduk output files and merge forward and reverse reads.
+
+Code Explanation:
