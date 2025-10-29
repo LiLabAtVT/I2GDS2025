@@ -2,12 +2,12 @@
 <img width="568" height="725" alt="image" src="https://github.com/user-attachments/assets/8700e9e5-7c02-42b6-a23a-876d598eb109" />
 
 
-## Trimmomatic (Cleaning Data)
-### X.1 Introduction
+## 3. Trimmomatic (Cleaning Data)
+### 3.1 Introduction
 Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia paired-end or single-end sequencing data.\
 For more info, visit the [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
-### X.2 Creating Environment
+### 3.2 Creating Environment
 First, create a new environment on ARC. Naming it "trimmomatic" matches the script below:
 ```
 conda create -n trimmomatic
@@ -18,19 +18,19 @@ After creating the environment, activate it:
 source activate trimmomatic
 ```
 
-### X.3 Downloading Trimmomatic
+### 3.3 Downloading Trimmomatic
 Next, download trimmomatic:
 ```
 conda install bioconda::trimmomatic
 ```
 
-### X.4 Inputs Required
+### 3.4 Inputs Required
 - **Input data**: Paired end FASTQ/FASTQ.gz files
 - **Illuminia Specific Adapter File**: Adapter file (TruSeq3-PE.fa)
 
-### X.5 Trimmomatic Script
+### 3.5 Trimmomatic Script
 
-#### X.5.1 Explanation of Trimmomatic.sh
+#### 3.5.1 Explanation of Trimmomatic.sh
 **Make a list of sample names**.\
 This will be used to cycle through your samples using a for loop. \
 For example, if we have the file "SRR12900993_1.fastq.gz", then the code below will produce "SRR12900993".
@@ -73,7 +73,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
-#### X.5.2 Script
+#### 3.5.2 Script
 With the 10 input files, this should take ~1 hour to run
 <details>
 <summary> Trimmomatic.sh</summary>
@@ -114,7 +114,7 @@ done
 ```
 </details>
 
-### X.6 Output Explanation
+### 3.6 Output Explanation
 Each foward and reverse file will give 2 output files:
 - paired: These reads survived trimming and their "partner" read survived trimming
 - unpaired: These reads survived trimming, but their "partner" read did not
