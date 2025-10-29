@@ -75,7 +75,7 @@ Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimm
 
 #### Script
 <details>
-<summary> Trimmomatic.sh</summary>\
+<summary> Trimmomatic.sh</summary>
 
 ```
 #!/bin/bash
