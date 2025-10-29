@@ -146,7 +146,8 @@ Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 
  - Step 2: "rep_seqs_97.qza" and "silva-138-99-nb-classifier.qza"
  - Step 3: "updated_taxonomy.qza"
  - Step 4: "table_97.qza"  and "updated_taxonomy.qza"
- - Step 5: "feature-frequency-filtered-table.qza", "bacteria_manifest.tsv", and "updated_taxonomy.qza"
+ - Step 5: "tax-class-filter-table.qza"
+ - Step 6: "feature-frequency-filtered-table.qza", "bacteria_manifest.tsv", and "updated_taxonomy.qza"
    
 OUTPUT:
 
@@ -154,7 +155,8 @@ OUTPUT:
  - Step 2: "updated_taxonomy.qza"
  - Step 3: "taxa-meta.qzv"
  - Step 4: "tax-class-filter-table.qza"
- - Step 5: "taxa-barplot.qzv"
+ - Step 5: "feature-frequency-filtered-table.qza"
+ - Step 6: "taxa-barplot.qzv"
    
 ```{linux}
 #!/bin/bash
@@ -197,13 +199,13 @@ qiime taxa filter-table \
 --p-exclude mitochondria,chloroplast \
 --o-filtered-table /path/to/your/directory/tax-class-filter-table.qza
 
-# OPTIONAL: Remove singletons
+# Step 5: Remove singletons
 qiime feature-table filter-features \
---i-table /path/to/your/directorytax-class-filter-table.qza \
+--i-table /path/to/your/directory/tax-class-filter-table.qza \
 --p-min-frequency 2 \
 --o-filtered-table /path/to/your/directory/feature-frequency-filtered-table.qza
 
-# Step 5: Generate bar plots
+# Step 6: Generate bar plots
 qiime taxa barplot \
 --i-table /path/to/your/directory/feature-frequency-filtered-table.qza \
 --i-taxonomy /path/to/your/directory/updated_taxonomy.qza \
