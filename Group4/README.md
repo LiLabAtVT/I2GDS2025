@@ -4,7 +4,8 @@ The goal of this project is to replicate the pipeline as seen in
 
 Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgun Sequencing of Airborne eDNA Achieves Rapid Assessment of Whole Biomes, Population Genetics and Genomic Variation.” Nature Ecology & Evolution 9 (6): 1043–60. https://doi.org/10.1038/s41559-025-02711-w.
 
-<img width="1024" height="1536" alt="ChatGPT Image Oct 28, 2025, 01_27_45 PM" src="https://github.com/user-attachments/assets/cc87eab9-e028-43c9-98fe-b567e862b32a" />
+<img width="486" height="717" alt="image" src="https://github.com/user-attachments/assets/4bbc007f-2aa5-410c-9c36-12747132898e" />
+
 
 
 # Environment Setup
