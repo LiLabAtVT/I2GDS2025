@@ -5,7 +5,7 @@
 Use your bbduk output files (_Sample Name_\_[1 or 2]\_decontam.fastq.gz) and merge the forward (\_1\_) and reverse (\_2\_) reads for each sample. Your input should be the bbduk output files you generated from the previous step, or the contingency bbduk output files provided.
 
 **Step 1**\
-Create an environment to download vsearch, activate said environment
+Create an environment where you'll install vsearch, activate said environment
 ```
 module load Miniconda3/24.7.1-0
 conda create vsearchenv
@@ -58,3 +58,30 @@ done
 
 ## DIAMOND
 ### Using DIAMOND to annotate your reads and identify ARGs
+
+**Overview**\
+You will be running each sample read against a database of known ARG sequences to identify the ARGs present in each sample. Your input should be the vsearch output files you generated from the previous step, or the contingency vsearch output files provided.
+
+**Step 1**\
+Create an environment where you'll install DIAMOND, activate said environment
+```
+module load Miniconda3/24.7.1-0
+conda create diamondenv
+source activate diamondenv
+```
+You should now see (diamondenv) \[yourPID@clustername directoryname\]$, indicating that you've entered the diamondenv environment
+
+**Step 2**\
+Install DIAMOND in environment
+```
+conda install bioconda::diamond
+```
+Press "y" when prompted to complete installation
+
+**Step 3**\
+Download your reference database for ARG identification
+
+For this data, we utilitze the Comprehensive Antibiotic Resistance Database (CARD), which is a bioinformatic database of resistance genes, their products, and associated phenotypes.
+
+Go to this link [https://card.mcmaster.ca/](url), click Download, and scroll to the section that says "Download CARD Data" (NOT "Download CARD-R Resistomes, etc.)
+The reference paper that collected this data annotated it using CARD v3.0.8, so we will do the same. In the "Download CARD Data" section, click "More data downloads..." and scroll down until you find version 3.0.8. Download this compressed folder and extract all files. Then, upload (mention protein homolog file)
