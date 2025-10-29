@@ -33,19 +33,34 @@ conda install bioconda::trimmomatic
 Below is the .sh file you will need to run Trimmomatic.
 
 #### X.5.1 Explanation of Trimmomatic.sh
-Make a list of "sample names". This will be used to cycle through your samples using a for loop. \
+**Make a list of "sample names"**
+This will be used to cycle through your samples using a for loop. \
 For example, if we have the file "SRR12900993_1.fastq.gz", then the code below will produce "SRR12900993".
 ```
 sample=$(ls *.fastq* | awk -F/ '{gsub(/_[12].fastq.gz/, "", $NF); print $NF}' | sort | uniq)
 ```
 
-Running trimmomatic \
+**Running trimmomatic** \
 This is the paired-end version, hence the "PE". "-Xmx16G" is added to give the command addtional memory. "phred33" is the current way Illumina scores the quality of the reads:
 ```
 trimmomatic PE -Xmx16G -threads 8 -phred33
 ```
 
-Trimmomatic parameters \
+**Adapter Parameters** \
+You can customize how stringent you want your trimming of adapters to be. The code uses the default parameters \
+- ILLUMINACLIP:<fastaWithAdaptersEtc>:<seed mismatches>:<palindrome clip threshold>:<simple clip threshold>
+	- fastaWithAdaptersEtc: specifies the path to a fasta file containing all the adapters, PCR sequences etc. The naming of 	the various sequences within this file determines how they are used. See below.
+	- seedMismatches: specifies the maximum mismatch count which will still allow a full match to be performed
+	- palindromeClipThreshold: specifies how accurate the match between the two 'adapter ligated' reads must be for PE 			palindrome read alignment.
+	- simpleClipThreshold: specifies how accurate the match between any adapter etc. sequence must be against a read.
+
+```
+ILLUMINACLIP:${ADAPTERS}:2:30:10
+```
+
+Description from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
+
+**Trimmomatic parameters** \
 You can customize how stringent you want your cutting to be. The code uses the default parameters \
 - LEADING: Cut bases off the start of a read, if below a threshold quality
 - TRAILING: Cut bases off the end of a read, if below a threshold quality
@@ -54,9 +69,20 @@ You can customize how stringent you want your cutting to be. The code uses the d
 	- requiredQuality: specifies the average quality required.
 - MINLEN: Drop the read if it is below a specified length
 
+```
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+```
+
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
-
+<details>
+<summary> Trimmomatic.sh</summary>
+	
+#!/bin/bash
+#SBATCH --account=YourAccount #Change
+#SBATCH --partition=normal_q
+#SBATCH --mem=16G
+#SBATCH -t 30:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mail-type=START,END,FAIL
 #SBATCH --mail-user=username@vt.edu #Change
