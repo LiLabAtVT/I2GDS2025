@@ -78,7 +78,7 @@ OUTPUT: "qualityplot.qzv"
 
  ```{linux}
 #!/bin/bash
-#SBATCH -J Job Name
+#SBATCH -J Data Import Quality Plot
 #SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH --time=0-08:00:00
@@ -92,13 +92,13 @@ conda activate qiime2-amplicon-2025.7
 
 qiime tools import \
 --type 'SampleData[PairedEndSequencesWithQuality]' \
---input-path /your/file/pathway/bacteria_manifest.tsv \
---output-path /your/file/pathway/data.qza \
+--input-path /path/to/your/directory/bacteria_manifest.tsv \
+--output-path /path/to/your/directory/data.qza \
 --input-format PairedEndFastqManifestPhred33V2 \
 
 qiime demux summarize \
---i-data /your/file/pathway/data.qza \
---o-visualization /your/file/pathway/qualityplot.qzv\
+--i-data /path/to/your/directory/data.qza \
+--o-visualization /path/to/your/directory/qualityplot.qzv\
 ```
 
 ## Denoising via DADA2
@@ -114,7 +114,7 @@ OUTPUT: "denoising_stats.qza"
  
 ```{linux}
 #!/bin/bash
-#SBATCH -J Job Name
+#SBATCH -J Denoise
 #SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH --time=0-20:00:00
@@ -127,12 +127,12 @@ eval "$(conda shell.bash hook)"
 conda activate qiime2-amplicon-2025.7
 
 qiime dada2 denoise-paired \
---i-demultiplexed-seqs /your/file/pathway/data.qza \
+--i-demultiplexed-seqs /path/to/your/directory/data.qza \
 --p-trunc-len-f 0 \
 --p-trunc-len-r 200 \
---o-representative-sequences /your/file/pathway/sequences.qza \
---o-table /your/file/pathway/table.qza \
---o-denoising-stats /your/file/pathway/denoising_stats.qza
+--o-representative-sequences /path/to/your/directory/sequences.qza \
+--o-table /path/to/your/directory/table.qza \
+--o-denoising-stats /path/to/your/directory/denoising_stats.qza
 ```
 
 ## Clustering and Taxonomy Information
@@ -173,44 +173,45 @@ conda activate qiime2-amplicon-2025.7
 
 # Step 1: Cluster features de novo
 qiime vsearch cluster-features-de-novo \
---i-sequences /your/file/pathway/sequences.qza \
---i-table /your/file/pathway/table.qza \
+--i-sequences /path/to/your/directory/sequences.qza \
+--i-table /path/to/your/directory/table.qza \
 --p-perc-identity 0.97 \
---o-clustered-table /your/file/pathway/table_97.qza \
---o-clustered-sequences /your/file/pathway/rep_seqs_97.qza
+--o-clustered-table /path/to/your/directory/table_97.qza \
+--o-clustered-sequences /path/to/your/directory/rep_seqs_97.qza
 
 # Step 2: Classify sequences
 qiime feature-classifier classify-sklearn \
---i-reads /your/file/pathway/rep_seqs_97.qza \
+--i-reads /path/to/your/directory/rep_seqs_97.qza \
 --i-classifier /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G1_testdata/silva-138-99-nb-classifier.qza \
---o-classification /your/file/pathway/updated_taxonomy.qza \
+--o-classification /path/to/your/directory/updated_taxonomy.qza \
 
 # Step 3: Tabulate metadata (Optional)
 qiime metadata tabulate \
---m-input-file /your/file/pathway/updated_taxonomy.qza \
---o-visualization /your/file/pathway/taxa-meta.qzv
+--m-input-file /path/to/your/directory/updated_taxonomy.qza \
+--o-visualization /path/to/your/directory/taxa-meta.qzv
 
 # Step 4: Filter table by taxonomy
 qiime taxa filter-table \
---i-table /your/file/pathway/table_97.qza \
---i-taxonomy /your/file/pathway/updated_taxonomy.qza \
+--i-table /path/to/your/directory/table_97.qza \
+--i-taxonomy /path/to/your/directory/updated_taxonomy.qza \
 --p-exclude mitochondria,chloroplast \
---o-filtered-table /your/file/pathway/tax-class-filter-table.qza
+--o-filtered-table /path/to/your/directory/tax-class-filter-table.qza
 
 # OPTIONAL: Remove singletons
 qiime feature-table filter-features \
---i-table /your/file/pathway/tax-class-filter-table.qza \
+--i-table /path/to/your/directorytax-class-filter-table.qza \
 --p-min-frequency 2 \
---o-filtered-table /your/file/pathway/feature-frequency-filtered-table.qza
+--o-filtered-table /path/to/your/directory/feature-frequency-filtered-table.qza
 
 # Step 5: Generate bar plots
 qiime taxa barplot \
---i-table /your/file/pathway/feature-frequency-filtered-table.qza \
---i-taxonomy /your/file/pathway/updated_taxonomy.qza \
---m-metadata-file /your/file/pathway/bacteria_manifest.tsv \
---o-visualization /your/file/pathway/taxa-barplot.qzv
+--i-table /path/to/your/directory/feature-frequency-filtered-table.qza \
+--i-taxonomy /path/to/your/directory/updated_taxonomy.qza \
+--m-metadata-file /path/to/your/directory/bacteria_manifest.tsv \
+--o-visualization /path/to/your/directory/taxa-barplot.qzv
 ```
 Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
+<img width="550" height="350" alt="image" src="https://github.com/user-attachments/assets/b3d36d1d-7a41-4167-978a-80bf6419be70" />
 
 ## Exporting Taxonomic Information
 After visualization, feel free to export the OTU abundance file (TSV format) in the level you want for downstream analysis (e.g. Phylum = Level 2)
