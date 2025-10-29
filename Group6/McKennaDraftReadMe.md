@@ -31,7 +31,7 @@ Use code below to access bbduk output files and merge forward and reverse reads.
 #SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH -t 7-00:00:00
-#SBATCH --mail-type=START,END,FAIL
+#SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=yourPID@vt.edu
 
 module load Miniconda3
