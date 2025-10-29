@@ -39,7 +39,7 @@ conda activate qiime2-amplicon-2025.7
 qiime info
 ```
 
-Go ahead and activate your QIIME version (after verification)
+Activate your QIIME2 version (after verification)
 ```{linux}
 conda activate qiime2-2025.7 # reference your specific version of QIIME
 OR
@@ -66,7 +66,7 @@ We have provided our manifest file (TSV format) into our test data; it will be u
 Please remember to change the directory paths to your own specific path!
 
 ## Data Import & Quality Information
- This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. The output file will be a .qzv file, so it can be viewed in QIIME2 View (//https://view.qiime2.org/)
+ This visualization provides a summary of sequence counts per sample and plots of sequence quality at each position. The output file will be a .qzv file, so it can be viewed in QIIME2 View (https://view.qiime2.org/)
 
  Use this script under 'Needed Materials': data_import.sh
 
@@ -110,7 +110,7 @@ The DADA2 (Divisive Amplicon Denoising Algorithm 2) will do the following steps:
  
 INPUT: "data.qza"
 
-OUTPUT: "denoising_stats.qza"
+OUTPUT: "sequences.qza", "table.qza", "denoising_stats.qza", and "denoising_stats.qzv"
  
 ```{linux}
 #!/bin/bash
@@ -118,7 +118,7 @@ OUTPUT: "denoising_stats.qza"
 #SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH --time=0-20:00:00
-#SBATCH --mem=20G
+#SBATCH --mem=40G
 #SBATCH --mail-user=yourusername@vt.edu
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-type=END
@@ -133,6 +133,12 @@ qiime dada2 denoise-paired \
 --o-representative-sequences /path/to/your/directory/sequences.qza \
 --o-table /path/to/your/directory/table.qza \
 --o-denoising-stats /path/to/your/directory/denoising_stats.qza
+```
+Generate a .qzv file of denoising_stats to visualize results in QIIME2 View 
+```{linux}
+qiime metadata tabulate \
+  --m-input-file /path/to/your/directory/denoising_stats.qza \
+  --o-visualization /path/to/your/directory/denoising_stats.qzv
 ```
 
 ## Clustering and Taxonomy Information
@@ -151,7 +157,7 @@ Taxonomy will be assigned based on your classifier. Here, we utilized the SILVA 
    
 OUTPUT:
 
-- Step 1:  "table_97.qza" and "rep_seqs_97.qza"
+ - Step 1: "table_97.qza" and "rep_seqs_97.qza"
  - Step 2: "updated_taxonomy.qza"
  - Step 3: "taxa-meta.qzv"
  - Step 4: "tax-class-filter-table.qza"
@@ -216,7 +222,7 @@ Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
 <img width="550" height="350" alt="image" src="https://github.com/user-attachments/assets/b3d36d1d-7a41-4167-978a-80bf6419be70" />
 
 ## Exporting Taxonomic Information
-After visualization, feel free to export the OTU abundance file (TSV format) in the level you want for downstream analysis (e.g. Phylum = Level 2)
+After visualization, export the OTU abundance file (TSV format) in the level you want for downstream analysis (e.g. Phylum = Level 2)
 
 ```{linux}
 qiime tools export --input-path feature-frequency-filtered-table.qza --output-path exported
