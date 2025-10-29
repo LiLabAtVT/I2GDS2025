@@ -5,7 +5,7 @@
 ## Trimmomatic (CLeaning Data)
 ### X.1 Introduction
 Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia paired-end or single-end sequencing data.\
-Link to [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
+For more info, visit the [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
 ### X.2 Creating Environment
 First, create a new environment on ARC. Naming it "trimmomatic" matches the script below:
@@ -30,9 +30,9 @@ conda install bioconda::trimmomatic
 - **Illuminia Specific Adapter File**: Adapter file (TruSeq3-PE.fa)
 
 ### X.5 Trimmomatic Script
-Below is the .sh file you will need to run Trimmomatic.\
+Below is the .sh file you will need to run Trimmomatic. \
 
-
+#### X.5.1 Explanation of Trimmomatic.sh
 
 <details>
 <summary> Trimmomatic.sh</summary>
@@ -76,7 +76,7 @@ done
 </details>
 
 
-## bbduk
+## bbduk (Decontaminating data)
 
 <details>
 <summary> script</summary>
