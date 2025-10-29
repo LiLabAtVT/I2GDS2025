@@ -3,10 +3,22 @@
 
 
 ## Trimmomatic
-# Introduction
+### Introduction
 Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia sequencing data.\
 Link to [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
+### Creating Environment
+First, create a new environment on ARC. Naming it "trimmomatic" matches the script below.
+"
+```
+conda create -n trimmomatic
+source activate trimmomatic
+```
+
+Next, download trimmomatic
+```
+conda install bioconda::trimmomatic
+```
 
 
 <details>
