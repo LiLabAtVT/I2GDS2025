@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH -J g1-16s
-#SBATCH --account=leaph
+#SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH --time=0-20:00:00
 #SBATCH --mem=20G 
-#SBATCH --mail-user=chanifah23@vt.edu
+#SBATCH --mail-user=yourusername@vt.edu
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
