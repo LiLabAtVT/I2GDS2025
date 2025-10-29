@@ -48,8 +48,8 @@ trimmomatic PE -Xmx16G -threads 8 -phred33
 
 **Adapter Parameters** \
 You can customize how stringent you want your trimming of adapters to be. The code uses the default parameters \
-- ILLUMINACLIP:"<fastaWithAdaptersEtc>":"<seed mismatches>":<palindrome clip threshold>:<simple clip threshold>
-	- fastaWithAdaptersEtc: specifies the path to a fasta file containing all the adapters, PCR sequences etc. The naming of 	the various sequences within this file determines how they are used. See below.
+- ILLUMINACLIP:fastaWithAdaptersEtc:seed mismatches:palindrome clip threshold:simple clip threshold
+	- fastaWithAdaptersEtc: specifies the path to a fasta file containing all the adapters, PCR sequences etc. The naming of 	the various sequences within this file determines how they are used.
 	- seedMismatches: specifies the maximum mismatch count which will still allow a full match to be performed
 	- palindromeClipThreshold: specifies how accurate the match between the two 'adapter ligated' reads must be for PE 			palindrome read alignment.
 	- simpleClipThreshold: specifies how accurate the match between any adapter etc. sequence must be against a read.
@@ -64,7 +64,7 @@ Description from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmo
 You can customize how stringent you want your cutting to be. The code uses the default parameters \
 - LEADING: Cut bases off the start of a read, if below a threshold quality
 - TRAILING: Cut bases off the end of a read, if below a threshold quality
-- SLIDINGWINDOW:<windowSize>:<requiredQuality>, will cut if below threshold
+- SLIDINGWINDOW:windowSize:requiredQuality, will cut if below threshold
 	- windowSize: specifies the number of bases to average across
 	- requiredQuality: specifies the average quality required.
 - MINLEN: Drop the read if it is below a specified length
