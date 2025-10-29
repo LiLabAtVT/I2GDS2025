@@ -92,13 +92,13 @@ conda activate qiime2-amplicon-2025.7
 
 qiime tools import \
 --type 'SampleData[PairedEndSequencesWithQuality]' \
---input-path /home/peterfs/practice/files/bacteria_manifest.tsv \
---output-path /home/peterfs/practice/QIIME/data.qza \
+--input-path /your/file/pathway/bacteria_manifest.tsv \
+--output-path /your/file/pathway/data.qza \
 --input-format PairedEndFastqManifestPhred33V2 \
 
 qiime demux summarize \
---i-data /home/peterfs/practice/QIIME/data.qza \
---o-visualization /home/peterfs/practice/QIIME/qualityplot.qzv\
+--i-data /your/file/pathway/data.qza \
+--o-visualization /your/file/pathway/qualityplot.qzv\
 ```
 
 ## Denoising via DADA2
@@ -119,7 +119,7 @@ OUTPUT: "denoising_stats.qza"
 #SBATCH --partition=normal_q
 #SBATCH --time=0-20:00:00
 #SBATCH --mem=20G
-#SBATCH --mail-user=peterfs@vt.edu
+#SBATCH --mail-user=yourusername@vt.edu
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
@@ -127,12 +127,12 @@ eval "$(conda shell.bash hook)"
 conda activate qiime2-amplicon-2025.7
 
 qiime dada2 denoise-paired \
---i-demultiplexed-seqs /home/peterfs/practice/QIIME/data.qza \
+--i-demultiplexed-seqs /your/file/pathway/data.qza \
 --p-trunc-len-f 0 \
 --p-trunc-len-r 200 \
---o-representative-sequences /home/peterfs/practice/QIIME/sequences.qza \
---o-table /home/peterfs/practice/QIIME/table.qza \
---o-denoising-stats /home/peterfs/practice/QIIME/denoising_stats.qza
+--o-representative-sequences /your/file/pathway/sequences.qza \
+--o-table /your/file/pathway/table.qza \
+--o-denoising-stats /your/file/pathway/denoising_stats.qza
 ```
 
 ## Clustering and Taxonomy Information
@@ -163,7 +163,7 @@ OUTPUT:
 #SBATCH --partition=normal_q
 #SBATCH --time=0-20:00:00
 #SBATCH --mem=20G
-#SBATCH --mail-user=peterfs@vt.edu
+#SBATCH --mail-user=yourusername@vt.edu
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
@@ -173,42 +173,42 @@ conda activate qiime2-amplicon-2025.7
 
 # Step 1: Cluster features de novo
 qiime vsearch cluster-features-de-novo \
---i-sequences /home/peterfs/practice/QIIME/sequences.qza \
---i-table /home/peterfs/practice/QIIME/table.qza \
+--i-sequences /your/file/pathway/sequences.qza \
+--i-table /your/file/pathway/table.qza \
 --p-perc-identity 0.97 \
---o-clustered-table /home/peterfs/practice/QIIME/table_97.qza \
---o-clustered-sequences /home/peterfs/practice/QIIME/rep_seqs_97.qza
+--o-clustered-table /your/file/pathway/table_97.qza \
+--o-clustered-sequences /your/file/pathway/rep_seqs_97.qza
 
 # Step 2: Classify sequences
 qiime feature-classifier classify-sklearn \
---i-reads /home/peterfs/practice/QIIME/rep_seqs_97.qza \
---i-classifier /home/peterfs/practice/files/silva-138-99-nb-classifier.qza \
---o-classification /home/peterfs/practice/QIIME/updated_taxonomy.qza \
+--i-reads /your/file/pathway/rep_seqs_97.qza \
+--i-classifier /projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G1_testdata/silva-138-99-nb-classifier.qza \
+--o-classification /your/file/pathway/updated_taxonomy.qza \
 
 # Step 3: Tabulate metadata (Optional)
 qiime metadata tabulate \
---m-input-file /home/peterfs/practice/QIIME/updated_taxonomy.qza \
---o-visualization /home/peterfs/practice/QIIME/taxa-meta.qzv
+--m-input-file /your/file/pathway/updated_taxonomy.qza \
+--o-visualization /your/file/pathway/taxa-meta.qzv
 
 # Step 4: Filter table by taxonomy
 qiime taxa filter-table \
---i-table /home/peterfs/practice/QIIME/table_97.qza \
---i-taxonomy /home/peterfs/practice/QIIME/updated_taxonomy.qza \
+--i-table /your/file/pathway/table_97.qza \
+--i-taxonomy /your/file/pathway/updated_taxonomy.qza \
 --p-exclude mitochondria,chloroplast \
---o-filtered-table /home/peterfs/practice/QIIME/tax-class-filter-table.qza
+--o-filtered-table /your/file/pathway/tax-class-filter-table.qza
 
 # OPTIONAL: Remove singletons
 qiime feature-table filter-features \
---i-table /home/peterfs/practice/QIIME/tax-class-filter-table.qza \
+--i-table /your/file/pathway/tax-class-filter-table.qza \
 --p-min-frequency 2 \
---o-filtered-table /home/peterfs/practice/QIIME/feature-frequency-filtered-table.qza
+--o-filtered-table /your/file/pathway/feature-frequency-filtered-table.qza
 
 # Step 5: Generate bar plots
 qiime taxa barplot \
---i-table /home/peterfs/practice/QIIME/feature-frequency-filtered-table.qza \
---i-taxonomy /home/peterfs/practice/QIIME/updated_taxonomy.qza \
---m-metadata-file /home/peterfs/practice/files/bacteria_manifest.tsv \
---o-visualization /home/peterfs/practice/QIIME/taxa-barplot.qzv
+--i-table /your/file/pathway/feature-frequency-filtered-table.qza \
+--i-taxonomy /your/file/pathway/updated_taxonomy.qza \
+--m-metadata-file /your/file/pathway/bacteria_manifest.tsv \
+--o-visualization /your/file/pathway/taxa-barplot.qzv
 ```
 Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
 
@@ -221,7 +221,7 @@ qiime tools export --input-path updated_taxonomy.qza --output-path exported
 
 cp taxonomy.tsv biom-taxonomy.tsv
 
-#Change the first line of biom-taxonomy.tsv (i.e. the header) to this:
+#Change the first line of biom-taxonomy.tsv (i.e. the header) to this: (use file editor in ARC dashboard)
 #OTUID taxonomy confidence
 biom add-metadata 
 -i feature-table.biom 
