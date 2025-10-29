@@ -1,8 +1,10 @@
 # Project Overview
 
-The goal of this project is to replicate the pipeline as seen in 
+The goal of this project is to replicate the pipeline as seen in:
 
 Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgun Sequencing of Airborne eDNA Achieves Rapid Assessment of Whole Biomes, Population Genetics and Genomic Variation.” Nature Ecology & Evolution 9 (6): 1043–60. https://doi.org/10.1038/s41559-025-02711-w.
+
+We aim to create figures indicating total read count per species of the samples, indicating relative abundance. 
 
 <img width="486" height="717" alt="image" src="https://github.com/user-attachments/assets/4bbc007f-2aa5-410c-9c36-12747132898e" />
 
