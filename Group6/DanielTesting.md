@@ -39,7 +39,7 @@ For example, if we have the file "SRR12900993_1.fastq.gz", then the code below w
 sample=$(ls *.fastq* | awk -F/ '{gsub(/_[12].fastq.gz/, "", $NF); print $NF}' | sort | uniq)
 ```
 
-**Running trimmomatic** \
+**Rrimmomatic Command** \
 This is the paired-end version, hence the "PE". "-Xmx16G" is added to give the command addtional memory. "phred33" is the current way Illumina scores the quality of the reads:
 ```
 trimmomatic PE -Xmx16G -threads 8 -phred33
