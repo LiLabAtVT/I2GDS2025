@@ -154,7 +154,7 @@ for FILE in "$INPUT_DIR"/*_trimmed.fq.gz; do
   log "Finished $SAMPLE"
 done
 
-log "All BWA filtering complete."
+log "BWA complete for all samples."
 ```
 
 </details>
@@ -185,7 +185,7 @@ source ~/.bashrc
 conda activate g4_viruses
 
 #Create an input and output directory for SPAdes samples, set the thread count, and create a log
-INPUT_DIR="outputs/bwa_outputs"
+INPUT_DIR="outputs/bwa_outputs" # variable needs to be changed to include the absolute path
 OUTPUT_DIR="outputs/spades_outputs"
 THREADS=16
 
