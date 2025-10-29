@@ -65,6 +65,7 @@ mkdir -p "$OUTPUT_DIR" "$LOG_DIR"
 
 #--- Logging function ---
 LOGFILE="$LOG_DIR/trim_galore_${SLURM_JOB_ID}.log"
+#have log set exact date and time for each iteration
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
 log "Starting Trim Galore job on $(hostname)"
@@ -77,6 +78,7 @@ conda activate g4_viruses
 
 #--- Main loop ---
 
+#input test data files and run trim_galore on them, outputting them to a new directory
 FASTQ_FILES=(test_data/sample*_test_data.fastq.gz)
 [ ${#FASTQ_FILES[@]} -gt 0 ] || { log "No FASTQ files found in $INPUT_DIR"; exit 1; }
 
@@ -133,6 +135,7 @@ log "Starting BWA filtering on $(hostname)"
 log "Reference: $REF"
 mkdir -p "$OUTPUT_DIR"
 
+#input previous trim_galore output files and run a loop using BWA to create SAM files that will be converted to BAM files then zip them
 for FILE in "$INPUT_DIR"/*_trimmed.fq.gz; do
   [ -e "$FILE" ] || { log "No trimmed FASTQ found in $INPUT_DIR"; break; }
   SAMPLE=$(basename "$FILE" _trimmed.fq.gz)
