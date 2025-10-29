@@ -127,6 +127,7 @@ OUTPUT_DIR="outputs/bwa_outputs"
 LOG_DIR="logs"
 THREADS=16
 
+#have log set exact date and time for each iteration
 LOGFILE="$LOG_DIR/bwa_${SLURM_JOB_ID}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
@@ -191,6 +192,7 @@ OUTPUT_DIR="outputs/spades_outputs"
 LOG_DIR="logs"
 THREADS=16
 
+#have log set exact date and time for each iteration
 LOGFILE="$LOG_DIR/spades_${SLURM_JOB_ID}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
@@ -243,6 +245,7 @@ OUTPUT_BASE="outputs/diamond_outputs"
 LOG_DIR="logs"
 THREADS=16
 
+#have log set exact date and time for each iteration
 LOGFILE="$LOG_DIR/diamond_${SLURM_JOB_ID}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
@@ -314,6 +317,7 @@ LOG_DIR="logs"
 THREADS=16
 
 #Logging setup
+#have log set exact date and time for each iteration
 LOGFILE="$LOG_DIR/kraken2_${SLURM_JOB_ID:-manual}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
