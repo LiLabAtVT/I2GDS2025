@@ -24,7 +24,7 @@ cd bin
 ls
 ```
 ## 5. Get data from NCBI website 
-The National Center for Biotechnology Information [NCBI] (https://www.ncbi.nlm.nih.gov/) advances science and health by providing access to biomedical and genomic information.
+The National Center for Biotechnology Information [NCBI] [https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/) advances science and health by providing access to biomedical and genomic information.
 
 
   
