@@ -1,5 +1,6 @@
 ## Flowchart
-<img width="320" height="831" alt="image" src="https://github.com/user-attachments/assets/e529bdb8-67f6-4f32-94da-f3e258bca886" />
+<img width="568" height="725" alt="image" src="https://github.com/user-attachments/assets/8700e9e5-7c02-42b6-a23a-876d598eb109" />
+
 
 ## Trimmomatic
 <details>
