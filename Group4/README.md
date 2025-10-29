@@ -194,9 +194,8 @@ log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
 log "Starting SPAdes assemblies"
 mkdir -p "$OUTPUT_DIR"
-cd "$OUTPUT_DIR" || exit
 
-for FILE in outputs/bwa_outputs/cleaned_reads_sample*_test_data.fastq.gz; do
+for FILE in "$INPUT_DIR"/cleaned_reads_sample*_test_data.fastq.gz; do
   [ -e "$FILE" ] || { log "No cleaned reads found"; break; }
   SAMPLE=$(basename "$FILE" .fastq.gz | sed 's/cleaned_reads_//')
   log "Running SPAdes for $SAMPLE"
@@ -272,7 +271,7 @@ log "DIAMOND BLASTx complete."
 
 </details>
 
-## Kraken2- 
+## Kraken2
 Kraken2 is a very fast way to assign taxonomic labels using k-mers to metagenomic DNA sequences. Kraken2 splits sequences into smaller fragments of DNA as "k-mers". The k-mers are then compared in a hashing table to determine similarity to reference genomes in the database.
 
 <details>
