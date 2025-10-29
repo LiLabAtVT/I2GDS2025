@@ -2,7 +2,7 @@
 <img width="568" height="725" alt="image" src="https://github.com/user-attachments/assets/8700e9e5-7c02-42b6-a23a-876d598eb109" />
 
 
-## Trimmomatic (CLeaning Data)
+## Trimmomatic (Cleaning Data)
 ### X.1 Introduction
 Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia paired-end or single-end sequencing data.\
 For more info, visit the [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
@@ -48,7 +48,7 @@ trimmomatic PE -Xmx16G -threads 8 -phred33
 
 **Adapter Parameters** \
 You can customize how stringent you want your trimming of adapters to be. The code uses the default parameters \
-- ILLUMINACLIP:<fastaWithAdaptersEtc>:<seed mismatches>:<palindrome clip threshold>:<simple clip threshold>
+- ILLUMINACLIP:"<fastaWithAdaptersEtc>":"<seed mismatches>":<palindrome clip threshold>:<simple clip threshold>
 	- fastaWithAdaptersEtc: specifies the path to a fasta file containing all the adapters, PCR sequences etc. The naming of 	the various sequences within this file determines how they are used. See below.
 	- seedMismatches: specifies the maximum mismatch count which will still allow a full match to be performed
 	- palindromeClipThreshold: specifies how accurate the match between the two 'adapter ligated' reads must be for PE 			palindrome read alignment.
@@ -75,6 +75,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
+**Script**
 <details>
 <summary> Trimmomatic.sh</summary>
 	
