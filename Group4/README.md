@@ -228,7 +228,7 @@ DIAMOND is a sequence aligner for protein and translated DNA searches. This uses
 #SBATCH --output=diamond_%j.out
 #SBATCH --error=diamond_%j.err
 
-#Path to main folder (where the github folders are located)
+#Set downloaded directory (where the github folders are located)
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set conda environment
@@ -248,21 +248,19 @@ log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 log "Starting DIAMOND BLASTx job on $(hostname)"
 log "Database: $DB"
 
-for CONTIG in "$SPADES_DIR"/sample*_test_data/contigs.fasta; do
-  [ -e "$CONTIG" ] || { log "No contigs.fasta found in $SPADES_DIR"; break; }
+for CONTIG_PATH in "$SPADES_DIR"/sample*_test_data/contigs.fasta; do
+  [ -e "$CONTIG_PATH" ] || { log "No contigs.fasta found in $SPADES_DIR"; break; }
 
     #Extract sample name (e.g. sample1_test_data)
-    SAMPLE_DIR=$(basename "$(dirname "$CONTIG_PATH")")
-    SAMPLE="${SAMPLE_DIR%%_test_data}"
-
-    log "Processing sample: $SAMPLE"
-
+    SAMPLE=$(basename "$(dirname "$CONTIG_PATH")")
+    SAMPLE_DIR="${SAMPLE}"
+    
     #Define per-sample output directory under diamond_outputs
     OUT_DIR="${OUTPUT_BASE}/${SAMPLE_DIR}"
     mkdir -p "$OUT_DIR"
     OUTPUT="${OUT_DIR}/${SAMPLE}_assembly_diamond_test_data.daa"
 
-  log "Running DIAMOND for $SAMPLE"
+  log "Running DIAMOND for $SAMPLE_DIR"
 
   diamond blastx \
     -d "$DB" \
@@ -273,7 +271,7 @@ for CONTIG in "$SPADES_DIR"/sample*_test_data/contigs.fasta; do
     --max-target-seqs 1 \
     --more-sensitive
 
-  log "Finished DIAMOND for $SAMPLE"
+  log "Finished DIAMOND for $SAMPLE_DIR"
 done
 
 log "DIAMOND BLASTx complete."
@@ -312,11 +310,11 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/kraken2/k2_db"
 SPADES_DIR="outputs/spades_outputs"
 OUTPUT_BASE="outputs/kraken2_outputs"
+LOG_DIR="logs"
 THREADS=16
 
 #Logging setup
-mkdir -p logs "$OUTPUT_BASE"
-LOGFILE="logs/kraken2_${SLURM_JOB_ID:-manual}.log"
+LOGFILE="$LOG_DIR/kraken2_${SLURM_JOB_ID:-manual}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
 log "Starting Kraken2 classification job on $(hostname)"
