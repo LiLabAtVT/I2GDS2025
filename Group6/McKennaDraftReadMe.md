@@ -23,5 +23,9 @@ Press "y" when prompted to complete installation
 
 **Step 3**\
 Use code below to access bbduk output files and merge forward and reverse reads. Be sure to replace PID, working directory, etc. with your information.
-
+<details>
+  <summary>runningvsearch.sh</summary>
+``` 
+```
+</details>
 Code Explanation:
