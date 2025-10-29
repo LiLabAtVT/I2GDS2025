@@ -348,7 +348,7 @@ log "All samples processed successfully."
 The scripts needed to run the pipeline are located in the scripts/ directory. The expected results from each step are located in the expected_output_files/ directory, followed by each step. The scripts should be set up so you have the option of how many steps of the pipeline you would like to run. **Each script uses the outputs from the last. If you want to skip a step you can set the input directory variable to expected_outputs/your-step_outputs**. If you would like to get the evaluation done quickly, steps 2 and 3 take around ~30mins to complete. **Please change the code in each SLURM script under the #Path to main folder line to be the directory where your repository folder is downloaded. It will be different for everyone.**
 **To download repository**
 ```
-git clone https://github.com/LiLabAtVT/I2GDS2025/tree/main/Group4/repository
+git clone https://github.com/LiLabAtVT/I2GDS2025/Group4/repository
 ```
 The scripts are intended to be run in the logs directory. Each script will output three files: **1)** the default SLURM .out file, **2)** a .log file for the process of each script to be recorded, and **3)** a .err file for script errors to be reported if any occur. These three files will be named according to each step. For example, if you run step 2 (Trim Galore) and step 3 (BWA) the files will be named trim_galore_JOBID.out and bwa_JOBID.out. If anyone has an issue with the BWA, Kraken2, or DIAMOND scripts failing due to not having permission to any of the reference databases, please email mitchellgercken@vt.edu requesting access. 
 If you would like to run the entire pipeline from Trim Galore to DIAMOND and/or Kraken2, a master_pipeline.sh script is included for your convenience.
