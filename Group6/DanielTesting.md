@@ -73,7 +73,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
-#### Script
+#### X.5.2 Script
 <details>
 <summary> Trimmomatic.sh</summary>
 
@@ -113,6 +113,12 @@ done
 ```
 </details>
 
+### X.6 Output Explanation
+Each foward and reverse file will give 2 output files:
+- paired: These reads survived trimming and their "partner" read survived trimming
+- unpaired: These reads survived trimming, but their "partner" read did not
+
+Typically, analyze only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
 
 ## bbduk (Decontaminating data)
 
