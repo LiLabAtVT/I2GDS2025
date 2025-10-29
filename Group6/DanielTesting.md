@@ -2,7 +2,7 @@
 <img width="568" height="725" alt="image" src="https://github.com/user-attachments/assets/8700e9e5-7c02-42b6-a23a-876d598eb109" />
 
 
-## Trimmomatic
+## Trimmomatic (CLeaning Data)
 ### X.1 Introduction
 Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia paired-end or single-end sequencing data.\
 Link to [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
@@ -26,7 +26,12 @@ conda install bioconda::trimmomatic
 ```
 
 ### X.4 Inputs Required
-- Paired end fastq/fastq.gz files
+- **Input data**: Paired end FASTQ/FASTQ.gz files
+- **Illuminia Specific Adapter File**: Adapter file (TruSeq3-PE.fa)
+
+### X.5 Trimmomatic Script
+Below is the .sh file you will need to run Trimmomatic.\
+
 
 
 <details>
@@ -48,7 +53,7 @@ module load Miniconda3
 
 source activate trimmomatic
 
-cd /projects/intro2gds/I2GDS2025/G6_AMR_ARG/SampleSubset
+cd /projects/intro2gds/I2GDS2025/G6_AMR_ARG/SampleSubset #Change to location of input files
 
 OUTPUT_DIR=/projects/intro2gds/I2GDS2025/your/output/folder #Change
 ADAPTERS=TruSeq3-PE.fa
