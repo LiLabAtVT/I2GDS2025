@@ -16,6 +16,8 @@ Babalola et al. 2025
 Installing the base distribution's conda environment: QIIME 2 recommends creating a new environment specifically for the QIIME 2 distribution, as they are many dependencies that you wouldn't want in an existing environment.
 ```{linux}
 # Installation for Linux/Windows users
+# Load Miniconda3 (or other verison of conda) 
+module load Miniconda3/24.7.1-0
 conda env create \
   --name qiime2-amplicon-2025.7 \
   --file https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.7/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml
