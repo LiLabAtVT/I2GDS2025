@@ -20,7 +20,7 @@ Initialize Conda on ARC:
 
 To create the Conda environment:
 ```
-conda create -f environment.yml
+conda create -f environment.yml -n g4_viruses
 ```
 
 # Data Download
