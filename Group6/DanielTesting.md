@@ -74,6 +74,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
 #### X.5.2 Script
+With the 10 input files, this should take ~1 hour to run
 <details>
 <summary> Trimmomatic.sh</summary>
 
