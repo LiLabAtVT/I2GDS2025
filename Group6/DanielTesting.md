@@ -3,38 +3,46 @@
 
 
 ## Trimmomatic
-### Introduction
-Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia sequencing data.\
+### X.1 Introduction
+Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia paired-end or single-end sequencing data.\
 Link to [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
-### Creating Environment
-First, create a new environment on ARC. Naming it "trimmomatic" matches the script below.
+### X.2 Creating Environment
+First, create a new environment on ARC. Naming it "trimmomatic" matches the script below:
 "
 ```
 conda create -n trimmomatic
+```
+
+After creating the environment, activate it:
+```
 source activate trimmomatic
 ```
 
-Next, download trimmomatic
+### X.3 Downloading Trimmomatic
+Next, download trimmomatic:
 ```
 conda install bioconda::trimmomatic
 ```
 
+### X.4 Inputs Required
+- Paired end fastq/fastq.gz files
+
 
 <details>
-<summary> script</summary>
+<summary> Trimmomatic.sh</summary>
 
 
 ```
 #!/bin/bash
 
-#SBATCH --account=prudenlab
+#SBATCH --account=YourAccount #Change
 #SBATCH --partition=normal_q
 #SBATCH --mem=16G
 #SBATCH -t 30:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mail-type=START,END,FAIL
-#SBATCH --mail-user=dceglio@vt.edu
+#SBATCH --mail-user=username@vt.edu #Change
 
 module load Miniconda3
 
@@ -42,7 +50,7 @@ source activate trimmomatic
 
 cd /projects/intro2gds/I2GDS2025/G6_AMR_ARG/SampleSubset
 
-OUTPUT_DIR=/projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/trimmomatic_output
+OUTPUT_DIR=/projects/intro2gds/I2GDS2025/your/output/folder #Change
 ADAPTERS=TruSeq3-PE.fa
 
 sample=$(ls *.fastq* | awk -F/ '{gsub(/_[12].fastq.gz/, "", $NF); print $NF}' | sort | uniq)
