@@ -5,11 +5,15 @@ Article: https://bmcgenomdata.biomedcentral.com/articles/10.1186/s12863-025-0135
 
 This pipeline utilizes QIIME2's (Quantitative Insights Into Microbial Ecology 2) "Amplicon" Distribution, a suite of plug-ins that provide broad analytic functionality to support microbiome marker gene analysis from raw sequencing data to pubication-quality visualizations and statistics.
 We expect to reproduce taxonomic composition tables for both bacteria and fungi.
+
+Figure from article we plan to reproduce:
+
 <img width="350" height="200" alt="image" src="https://github.com/user-attachments/assets/8210a433-4b7a-4c40-aecd-a499ed9a6afc" />
 
+Babalola et al. 2025
 
 ## Installing QIIME2 into Conda environment
-Installing the base distribution's conda environment: QIIME 2 recommends creating a new environment specifically for the QIIME 2 distribution, as they are many dependencies that you wouldn't want in an existing environment
+Installing the base distribution's conda environment: QIIME 2 recommends creating a new environment specifically for the QIIME 2 distribution, as they are many dependencies that you wouldn't want in an existing environment.
 ```{linux}
 # Installation for Linux/Windows users
 conda env create \
@@ -45,7 +49,7 @@ The test data is labeled "Group1_TestData" in the following ARC Directory: /proj
 It consists of **12 bacterial samples** (forward & reverse reads) in FASTQ format (.fastq.gz), which have been deposited in the Sequence Read Archive (SRA) of the National Center for Biotechnology Information (NCBI) under the Bioproject Accession numbers; **SRP540554 (16S rRNA)** and **SRP540675 (ITS)**.
 
 We downloaded the provided script to retrieve each samples' reads: ena-file-download-read_run-SRP540554-fastq_ftp-20250915-1609.sh
-This tutorial will focus on the bacterial samples (Link: http://identifiers.org/insdc.sra:SRP540554)
+This tutorial will focus on the bacterial samples (Link: http://identifiers.org/insdc.sra:SRP540554).
 
 Here are the provided materials for this tutorial before we move to QIIME2:
 - Manifest file ('Needed Materials' folder)
