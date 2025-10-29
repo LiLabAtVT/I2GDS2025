@@ -62,6 +62,9 @@ Here are the provided materials for this tutorial before we move to QIIME2:
 The goal is to generate high-resolution OTUs (operational taxonomic unit). OTUs are employed to classify groups of similar sequences at 97% similarity.
 We have provided our manifest file (TSV format) into our test data; it will be used throughout this pipeline. The name is "bacteria_manifest.tsv".
 
+## Visual Pipeline
+<img width="300" height="700" alt="16S Visual Pipeline" src="https://github.com/user-attachments/assets/be07b3e2-4911-48c2-8fda-84a66b262f2d" />
+
 ## REMEMBER!
 Please remember to change the directory paths to your own specific path!
 
@@ -218,9 +221,12 @@ qiime taxa barplot \
 --m-metadata-file /path/to/your/directory/bacteria_manifest.tsv \
 --o-visualization /path/to/your/directory/taxa-barplot.qzv
 ```
-Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
+
+Expected output:
+
 <img width="550" height="350" alt="image" src="https://github.com/user-attachments/assets/b3d36d1d-7a41-4167-978a-80bf6419be70" />
 
+Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
 ## Exporting Taxonomic Information
 After visualization, export the OTU abundance file (TSV format) in the level you want for downstream analysis (e.g. Phylum = Level 2)
 
