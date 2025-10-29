@@ -52,15 +52,15 @@ We downloaded the provided script to retrieve each samples' reads: ena-file-down
 This tutorial will focus on the bacterial samples (Link: http://identifiers.org/insdc.sra:SRP540554).
 
 Here are the provided materials for this tutorial before we move to QIIME2:
-- Manifest file ('Needed Materials' folder)
-- Test data ('Needed Materials' folder)
-- Classifier (silva-138-99-nb-classifier.qza)
-- Bash scripts ('Needed Materials' folder)
+- Manifest file ('Needed Materials' Folder)
+- Test data ('Group1_testdata' ARC Directory)
+- Classifier ('Needed Materials' Folder)
+- Bash scripts ('Needed Materials' Folder)
 # QIIME2 Pipeline
 The goal is to generate high-resolution OTUs (operational taxonomic unit). OTUs are employed to classify groups of similar sequences at 97% similarity.
 We have provided our manifest file (TSV format) into our test data; it will be used throughout this pipeline. The name is "bacteria_manifest.tsv".
 
-### REMEMBER!
+## REMEMBER!
 Please remember to change the directory paths to your own specific path!
 
 ## Data Import & Quality Information
