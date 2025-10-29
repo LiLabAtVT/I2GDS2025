@@ -12,7 +12,7 @@ Reference Paper: https://doi-org.ezproxy.lib.vt.edu/10.1016/j.watres.2024.121425
 ```
    curl -O https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.2.1/sratoolkit.3.2.1-alma_linux64.tar.gz
 ```
-### 4. Unzip toolkit 
+## 4. Unzip toolkit 
 ```
 tar -xvf sratoolkit.3.2.1-alma_linux64.tar.gz
 ```
