@@ -119,7 +119,7 @@ Each foward and reverse file will give 2 output files:
 - paired: These reads survived trimming and their "partner" read survived trimming
 - unpaired: These reads survived trimming, but their "partner" read did not
 
-Typically, analyze only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
+Typically, analysis only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
 
 ## bbduk (Decontaminating data)
 
