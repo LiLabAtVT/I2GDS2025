@@ -24,8 +24,6 @@ To create the Conda environment:
 conda env create -f environment.yml -n g4_viruses
 ```
 
-# Data Download
-
 # Analysis Pipeline
 
 The following steps outline the main pipeline to analyze the reads from the reference paper. The final results will allow you to see species types in each sample. 
@@ -55,6 +53,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set variables for loop
 
+#create an input and output directory for trim_galore samples, set the thread count, and create a log
 INPUT_DIR="test_data"
 OUTPUT_DIR="outputs/trimmed_outputs"
 LOG_DIR="logs"
@@ -119,6 +118,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 source ~/.bashrc
 conda activate g4_viruses
 
+#create an input and output directory for BWA samples, set the thread count, and create a log
 REF="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/bwa/human_ref.fna"
 INPUT_DIR="outputs/trimmed_outputs"
 OUTPUT_DIR="outputs/bwa_outputs"
@@ -181,6 +181,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 source ~/.bashrc
 conda activate g4_viruses
 
+#create an input and output directory for SPAdes samples, set the thread count, and create a log
 INPUT_DIR="outputs/bwa_outputs"
 OUTPUT_DIR="outputs/spades_outputs"
 THREADS=16
@@ -231,6 +232,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 source ~/.bashrc
 conda activate g4_viruses
 
+#create an output directory for diamond samples, set the input database, set the thread count, and create a log
 DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/diamond/nr"
 SPADES_DIR="outputs/spades_outputs"
 THREADS=16
