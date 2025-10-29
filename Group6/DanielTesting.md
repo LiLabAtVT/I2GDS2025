@@ -3,6 +3,12 @@
 
 
 ## Trimmomatic
+# Introduction
+Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia sequencing data. 
+Link to [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
+
+
+
 <details>
 <summary> script</summary>
 
