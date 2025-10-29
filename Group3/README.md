@@ -42,8 +42,9 @@ The s77 represents random seed, which is used to randomly extract the reads. 0.2
 
 
 ### 01 UMI extraction and whitelist creation (UMI-tools)
+#### Introduction
 `UMI-tools` is a software to process sequencing data containing Unique Molecular Identifiers (UMIs). It helps remove PCR duplicates and accurately count unique molecules, improving the reliability of single-cell and RNA-seq analyses.
-
+#### Explanation
 In the experiment, we obtained many cells, but we only wanted to analyze those with the highest quality. Therefore, `UMI-tools` was used to extract the cells with the top 5,000 highest read counts based on the barcode. First, extract the whitelist from the original file. The specific command is:
 ```
 umi_tools whitelist \
@@ -67,13 +68,23 @@ umi_tools extract \
   ```
 Here, the barcodes are extracted again based on the fixed position and output to the extracted.fastq file. These extracted barcodes are then matched against the whitelist generated in the previous step.
 
+#### Expected Output
+This step produces two `.fastq` files and a whitelist text file that includes barcodes. A log file accompanies the text file.
+
 ### 02 Adapter trimming (TrimGalore)
-`Trim Galore` is used to remove sequencing adapter sequences, trim low-quality bases, and filter out short reads. Here, we use it to perform trimming and cleaning on the extracted FASTQ files.
+#### Introduction
+`Trim Galore` is used to remove sequencing adapter sequences, trim low-quality bases, and filter out short reads. Here, we use it to perform trimming and cleaning on the extracted FASTQ files.v
+#### Explanation
+
 The script is as follows.
   ```
 trim_galore --paired --quality 20 --length 20 "sub_R1"_extracted.fastq "sub_R2"_extracted.fastq
   ```
 This script removes bases with a quality score below Q20, discards reads shorter than 20 bp, and automatically detects and synchronizes trimming of paired-end reads.
+
+#### Expected Output
+
+This step should produce two `.fq` files with accompanying report `.txt` files. An `err` and `log` file for `Trim_Galore` should also be present.
 
 ### 03 Read demultiplexing (idemp)
 The purpose of idemp is to demultiplex reads based on cell barcodes. After extracting UMIs and generating a whitelist with UMI-tools, idemp uses that whitelist to assign each read to its corresponding cell, creating separate FASTQ files for each cell.
