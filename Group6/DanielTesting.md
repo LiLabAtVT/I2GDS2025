@@ -49,7 +49,7 @@ trimmomatic PE -Xmx16G -threads 8 -phred33
 **Adapter Parameters** \
 You can customize how stringent you want your trimming of adapters to be. The code uses the default parameters \
 - ILLUMINACLIP:fastaWithAdaptersEtc:seed mismatches:palindrome clip threshold:simple clip threshold
-	- fastaWithAdaptersEtc: specifies the path to a fasta file containing all the adapters, PCR sequences etc. The naming of 	the various sequences within this file determines how they are used.
+	- fastaWithAdaptersEtc: specifies the path to a fasta file containing all the adapters. This is TruSeq3-PE.fa.
 	- seedMismatches: specifies the maximum mismatch count which will still allow a full match to be performed
 	- palindromeClipThreshold: specifies how accurate the match between the two 'adapter ligated' reads must be for PE 			palindrome read alignment.
 	- simpleClipThreshold: specifies how accurate the match between any adapter etc. sequence must be against a read.
@@ -75,7 +75,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
-**Script**
+#### Script
 <details>
 <summary> Trimmomatic.sh</summary>
 	
