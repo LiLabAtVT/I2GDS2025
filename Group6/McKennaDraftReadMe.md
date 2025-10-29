@@ -52,4 +52,9 @@ done
 ```
 </details>
 
+<ins>Troubleshooting</ins>: If you receive an "Out of Memory" error after submitting the slurm job, try decreasing threads to 10 and adding\
+#SBATCH --cpus-per-task=16\
 <ins>Code Explanation</ins>: This for loop goes through each sample's forward and reverse read and merges them. Due to unequal read lengths, some of the forward and reverse reads will not be merged, so in addition to the "merged" output, there is also an "unmerged forward" and "unmerged reverse" output. The merged, unmerged forward, and unmerged reverse reads for a sample are concatenated to output a "clean merged" file. There is no longer a use for the sample's merged, unmerged forward, and unmerged reverse reads, so they are removed from the directory.
+
+## DIAMOND
+### Using DIAMOND to annotate your reads and identify ARGs
