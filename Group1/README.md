@@ -217,19 +217,21 @@ Visualize the barplot on QIIME2 View (//https://view.qiime2.org/)
 After visualization, feel free to export the OTU abundance file (TSV format) in the level you want for downstream analysis (e.g. Phylum = Level 2)
 
 ```{linux}
-qiime tools export --input-path filtered_table97.qza --output-path exported
+qiime tools export --input-path feature-frequency-filtered-table.qza --output-path exported
 qiime tools export --input-path updated_taxonomy.qza --output-path exported
 ```
 ```{linux}
+# move into new directory "exported" 
 cp taxonomy.tsv biom-taxonomy.tsv
 ```
 ```{linux}
-#Change the first line of biom-taxonomy.tsv (i.e. the header) to this: (use file editor in ARC dashboard)
-#OTUID taxonomy confidence
-biom add-metadata 
--i feature-table.biom 
--o table-with-taxonomy.biom 
---observation-metadata-fp biom-taxonomy.tsv 
+# Change the first line of biom-taxonomy.tsv (i.e. the header) to this:
+#    #OTUID taxonomy confidence
+# (use file editor in ARC dashboard)
+biom add-metadata \
+-i feature-table.biom \
+-o table-with-taxonomy.biom \
+--observation-metadata-fp biom-taxonomy.tsv \
 --sc-separated taxonomy
 ```
 ```{linux}
@@ -237,30 +239,32 @@ qiime taxa collapse \
  --i-table /path/to/your/directory/feature-frequency-filtered-table.qza \
  --i-taxonomy /path/to/your/directory/updated_taxonomy.qza \
  --p-level 2 \
- --o-collapsed-table level2-table.qza\
+ --o-collapsed-table level2-table.qza
 ```
 ```{linux}
 qiime tools export \
  --input-path level2-table.qza \
- --output-path exported_table\
+ --output-path exported_table
 ```
 ```{linux}
+# move into new directory "exported_table"
 biom convert \
- -i exported_table/feature-table.biom \
- -o exported_table/level2-table.tsv \
+ -i /path/to/your/directory/exported_table/feature-table.biom \
+ -o /path/to/your/directory/exported_table/level2-table.tsv \
  --to-tsv
 ```
+
 # References
-QIIME2: ​
+### QIIME2: ​
 
 https://doi.org/10.1038/s41587-019-0209-9​
 
-QIIME2 Code: 
+### QIIME2 Code: 
 
 Riddley, M. "Mia's QIIME2 Workflow" [Mia's QIIME2 Workflow.pdf](https://github.com/user-attachments/files/23196285/Mia.s.QIIME2.Workflow.pdf)
 
 
-SILVA:​
+### SILVA:​
 
 Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO (2013) The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucl. Acids Res. 41 (D1): D590-D596.​
 Yilmaz P, Parfrey LW, Yarza P, Gerken J, Pruesse E, Quast C, Schweer T, Peplies J, Ludwig W, Glöckner FO (2014) The SILVA and "All-species Living Tree Project (LTP)" taxonomic frameworks. Nucl. Acids Res. 42:D643-D648​
