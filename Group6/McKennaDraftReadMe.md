@@ -22,7 +22,7 @@ conda install bioconda::vsearch
 Press "y" when prompted to complete installation
 
 **Step 3**\
-Use code below to access bbduk output files and merge forward and reverse reads. Be sure to replace PID, working directory, etc. with your information.
+Use code below to access bbduk output files and merge forward and reverse reads. Be sure to replace the PID and directory path for your input files.
 <details>
   <summary>runningvsearch.sh</summary>
   
@@ -51,4 +51,5 @@ rm ${sample}_merged.fastq ${sample}_unmerged_forward.fastq ${sample}_unmerged_re
 done  
 ```
 </details>
-Code Explanation:
+
+<ins>Code Explanation</ins>: This for loop goes through each sample's forward and reverse read and merges them. Due to unequal read lengths, some of the forward and reverse reads will not be merged, so in addition to the "merged" output, there is also an "unmerged forward" and "unmerged reverse" output. The merged, unmerged forward, and unmerged reverse reads for a sample are concatenated to output a "clean merged" file. There is no longer a use for the sample's merged, unmerged forward, and unmerged reverse reads, so they are removed from the directory.
