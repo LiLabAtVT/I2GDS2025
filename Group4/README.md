@@ -9,6 +9,7 @@ Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgu
 
 
 # Environment Setup
+#create an ARC environment to complete jobs with
 `interact -A introtogds -p normal_q -t 1:00:00`
 
 # Software Installation
