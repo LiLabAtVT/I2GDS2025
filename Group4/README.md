@@ -9,7 +9,7 @@ Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgu
 
 
 # Environment Setup
-#create an ARC environment to complete jobs with
+Create an ARC environment to complete jobs with
 
 `interact -A introtogds -p normal_q -t 1:00:00`
 
@@ -18,9 +18,8 @@ Software was downloaded via Conda. All of the required packages needed to run th
 
 Initialize Conda on ARC:
 ```
-
+module load Miniconda3
 ```
-
 To create the Conda environment:
 ```
 conda env create -f environment.yml -n g4_viruses
@@ -63,7 +62,7 @@ THREADS=8
 
 mkdir -p "$OUTPUT_DIR" "$LOG_DIR"
 
-#--- Logging function ---
+#Logging function
 LOGFILE="$LOG_DIR/trim_galore_${SLURM_JOB_ID}.log"
 #have log set exact date and time for each iteration
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
@@ -72,13 +71,12 @@ log "Starting Trim Galore job on $(hostname)"
 log "Input directory: $INPUT_DIR"
 log "Output directory: $OUTPUT_DIR"
 
-#--- Activate conda environment ---
+#Activate conda environment
 source ~/.bashrc
 conda activate g4_viruses
 
-#--- Main loop ---
-
-#input test data files and run trim_galore on them, outputting them to a new directory
+#Main loop
+#Input test data files and run trim_galore on them, outputting them to a new directory
 FASTQ_FILES=(test_data/sample*_test_data.fastq.gz)
 [ ${#FASTQ_FILES[@]} -gt 0 ] || { log "No FASTQ files found in $INPUT_DIR"; exit 1; }
 
@@ -122,7 +120,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 source ~/.bashrc
 conda activate g4_viruses
 
-#create an input and output directory for BWA samples, set the thread count, and create a log
+#Create an input and output directory for BWA samples, set the thread count, set reference database directory, and create a log
 REF="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/bwa/human_ref.fna"
 INPUT_DIR="outputs/trimmed_outputs"
 OUTPUT_DIR="outputs/bwa_outputs"
@@ -135,7 +133,7 @@ log "Starting BWA filtering on $(hostname)"
 log "Reference: $REF"
 mkdir -p "$OUTPUT_DIR"
 
-#input previous trim_galore output files and run a loop using BWA to create SAM files that will be converted to BAM files then zip them
+#Input previous trim_galore output files and run a loop using BWA to create SAM files that will be converted to BAM files then zip them
 for FILE in "$INPUT_DIR"/*_trimmed.fq.gz; do
   [ -e "$FILE" ] || { log "No trimmed FASTQ found in $INPUT_DIR"; break; }
   SAMPLE=$(basename "$FILE" _trimmed.fq.gz)
@@ -186,7 +184,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 source ~/.bashrc
 conda activate g4_viruses
 
-#create an input and output directory for SPAdes samples, set the thread count, and create a log
+#Create an input and output directory for SPAdes samples, set the thread count, and create a log
 INPUT_DIR="outputs/bwa_outputs"
 OUTPUT_DIR="outputs/spades_outputs"
 THREADS=16
@@ -237,7 +235,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 source ~/.bashrc
 conda activate g4_viruses
 
-#create an output directory for diamond samples, set the input database, set the thread count, and create a log
+#Create an output directory for diamond samples, set the input database, set the thread count, and create a log
 DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/diamond/nr"
 SPADES_DIR="outputs/spades_outputs"
 THREADS=16
