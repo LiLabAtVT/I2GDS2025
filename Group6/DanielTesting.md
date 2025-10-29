@@ -30,21 +30,33 @@ conda install bioconda::trimmomatic
 - **Illuminia Specific Adapter File**: Adapter file (TruSeq3-PE.fa)
 
 ### X.5 Trimmomatic Script
-Below is the .sh file you will need to run Trimmomatic. \
+Below is the .sh file you will need to run Trimmomatic.
 
 #### X.5.1 Explanation of Trimmomatic.sh
-
-<details>
-<summary> Trimmomatic.sh</summary>
-
-
+Make a list of "sample names". This will be used to cycle through your samples using a for loop. \
+For example, if we have the file "SRR12900993_1.fastq.gz", then the code below will produce "SRR12900993".
 ```
-#!/bin/bash
+sample=$(ls *.fastq* | awk -F/ '{gsub(/_[12].fastq.gz/, "", $NF); print $NF}' | sort | uniq)
+```
 
-#SBATCH --account=YourAccount #Change
-#SBATCH --partition=normal_q
-#SBATCH --mem=16G
-#SBATCH -t 30:00:00
+Running trimmomatic \
+This is the paired-end version, hence the "PE". "-Xmx16G" is added to give the command addtional memory. "phred33" is the current way Illumina scores the quality of the reads:
+```
+trimmomatic PE -Xmx16G -threads 8 -phred33
+```
+
+Trimmomatic parameters \
+You can customize how stringent you want your cutting to be. The code uses the default parameters \
+- LEADING: Cut bases off the start of a read, if below a threshold quality
+- TRAILING: Cut bases off the end of a read, if below a threshold quality
+- SLIDINGWINDOW:<windowSize>:<requiredQuality>, will cut if below threshold
+	- windowSize: specifies the number of bases to average across
+	- requiredQuality: specifies the average quality required.
+- MINLEN: Drop the read if it is below a specified length
+
+Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
+
+
 #SBATCH --cpus-per-task=8
 #SBATCH --mail-type=START,END,FAIL
 #SBATCH --mail-user=username@vt.edu #Change
