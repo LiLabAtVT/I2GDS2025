@@ -116,8 +116,8 @@ done
 
 ### 3.6 Output Explanation
 Each foward and reverse file will give 2 output files:
-- paired: These reads survived trimming and their "partner" read survived trimming
-- unpaired: These reads survived trimming, but their "partner" read did not
+- Paired: These reads survived trimming and their "partner" read survived trimming
+- Unpaired: These reads survived trimming, but their "partner" read did not
 
 Typically, analysis only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
 
@@ -163,7 +163,7 @@ module load Miniconda3
 
 source activate bbduk
 
-cd /projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/trimmomatic_output
+cd /projects/intro2gds/I2GDS2025/location/of/trimmomatic/output #Change
 
 sample=$(ls *_[12]_paired.fastq.gz | awk -F/ '{gsub(/_[12]_paired.fastq.gz/, "", $NF); print $NF}' | sort | uniq)
 
