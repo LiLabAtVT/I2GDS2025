@@ -30,7 +30,7 @@ conda install bioconda::trimmomatic
 
 ### 3.5 Trimmomatic Script
 
-#### 3.5.1 Explanation of Trimmomatic.sh
+### 3.5.1 Explanation of Trimmomatic.sh
 **Make a list of sample names**.\
 This will be used to cycle through your samples using a for loop. \
 For example, if we have the file "SRR12900993_1.fastq.gz", then the code below will produce "SRR12900993".
@@ -73,7 +73,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
-#### 3.5.2 Script
+### 3.5.2 Script
 With the 10 input files, this should take ~1 hour to run
 <details>
 <summary> Trimmomatic.sh</summary>
