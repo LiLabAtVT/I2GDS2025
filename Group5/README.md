@@ -18,7 +18,7 @@ Link to paper: [https://www.nature.com/articles/s41467-021-27917-x](https://www.
 *Each section below details the file paths that need to be changed in each script and all scripts contain comments on where to update the filepaths. To avoid getting errors, make sure to change all file paths to your own input/output folders. All scripts have been edited to have a non-existent filepath in all the places where you need to input your own filepath.*
 
 ### Checking output files
-*In the "Outfile_Ex" folder on Github, there are example error and outfiles from slurm for each step that can be check against your outfiles to help with assuring that the pipeline is running properly.*
+*In the "Outfile_Ex" folder on Github, there are example errors (.err) and outfiles (.out) from slurm for each step that can be checked against your outfiles to help with assuring that the pipeline is running properly.*
 
 ## 00. Test Dataset
 The raw test dataset for peer review can be found at the path: `/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/rawdata`
