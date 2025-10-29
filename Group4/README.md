@@ -206,7 +206,7 @@ for FILE in "$INPUT_DIR"/cleaned_reads_sample*_test_data.fastq.gz; do
   SAMPLE=$(basename "$FILE" .fastq.gz | sed 's/cleaned_reads_//')
   log "Running SPAdes for $SAMPLE"
 
-  spades.py --s1 "$FILE" -t "$THREADS" -o "${SAMPLE}" --only-assembler
+  spades.py --s1 "$FILE" -t "$THREADS" -o "$OUTPUT_DIR"/"${SAMPLE}" --only-assembler
   log "Finished SPAdes for $SAMPLE"
 done
 
