@@ -54,7 +54,7 @@ This tutorial will focus on the bacterial samples (Link: http://identifiers.org/
 Here are the provided materials for this tutorial before we move to QIIME2:
 - Manifest file ('Needed Materials' Folder)
 - Test data ('Group1_testdata' ARC Directory)
-- Classifier ('Needed Materials' Folder)
+- Classifier ('Group1_testdata' ARC Directory)
 - Bash scripts ('Needed Materials' Folder)
 # QIIME2 Pipeline
 The goal is to generate high-resolution OTUs (operational taxonomic unit). OTUs are employed to classify groups of similar sequences at 97% similarity.
