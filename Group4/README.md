@@ -185,11 +185,12 @@ source ~/.bashrc
 conda activate g4_viruses
 
 #Create an input and output directory for SPAdes samples, set the thread count, and create a log
-INPUT_DIR="outputs/bwa_outputs" # variable needs to be changed to include the absolute path
+INPUT_DIR="outputs/bwa_outputs"
 OUTPUT_DIR="outputs/spades_outputs"
+LOG_DIR="logs"
 THREADS=16
 
-LOGFILE="logs/spades_${SLURM_JOB_ID}.log"
+LOGFILE="$LOG_DIR/spades_${SLURM_JOB_ID}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
 log "Starting SPAdes assemblies"
@@ -237,9 +238,11 @@ conda activate g4_viruses
 #Create an output directory for diamond samples, set the input database, set the thread count, and create a log
 DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/diamond/nr"
 SPADES_DIR="outputs/spades_outputs"
+OUTPUT_BASE="outputs/diamond_outputs"
+LOG_DIR="logs"
 THREADS=16
 
-LOGFILE="diamond_${SLURM_JOB_ID}.log"
+LOGFILE="$LOG_DIR/diamond_${SLURM_JOB_ID}.log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 
 log "Starting DIAMOND BLASTx job on $(hostname)"
@@ -248,16 +251,23 @@ log "Database: $DB"
 for CONTIG in "$SPADES_DIR"/sample*_test_data/contigs.fasta; do
   [ -e "$CONTIG" ] || { log "No contigs.fasta found in $SPADES_DIR"; break; }
 
-  SAMPLE_DIR=$(basename "$(dirname "$CONTIG")")
-  SAMPLE="${SAMPLE_DIR%%_test_data}"
-  OUT_FILE="${SAMPLE_DIR}_assembly_test_data.daa"
+    #Extract sample name (e.g. sample1_test_data)
+    SAMPLE_DIR=$(basename "$(dirname "$CONTIG_PATH")")
+    SAMPLE="${SAMPLE_DIR%%_test_data}"
+
+    log "Processing sample: $SAMPLE"
+
+    #Define per-sample output directory under diamond_outputs
+    OUT_DIR="${OUTPUT_BASE}/${SAMPLE_DIR}"
+    mkdir -p "$OUT_DIR"
+    OUTPUT="${OUT_DIR}/${SAMPLE}_assembly_diamond_test_data.daa"
 
   log "Running DIAMOND for $SAMPLE"
 
   diamond blastx \
     -d "$DB" \
     -q "$CONTIG" \
-    -o "$OUT_FILE" \
+    -o "$OUTPUT" \
     -p "$THREADS" \
     --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore staxids sscinames stitle \
     --max-target-seqs 1 \
