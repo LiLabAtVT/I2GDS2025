@@ -9,7 +9,6 @@ For more info, visit the [Trimmomatic Website](http://www.usadellab.org/cms/?pag
 
 ### X.2 Creating Environment
 First, create a new environment on ARC. Naming it "trimmomatic" matches the script below:
-"
 ```
 conda create -n trimmomatic
 ```
@@ -77,7 +76,7 @@ Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimm
 #### Script
 <details>
 <summary> Trimmomatic.sh</summary>
-	
+```
 #!/bin/bash
 #SBATCH --account=YourAccount #Change
 #SBATCH --partition=normal_q
