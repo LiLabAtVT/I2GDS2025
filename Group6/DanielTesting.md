@@ -30,10 +30,9 @@ conda install bioconda::trimmomatic
 - **Illuminia Specific Adapter File**: Adapter file (TruSeq3-PE.fa)
 
 ### X.5 Trimmomatic Script
-Below is the .sh file you will need to run Trimmomatic.
 
 #### X.5.1 Explanation of Trimmomatic.sh
-**Make a list of "sample names"**
+**Make a list of "sample names"** \
 This will be used to cycle through your samples using a for loop. \
 For example, if we have the file "SRR12900993_1.fastq.gz", then the code below will produce "SRR12900993".
 ```
