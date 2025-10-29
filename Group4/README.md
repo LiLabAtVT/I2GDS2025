@@ -11,6 +11,17 @@ Nousias, Orestis, Mark McCauley, Maximilian R. Stammnitz, et al. 2025. “Shotgu
 `interact -A introtogds -p normal_q -t 1:00:00`
 
 # Software Installation
+Software was downloaded via Conda. All of the required packages needed to run the pipeline are listed within the environment.yml file in the materials directory. 
+
+Initialize Conda on ARC:
+```
+
+```
+
+To create the Conda environment:
+```
+conda create -f environment.yml
+```
 
 # Data Download
 
@@ -32,16 +43,16 @@ Trim Galore is used to clean high-throughput sequencing reads by automatically t
 #SBATCH -p normal_q
 #SBATCH -A introtogds
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --mail-user=###vt-pid@vt.edu # Change to whichever email you would like to receive job updates
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=200GB
 #SBATCH --output=trim_galore_%j.out
 #SBATCH --error=trim_galore_%j.err
 
-#Path to main folder
+#Path to main folder (where the github folders are located)
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
-#Resolve script directory and repo root
+#Set variables for loop
 
 INPUT_DIR="test_data"
 OUTPUT_DIR="outputs/trimmed_outputs"
@@ -94,12 +105,13 @@ Burrow-Wheeler Aligner for short-read alignment. This maps DNA sequences against
 #SBATCH -p normal_q
 #SBATCH -A introtogds
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --mail-user=###vt-pid@vt.edu # Change to whichever email you would like to receive job updates
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=200GB
 #SBATCH --output=bwa_%j.out
 #SBATCH --error=bwa_%j.err
 
+#Path to main folder (where the github folders are located)
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set Conda Environment
@@ -143,7 +155,8 @@ log "All BWA filtering complete."
 
 </details>
 
-## Spades- This is used for analyzing sequencing data from Illumina and IonTorrent technologies. This is for smaller genomes (bacteria) and not intended for larger genomes (larger eukaryotes). This supports paired-end reads, mate-pairs and unpaired reads. 
+## SPAdes 
+SPAdes is used for analyzing sequencing data from Illumina and IonTorrent technologies. This is for smaller genomes (bacteria) and not intended for larger genomes (larger eukaryotes). This supports paired-end reads, mate-pairs and unpaired reads. 
 <details>
   <summary>Click to expand code</summary>
 
@@ -154,13 +167,13 @@ log "All BWA filtering complete."
 #SBATCH -p normal_q
 #SBATCH -A introtogds
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --mail-user=###vt-pid@vt.edu # Change to whichever email you would like to receive job updates
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=200GB
 #SBATCH --output=spades_%j.out
 #SBATCH --error=spades_%j.err
 
-#Set downloaded directory (where the github folders are located)
+#Path to main folder (where the github folders are located)
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set Conda Environment
@@ -192,7 +205,8 @@ log "SPAdes assemblies complete."
 
 </details>
 
-## Diamond- Sequence aligner for protein and translated DNA searches. This uses pairwise alignment of proteins and translated DNA at 100x-10,000x speed of BLAST. 
+## DIAMOND 
+DIAMOND is a sequence aligner for protein and translated DNA searches. This uses pairwise alignment of proteins and translated DNA at 100x-10,000x speed of BLAST. 
 <details>
   <summary>Click to expand code</summary>
   
@@ -203,13 +217,13 @@ log "SPAdes assemblies complete."
 #SBATCH -p normal_q
 #SBATCH -A introtogds
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --mail-user=###vt-pid@vt.edu # Change to whichever email you would like to receive job updates
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=200GB
 #SBATCH --output=diamond_%j.out
 #SBATCH --error=diamond_%j.err
 
-#Set downloaded directory (where the github folders are located)
+#Path to main folder (where the github folders are located)
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set conda environment
@@ -252,10 +266,12 @@ log "DIAMOND BLASTx complete."
 
 </details>
 
-## Kraken2- This is a very fast way to assign taxonomic labels using k-mers to metagenomic DNA sequences. 
+## Kraken2- 
+Kraken2 is a very fast way to assign taxonomic labels using k-mers to metagenomic DNA sequences. Kraken2 splits sequences into smaller fragments of DNA as "k-mers". The k-mers are then compared in a hashing table to determine similarity to reference genomes in the database.
 
 <details>
   <summary>Click to expand code</summary>
+
 ```
 #!/bin/bash
 
@@ -264,13 +280,13 @@ log "DIAMOND BLASTx complete."
 #SBATCH -A introtogds
 #SBATCH --output=kraken2_%j.out
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=###mitchellgercken@vt.edu
+#SBATCH --mail-user=###vt-pid@vt.edu # Change to whichever email you would like to receive job updates
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=200GB
 #SBATCH --output=kraken2_%j.out
 #SBATCH --error=kraken2_%j.err
 
-#Set downloaded directory (where the github folders are located)
+#Path to main folder (where the github folders are located)
 cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set conda environment
