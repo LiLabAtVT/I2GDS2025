@@ -21,7 +21,7 @@ source activate bisulfite
 **Tool installation:**: install the software packages needed for the first two steps of the pipeline: UMI-tools (for UMI extraction) and Trim Galore (for adapter and quality trimming). Channel priority settings are adjusted to avoid dependency conflicts during installation.
 ```
 # Install UMI-tools
-conda install -c bioconda umi_tools -y
+python -m pip install --no- cache-dir "umi_tools==1.1.3"
 
 # Temporarily set flexible channel priority
 conda config --set channel_priority flexible
@@ -123,6 +123,17 @@ The purpose of idemp is to demultiplex reads based on cell barcodes. After extra
  
  •	Output directory path
 
+**Script:**
+```
+echo "Running idemp..."
+
+idemp \
+    --input $RAW_DIR/ \
+    --output $DEMUX_DIR/ \
+    --barcode-file barcodes.txt \
+    --stats \
+    --threads $THREADS
+```
 
 **What the script does:**
  1.	Loads the idemp module on ARC or activates the environment containing idemp.
@@ -153,6 +164,17 @@ The purpose of Bismark is to align bisulfite-treated reads to the reference geno
 
  •	Output directory path
 
+**Script:**
+```
+echo "Running Bismark alignment..."
+
+bismark \
+    --genome $REF_DIR \
+    -1 $DEMUX_DIR/sample_R1.fastq.gz \
+    -2 $DEMUX_DIR/sample_R2.fastq.gz \
+    --output_dir $ALIGN_DIR \
+    --parallel $THREADS
+```
 
 **What the script does:**
  1.	Loads the Bismark and Bowtie2 modules.
