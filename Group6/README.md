@@ -1,5 +1,8 @@
 # Classifying Antimicrobial Resistance Genes from Short-Read Metagenomic Data
-
+Data and required reference files are located here:
+```
+/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers
+```
 
 ## Downloading Data
 
