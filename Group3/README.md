@@ -7,8 +7,6 @@ Zhang, Q., Ma, S., Liu, Z. et al. (2023). Droplet-based bisulfite sequencing for
 Reference paper: [download here](https://www.nature.com/articles/s41467-023-40411-w)  
 These data can be downloaded [from NCBI.](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE204691)
 
-```
-
 ## Pipeline description
 To replicate the analysis, we use Virginia Tech’s ARC Computing Cluster.
 The pipeline includes the following steps:
@@ -45,7 +43,7 @@ conda install -c bioconda trim-galore -y
 
 # Reset channel priority to strict
 conda config --set channel_priority strict
-
+```
 
 ### 01 Data Download and subset extraction (SRAtools)
 
