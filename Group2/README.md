@@ -27,8 +27,11 @@ https://doi.org/10.1016/j.cub.2024.11.029
 
 ## Environment setup
 
-## Data download
+## Data download - SRAtools
+1.1 Metagenome dataset (PRJNA1114123) and reference sequence genome (GCA_000007245.1) was directly downloaded from NCBI
+1.2 The accession list of 44 modern strains was download from NCBI and then using SRAtools for downloading. 
 
+1.3 As downloaded files were in ".sra" format, command "fasterq-dump" was used for transfering SRA to FASTQ
 
 
 
