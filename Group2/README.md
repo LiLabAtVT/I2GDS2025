@@ -1,4 +1,7 @@
 # Pipline for Sequencing Processing of Plant Bacterial Pathogen (Xylella fastidiosa)
+Note: The scripts in this pipeline were developed by different teammates.
+Paths, input filenames, output directories, and working directories must be modified to match your own environment before running. Always double-check SLURM resource requests and file locations.
+
 ## Introduction
 This project replicates a bioinformatics pipeline for analyzing a collection of Xylella fastidiosa (Xf) genomes obtained from both pure cultures and century-old herbarium specimens.
 
