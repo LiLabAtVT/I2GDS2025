@@ -75,7 +75,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 Descriptions from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
 ### 3.5.2 Script
-With the 10 input files, this should take ~1 hour to run
+With the 10 input files, this should take ~1 hour to run. Called Trimmomatic_G6.sh in the "code-files" folder.
 <details>
 <summary> Trimmomatic.sh</summary>
 
@@ -171,6 +171,7 @@ ref='/chnage/to/where/merged_ref_5081444234059102403.fa.gz/is/located'
 
 Pretty simple! Everything else should be self explanatory
 ### 4.5.2 bbduk script
+With 10 samples, should take ~13 hours. Called "bbduk_G6.sh" in the "code-files" folder.
 <details>
 <summary> bbduk.sh</summary>
 
