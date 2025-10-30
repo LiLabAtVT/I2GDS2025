@@ -26,6 +26,8 @@ Retrieve raw sequencing data (SRA format) for both historical herbarium metageno
 
 ### 1.1 Metagenome dataset (PRJNA1114123) and reference sequence genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI
 
+https://www.ncbi.nlm.nih.gov/datasets/
+
 ### 1.2 Modern isolates: Accession list of 44 Xf strains was retrieved from NCBI and downloaded using SRAtools. 
 Note: Make sure sra_list.txt contains one SRA accession per line (e.g., SRR12345678).
 
