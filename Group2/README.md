@@ -16,7 +16,7 @@ https://doi.org/10.1016/j.cub.2024.11.029
 | **5. Annotation**      | Annotate genes in assembled genomes.                                                                               | **Prokka**   |
 
 
-## Environment setup
+
 
 ## 1. Data download - SRAtools
 1.1 Metagenome dataset (PRJNA1114123) and reference sequence genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI
