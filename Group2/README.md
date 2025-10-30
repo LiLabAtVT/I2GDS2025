@@ -281,9 +281,155 @@ echo "======================================"
 </details>
 
 ## 4. Quality control - CheckM
-```
+CheckM is used to evaluate the completeness and contamination of assembled genomes from both historical metagenomes and modern isolates.
+This step ensures that only high-quality genomes are used for downstream analyses such as gene annotation, comparative genomics, and phylogenetic reconstruction.
+CheckM provides standardized metrics, enabling reproducible quality control across all samples.
+
+4.1 Quality control of assembled historical metagenomes
+
+<details>
+  <summary>Click to expand script</summary>
 
 ```
+#!/bin/bash
+#SBATCH --job-name=checkm_batch
+#SBATCH --account=introtogds
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=100GB
+#SBATCH --time=48:00:00
+#SBATCH --mail-user=jingjingy@vt.edu
+#SBATCH --mail-type=ALL
+
+set -o pipefail
+
+echo "==== CheckM batch job started at $(date) ===="
+
+# ------------------------------
+# 1️⃣ activate CheckM environment
+# ------------------------------
+# activate Miniconda
+module load Miniconda3/24.7.1-0
+source $CONDA_PREFIX/etc/profile.d/conda.sh
+conda activate checkm_env
+
+# ------------------------------
+# 2. set work directory and path
+# ------------------------------
+
+cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing
+
+# 3. run CheckM
+checkm lineage_wf \
+    -x fasta \
+    --reduced_tree \
+    ./spades_output \
+    ./results/Historical_checkm_results \
+    --threads 16
+
+# generate summary
+checkm qa \
+    ./results/Historical_checkm_results/lineage.ms \
+    ./results/Historical_checkm_results \
+    -o 2 \
+    -f ./results/Historical_checkm_results/checkm_summary.csv
+
+
+echo "✅ All done!"
+echo "Summary saved to: $SUMMARY_FILE"
+echo "Job finished at $(date)"
+```
+</details>
+
+4.2 quality control of assembled modern strains
+
+<details>
+  <summary>Click to expand script</summary>
+
+```
+#!/bin/bash
+#SBATCH --job-name=checkm_batch
+#SBATCH --account=introtogds
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=100GB
+#SBATCH --time=48:00:00
+#SBATCH --mail-user=jingjingy@vt.edu
+#SBATCH --mail-type=ALL
+
+set -o pipefail
+
+echo "==== CheckM batch job started at $(date) ===="
+
+
+# ------------------------------
+# 1️⃣ activate CheckM environment
+# ------------------------------
+# activate Miniconda
+module load Miniconda3/24.7.1-0
+source $CONDA_PREFIX/etc/profile.d/conda.sh
+conda activate checkm_env
+
+
+# ------------------------------
+# 2. set work directory and path
+# ------------------------------
+
+cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/results
+
+SPADES_DIR=./Assembled_modern   # modern strain assemble
+CHECKM_OUT=./modern_checkm_results   # CheckM output
+SUMMARY_FILE=$CHECKM_OUT/checkm_summary.csv
+mkdir -p "$CHECKM_OUT"
+
+
+# ------------------------------
+# 3️⃣ loop for every strain 
+# ------------------------------
+for strain in "$SPADES_DIR"/*; do
+    if [ -d "$strain" ]; then
+        sample=$(basename "$strain")
+        fasta="$strain/scaffolds.fasta"
+
+        # check if fasta exists 
+        if [ ! -f "$fasta" ]; then
+            echo "No scaffolds.fasta found for $sample, skipping..."
+            continue
+        fi
+
+        OUTDIR="$CHECKM_OUT/$sample"
+        mkdir -p "$OUTDIR"
+
+        echo "Running CheckM for sample: $sample ..."
+        checkm lineage_wf \
+            -x fasta \
+	    --reduced_tree \
+            "$strain" \
+            "$OUTDIR" \
+            --threads 16
+
+
+    fi
+done
+
+
+# ------------------------------
+# 4. Summarize results
+# ------------------------------
+echo "Generating summary file ..."
+checkm qa -o 2 -f "$SUMMARY_FILE" "$CHECKM_OUT"/*/storage
+
+echo "✅ All done!"
+echo "Summary saved to: $SUMMARY_FILE"
+echo "Job finished at $(date)"
+
+
+echo "==== All CheckM analyses completed at $(date) ===="
+
+```
+</details>
 
 ## 5. Genome annotation - Prokka
 Assembled and quality-controlled contigs were annotated using Prokka v1.14.6 (Seemann, 2014), a rapid annotation pipeline designed for prokaryotic genomes. Each assembly (scaffolds.fasta) from the quality-controlled assembly folder all_bins/ was annotated independently in parallel using 8 CPU threads. The output for each genome was written to data/annotations/, generating standard annotation files including GFF3, GenBank, and FAA (protein) files. 
