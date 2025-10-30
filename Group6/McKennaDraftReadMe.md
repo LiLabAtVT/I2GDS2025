@@ -130,3 +130,5 @@ done
 </details>
 
 Your output will be a csv file with completed annotations of each sample, including the ARGs present. For the full explanation of each column in the csv file, reference this link [https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options](url) and scroll to "Output options".
+
+<ins>Code Explanation</ins>: This for loop goes through each merged read and annotates it against your reference database, outputing a csv file for each sample. These files will be in your working directory.
