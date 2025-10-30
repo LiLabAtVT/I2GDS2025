@@ -46,7 +46,7 @@ trimmomatic PE -Xmx16G -threads 8 -phred33
 ```
 
 **Adapter Parameters** \
-You can customize how stringent you want your trimming of adapters to be. The code uses the default parameters \
+You can customize how stringent you want your trimming of adapters to be. The code uses the default parameters 
 - ILLUMINACLIP:fastaWithAdaptersEtc:seed mismatches:palindrome clip threshold:simple clip threshold
 	- fastaWithAdaptersEtc: specifies the path to a fasta file containing all the adapters. This is TruSeq3-PE.fa.
 	- seedMismatches: specifies the maximum mismatch count which will still allow a full match to be performed
