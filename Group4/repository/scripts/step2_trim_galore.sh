@@ -16,7 +16,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 #Set variables for loop
 
 #create an input and output directory for trim_galore samples, set the thread count, and create a log
-INPUT_DIR="test_data"
+INPUT_DIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G4_testdata"
 OUTPUT_DIR="outputs/trimmed_outputs"
 LOG_DIR="logs"
 THREADS=8
@@ -38,7 +38,7 @@ conda activate g4_viruses
 
 #Main loop
 #Input test data files and run trim_galore on them, outputting them to a new directory
-FASTQ_FILES=(test_data/sample*_test_data.fastq.gz)
+FASTQ_FILES=("$INPUT_DIR"/sample*_test_data.fastq.gz)
 [ ${#FASTQ_FILES[@]} -gt 0 ] || { log "No FASTQ files found in $INPUT_DIR"; exit 1; }
 
 for FILE in "${FASTQ_FILES[@]}"; do
