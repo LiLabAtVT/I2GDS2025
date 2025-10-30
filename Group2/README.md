@@ -535,6 +535,7 @@ Prokka was selected for its speed, consistency, and compatibility with downstrea
 #SBATCH --mem=32G
 #SBATCH --partition=normal_q
 #SBATCH --account=introtogds
+#SBATCH --mail-type=END,FAIL
 
 set -euo pipefail
 
@@ -542,22 +543,18 @@ set -euo pipefail
 module load Miniconda3/24.7.1-0
 source activate ~/.conda/envs/prokka_env
 
-# --- Set paths ---
-ASSEMBLY_DIR="all_bins"       # change to correct location relative to script
+# --- Directories ---
+ASSEMBLY_DIR="data/assemblies"
 OUT_BASE="data/annotations"
 
-mkdir -p logs
-mkdir -p "${OUT_BASE}"
+mkdir -p "${OUT_BASE}" logs
 
-# --- Change directory to where the job was submitted ---
 cd "${SLURM_SUBMIT_DIR:-$PWD}"
-
-# Enable nullglob so loop doesn’t fail if no matches
 shopt -s nullglob
 
-# --- Loop over all FASTA assemblies ---
-for ASSEMBLY in ${ASSEMBLY_DIR}/SRR*.fasta; do
-    SAMPLE=$(basename "${ASSEMBLY}" .fasta)
+# --- Loop over assemblies ---
+for ASSEMBLY in ${ASSEMBLY_DIR}/*/contigs.fasta; do
+    SAMPLE=$(basename "$(dirname "${ASSEMBLY}")" _spades)
     OUT_DIR="${OUT_BASE}/${SAMPLE}_prokka"
 
     echo "==========================================="
@@ -569,7 +566,7 @@ for ASSEMBLY in ${ASSEMBLY_DIR}/SRR*.fasta; do
     prokka \
         --outdir "${OUT_DIR}" \
         --prefix "${SAMPLE}" \
-        --cpus ${SLURM_CPUS_PER_TASK:-8} \
+        --cpus "${SLURM_CPUS_PER_TASK:-8}" \
         --force \
         --locustag "${SAMPLE}" \
         "${ASSEMBLY}"
@@ -578,7 +575,8 @@ for ASSEMBLY in ${ASSEMBLY_DIR}/SRR*.fasta; do
     echo
 done
 
-echo  "All Prokka annotations completed successfully!"
+echo "All Prokka annotations completed successfully!"
+
 ```
 </details>
 
