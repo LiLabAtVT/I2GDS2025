@@ -164,7 +164,7 @@ If a read is shorter than 51 after decontamination, then we will throw it out
 ```
 minlength=51
 ```
-
+Pretty simple! Everything else should be self explanatory
 ### 4.5.2 bbduk script
 <details>
 <summary> bbduk.sh</summary>
