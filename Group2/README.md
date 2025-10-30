@@ -1,10 +1,18 @@
 ## Introduction
-This project aims to replicate the pipline for analyzing a set of bacterial genomes (Xylella fastidiosa (Xf)) from pure cultures and herbarium specimen
+This project replicates a bioinformatics pipeline for analyzing a collection of Xylella fastidiosa (Xf) genomes obtained from both pure cultures and century-old herbarium specimens.
 
 Reference: Century-old herbarium specimen provides insights into Pierce’s disease of grapevines emergence in the Americas
 https://doi.org/10.1016/j.cub.2024.11.029
 
 ## Overview of workflow
+
+| Step                   | Description                                                                                                        | Tool         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------ |
+| **1. Data download**   | Retrieve metagenomic reads from herbarium specimens, raw reads of 44 modern *Xf* strains, and reference genome(s). | **SRAtools** |
+| **2. Mapping**         | Map herbarium metagenomic reads to the *Xf* reference genome.                                                      | **Bowtie2**  |
+| **3. Assembly**        | Assemble mapped reads (herbarium) and raw reads (modern strains).                                                  | **SPAdes**   |
+| **4. Quality control** | Assess completeness and contamination of assembled genomes.                                                        | **CheckM**   |
+| **5. Annotation**      | Annotate genes in assembled genomes.                                                                               | **Prokka**   |
 
 1. **Data download** - **SRAtools**
    - Metagenomic reads from herbarium specimen(s)
