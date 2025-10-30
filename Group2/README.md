@@ -62,6 +62,7 @@ done < "$LIST"
 
 echo "All downloads finished at $(date)"
 ```
+</details>
 
 1.3 As downloaded files were in ".sra" format, command "fasterq-dump" was used for transfering SRA to FASTQ 
 ```
