@@ -254,13 +254,13 @@ echo "Job started at $(date)"
 # ------------------------------
 # Set working directory
 # ------------------------------
-cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/mapping_results
+cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/results/mapping_results
 
 # ------------------------------
 # enter parameters
 # ------------------------------
 BAM="SRR29108932.sorted.bam"            # input BAM file
-OUTDIR="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/spades_output"         # SPAdes  output
+OUTDIR="/projects/intro2gds/I2GDS2025/G2_PlantDisease/results/historical_spades_output"         # SPAdes  output
 THREADS=8
 MEMORY=200
 
