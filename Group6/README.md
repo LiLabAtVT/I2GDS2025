@@ -4,6 +4,8 @@ Raw data is located here:
 /projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/Raw Sequences
 ```
 Bash scripts written throughout are also located in our "code-files" GitHub folder for download
+
+### Reviewers: Only do Steps 4-6! Input data is the cleaned Trimmomatic data, located: /projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/trimmomatic_output_key**
 # 1. Data download 
 
 ## 1.1. Download NCBI SRA (Sequence Read Archive) Toolkit, version 3.2.1
