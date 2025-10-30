@@ -9,6 +9,7 @@ Bash scripts written throughout are also located in our "code-files" GitHub fold
 ```
 /projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/trimmomatic_output_key
 ```
+If you have issues accessing the data, email dceglio@vt.edu
 # 1. Data download 
 
 ## 1.1. Download NCBI SRA (Sequence Read Archive) Toolkit, version 3.2.1
