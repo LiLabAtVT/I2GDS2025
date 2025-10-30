@@ -22,6 +22,9 @@ https://doi.org/10.1016/j.cub.2024.11.029
 
 1.2 Modern isolates: Accession list of 44 Xf strains was retrieved from NCBI and downloaded using SRAtools. 
 Note: Make sure sra_list.txt contains one SRA accession per line (e.g., SRR12345678).
+
+<details>
+  <summary>Click to expand code</summary>
 ```
 #!/bin/bash
 # -------------------------------------------
