@@ -353,7 +353,7 @@ minlength=51
 ```
 The reference database (merged_ref_5081444234059102403.fa.gz) needs to be explicitly referenced
 ```
-ref='/chnage/to/where/merged_ref_5081444234059102403.fa.gz/is/located'
+ref='/change/to/where/merged_ref_5081444234059102403.fa.gz/is/located'
 ```
 
 Pretty simple! Everything else should be self explanatory
