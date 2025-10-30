@@ -73,6 +73,19 @@ The s77 represents random seed, which is used to randomly extract the reads. 0.0
 #### Explanation
 In the experiment, we obtained many cells, but we only wanted to analyze those with the highest quality. Therefore, `UMI-tools` was used to extract the cells with the top 5,000 highest read counts based on the barcode. First, extract the whitelist from the original file. The specific command is:
 ```
+#!/bin/bash
+#SBATCH --job-name=extract_trim
+#SBATCH --account=introtogds
+#SBATCH --partition=normal_q
+#SBATCH --time=08:00:00
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32G
+#SBATCH --output=extract_trim_%j.out
+#SBATCH --error=extract_trim_%j.err
+
+sub_R1="sub_R1.fastq"
+sub_R2="sub_R2.fastq"
+
 umi_tools whitelist \
   --stdin "$sub_R2" \
   --extract-method=regex \
