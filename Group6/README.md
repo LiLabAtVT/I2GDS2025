@@ -204,7 +204,7 @@ conda install bioconda::trimmomatic
 
 ### 3.4 Inputs Required
 - **Input data**: Paired end FASTQ/FASTQ.gz files
-- **Illuminia Specific Adapter File**: Adapter file (TruSeq3-PE.fa)
+- **Illuminia Specific Adapter File**: Adapter file (TruSeq3-PE.fa, located here:/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers)
 
 ### 3.5 Trimmomatic Script
 
@@ -328,7 +328,7 @@ conda install bioconda::bbmap
 
 ### 4.4 Inputs Required
 - **Input Data**: This will be the paired sequences from Trimmomatic
-- **Reference Database**: A FATSA file containing sequences known to be human, cat, dog, or mouse. This is "merged_ref_5081444234059102403.fa.gz"
+- **Reference Database**: A FATSA file containing sequences known to be human, cat, dog, or mouse. This is "merged_ref_5081444234059102403.fa.gz" (located:/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers)
 
 
 ### 4.5 bbduk Script
