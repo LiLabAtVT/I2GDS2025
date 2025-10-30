@@ -180,7 +180,7 @@ multiqc fastqc_results/    # change folder to desired name
 Download multiqc_report.html file and open it in web browser  
 
 
-## 3. Trimmomatic (Cleaning Data)
+# 3. Trimmomatic (Cleaning Data)
 ### 3.1 Introduction
 Trimmomatic is a tool used to clean data of low quality reads, and is designed specifically for Illuminia paired-end or single-end sequencing data.\
 For more info, visit the [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
@@ -299,7 +299,7 @@ Each foward and reverse file will give 2 output files:
 
 Typically, analysis only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
 
-## 4. bbduk (Decontaminating Data)
+# 4. bbduk (Decontaminating Data)
 ### 4.1 Introduction
 bbduk is a multifaceted tool which has the capabilities to do trimming, read quality filtering, and more; but we will only use it for decontamination. 
 Decontamination will remove sequecnes that are known to be human, dog, cat, or mouse. 
