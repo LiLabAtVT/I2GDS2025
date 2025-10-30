@@ -14,11 +14,11 @@ Before running the scripts, follow these steps to create and activate the enviro
 ```
 conda create -n bisulfite -c conda-forge -c bioconda python=3.10
 ```
-**Environment activation:** Activate the newly created environment so that all installed packages and tools will be available for use.
+**Environment activation:** activate the newly created environment so that all installed packages and tools will be available for use.
 ```
 source activate bisulfite
 ```
-**Tool installation:**: Install the software packages needed for the first two steps of the pipeline: UMI-tools (for UMI extraction) and Trim Galore (for adapter and quality trimming). Channel priority settings are adjusted to avoid dependency conflicts during installation.
+**Tool installation:**: install the software packages needed for the first two steps of the pipeline: UMI-tools (for UMI extraction) and Trim Galore (for adapter and quality trimming). Channel priority settings are adjusted to avoid dependency conflicts during installation.
 ```
 # Install UMI-tools
 conda install -c bioconda umi_tools -y
