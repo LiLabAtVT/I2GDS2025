@@ -82,15 +82,15 @@ umi_tools whitelist \
   --set-cell-number=100 \
   --log2stderr > whitelist_top100.txt
 ```
-Here, up to 500,000,000 reads are analyzed with the threshold set to 1. The fixed sequence TAAGTAGAAGATGGTATATGAGAT is used to locate the barcode region, and the 15 bases immediately following this sequence are extracted as the barcode. Based on the read counts, the top 5,000 most frequent barcodes are selected, and a whitelist file is generated accordingly. Then, the fastq file will be extracted based on the whitelist. The script is as follows:
+Here, up to 10000000 reads are analyzed with the threshold set to 1. The fixed sequence TAAGTAGAAGATGGTATATGAGAT is used to locate the barcode region, and the 15 bases immediately following this sequence are extracted as the barcode. Based on the read counts, the top 5,000 most frequent barcodes are selected, and a whitelist file is generated accordingly. Then, the fastq file will be extracted based on the whitelist. The script is as follows:
 ```
 umi_tools extract \
   --extract-method=regex \
   --bc-pattern='(?P<discard_1>TAAGTAGAAGATGGTATATGAGAT){s<=4}(?P<cell_1>.{15})(?P<umi_1>.{0})' \
-  --error-correct-cell --error-correct-cell-threshold=1 \
-  --stdin "$sub_R2"  --stdout "${sub_R2}_extracted.fastq" \
-  --read2-in "$sub_R1" --read2-out "${sub_R1}_extracted.fastq" \
-  --filter-cell-barcode --whitelist=whitelist_top100.txt \
+  --error-correct-cell \
+  --stdin "$sub_R2" --stdout "${sub_R2%.fastq}_extracted.fastq" \
+  --read2-in "$sub_R1" --read2-out "${sub_R1%.fastq}_extracted.fastq" \
+  --filter-cell-barcode --whitelist=whitelist_top100.txt
   ```
 Here, the barcodes are extracted again based on the fixed position and output to the extracted.fastq file. These extracted barcodes are then matched against the whitelist generated in the previous step.
 
