@@ -108,6 +108,7 @@ gzip -f "$FASTQ_DIR"/*.fastq
 
 echo "Done! Compressed FASTQ files are in $FASTQ_DIR"
 ```
+</details>
 
 ## 2. Mapping - Bowtie2 and SAMtools
 Mapping metagenomic reads from herbarium specimens to the Xylella fastidiosa reference genome allows selective recovery of pathogen-derived sequences from mixed plant and microbial DNA.
