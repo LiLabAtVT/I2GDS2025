@@ -299,7 +299,100 @@ Each foward and reverse file will give 2 output files:
 
 Typically, analysis only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
 
-## bbduk
+## 4. bbduk (Decontaminating Data)
+### 4.1 Introduction
+bbduk is a multifaceted tool which has the capabilities to do trimming, read quality filtering, and more; but we will only use it for decontamination. 
+Decontamination will remove sequecnes that are known to be human, dog, cat, or mouse. 
+
+### 4.2 Creating Environment
+First, create a new environment on ARC. Naming it "bbduk" matches the script below:
+```
+conda create -n bbduk
+```
+
+After creating the environment, activate it:
+```
+source activate bbduk
+```
+
+### 4.3 Downloading bbduk
+Next, download bbduk, which is part of the bbmap package:
+```
+conda install bioconda::bbmap
+```
+
+### 4.4 Inputs Required
+- **Input Data**: This will be the paired sequences from Trimmomatic
+- **Reference Database**: A FATSA file containing sequences known to be human, cat, dog, or mouse. This is "merged_ref_5081444234059102403.fa.gz"
+
+
+### 4.5 bbduk Script
+
+### 4.5.1 Explaination of bbduk.sh
+
+**bbduk command**\
+preallocate=t means we will preallocate memory (t = true), and we will preallocate 180G
+```
+bbduk.sh preallocate=t -Xmx180G
+```
+
+If a read is shorter than 51 after decontamination, then we will throw it out
+```
+minlength=51
+```
+The reference database (merged_ref_5081444234059102403.fa.gz) needs to be explicitly referenced
+```
+ref='/chnage/to/where/merged_ref_5081444234059102403.fa.gz/is/located'
+```
+
+Pretty simple! Everything else should be self explanatory
+### 4.5.2 bbduk script
+With 10 samples, should take ~13 hours. Called "bbduk_G6.sh" in the "code-files" folder.
+<details>
+<summary> bbduk.sh</summary>
+
+```
+#!/bin/bash
+
+#SBATCH --account=YourAccount #Change
+#SBATCH --partition=normal_q
+#SBATCH --mem=200G
+#SBATCH -t 7-00:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=username@vt.edu #Change
+
+module load Miniconda3
+
+source activate bbduk
+
+cd /projects/intro2gds/I2GDS2025/location/of/trimmomatic/output #Change
+
+sample=$(ls *_[12]_paired.fastq.gz | awk -F/ '{gsub(/_[12]_paired.fastq.gz/, "", $NF); print $NF}' | sort | uniq)
+
+for one_sample in $sample; do
+    echo ${one_sample}
+
+    bbduk.sh preallocate=t -Xmx180G \
+        minlength=51 \
+        in="${one_sample}"_1_paired.fastq.gz \
+        in2="${one_sample}"_2_paired.fastq.gz \
+        out=/change/to/output/directory/"${one_sample}"_1_decontam.fastq.gz \ #Change
+        out2=/change/to/output/directory/"${one_sample}"_2_decontam.fastq.gz \ #Change
+        stats=/change/to/output/directory/"${one_sample}"_decontamination_stats.txt \ #Change
+        ref='/chnage/to/where/merged_ref_5081444234059102403.fa.gz/is/located' #Change
+
+
+done
+
+```
+
+
+
+  
+</details>
+
+### 4.6 Output Explaination
+For each input file, there will be one output FASTQ file, and for each pair of FASTQ files there will be one txt file. This file shows how many of each sequence in the reference FASTA file are removed (should be ~0.5-1%)
 
 
 ## vesearch
