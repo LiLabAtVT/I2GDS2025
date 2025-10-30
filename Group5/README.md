@@ -123,7 +123,7 @@ Once the conda environment was set up, SuperDeduper analysis was run using a bas
 6. Checks whether both deduplicated files (```_R1.fastq.gz``` and ```_R2.fastq.gz```) were successfully created.
 7. Prints progress messages such as ```[INFO]```, ```[OK]```, or ```[WARN]``` to help track pipeline execution.
 
-Once all batch script parameters and filepaths are updated in the script, navigate to the directory that your script is located in and use the following line of code to submit the job on ARC.
+Once all batch script parameters and filepaths are updated in the script, **navigate to the directory that your script is located** in and use the following line of code to submit the job on ARC.
 ```
 sbatch 02_run_superdeduper_new.slurm
 ```
