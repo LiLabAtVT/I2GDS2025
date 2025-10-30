@@ -33,58 +33,14 @@ https://doi.org/10.1016/j.cub.2024.11.029
 
 1.2 The accession list of 44 modern strains was download from NCBI and then using SRAtools for downloading. 
 
-[Upload#!/bin/bash
-# -------------------------------------------
-# Download_SRR.sh
-#SBATCH --account=introtogds
-#SBATCH --job-name=download_SRR
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --time=48:00:00
-#SBATCH --mail-user=jingjingy@vt.edu
-#SBATCH --mail-type=ALL
-#SBATCH --mem=200GB
-#SBATCH --cpus-per-task=4
-# -------------------------------------------
-
-
-set -euo pipefail
-
-echo "Job started at $(date)"
-
-# set path to local sratoolkit
-export PATH=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH
-
-
-# 2. set working directory 
-
-OUTDIR=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData
-LIST=${OUTDIR}/sra_list.txt
-
-cd "$OUTDIR"
-
-# 3. Batch download
-
-while read ACC; do
-    echo "=== Processing $ACC ==="
-    prefetch --output-directory "$OUTDIR" "$ACC"
-    fasterq-dump --threads $SLURM_CPUS_PER_TASK --outdir "$OUTDIR" "$ACC"
-    gzip "${OUTDIR}/${ACC}"*.fastq
-    echo "=== $ACC done ==="
-done < "$LIST"
-
-
-echo "✅ All downloads finished at $(date)"
-ing Download_SRR.sh…]()
-
 
 1.3 As downloaded files were in ".sra" format, command "fasterq-dump" was used for transfering SRA to FASTQ 
 
 
 
+## Mapping Xf genome in herbarium sample - Bowtie2
+As Xf is a bacterial pathogen colonizing in xylem vessel, it is possible to sequece and assemble its historical genome from historical material. Reads were mapped against the reference geonme sequence using Bowtie2.
 
-
-## Mapping Xf genome in herbarium via Bowtie2
 
 
 
