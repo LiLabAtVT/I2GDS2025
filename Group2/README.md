@@ -29,7 +29,7 @@ Retrieve raw sequencing data (SRA format) for both historical herbarium metageno
 https://www.ncbi.nlm.nih.gov/datasets/
 
 ### 1.2 Modern isolates: Accession list of 44 Xf strains was retrieved from NCBI and downloaded using SRAtools. 
-Note: Make sure sra_list.txt contains one SRA accession per line (e.g., SRR12345678).
+Note: Make sure sra_list.txt contains one SRA accession per line (e.g., SRR12345678), "fasterq-dump" was used for transfering "sra.file" into "fastq"
 
 <details> 
   <summary>Click to expand script</summary>
@@ -73,7 +73,10 @@ echo "All downloads finished at $(date)"
 ```
 </details>
 
-1.3 As downloaded files were in ".sra" format, command "fasterq-dump" was used for transfering SRA to FASTQ 
+### 1.3  Transfering metagenome SRA file to FASTQ 
+
+As directly downloaded files were in ".sra" format, command "fasterq-dump" was used
+
 <details>
   <summary>Click to expand script</summary>
 
