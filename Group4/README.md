@@ -378,6 +378,6 @@ cd I2GDS2025
 git sparse-checkout init --cone
 git sparse-checkout set Group4
 git checkout
-cd Group4
+cd Group4/repository
 ```
 The scripts are intended to be run in the logs directory. Each script will output three files: **1)** the default SLURM .out file, **2)** a .log file for the process of each script to be recorded, and **3)** a .err file for script errors to be reported if any occur. These three files will be named according to each step. For example, if you run step 2 (Trim Galore) and step 3 (BWA) the files will be named trim_galore_JOBID.out and bwa_JOBID.out. If anyone has an issue with the BWA or Kraken2 scripts failing due to not having permission to any of the reference databases, please email mitchellgercken@vt.edu requesting access. 
