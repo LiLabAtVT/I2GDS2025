@@ -536,6 +536,9 @@ Assembled and quality-controlled contigs were annotated using Prokka v1.14.6 (Se
 
 Prokka was selected for its speed, consistency, and compatibility with downstream comparative genomics workflows. Prokka identifies and functionally annotates genes, rRNAs, tRNAs, and other genomic features using curated databases such as UniProt, RefSeq, and Pfam. It produces high-quality, standardized annotations that enable reliable gene-based analyses.
 
+### 5.1 Annotation of historical genomes
+
+### 5.2 Annotation of modern strains 
 <details>
   <summary>Click to expand script</summary>
 
