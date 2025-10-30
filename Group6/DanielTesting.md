@@ -1,5 +1,6 @@
 ## Flowchart
-<img width="568" height="725" alt="image" src="https://github.com/user-attachments/assets/8700e9e5-7c02-42b6-a23a-876d598eb109" />
+<img width="593" height="778" alt="image" src="https://github.com/user-attachments/assets/6f9dc70f-19f5-4431-bddc-5a1dc2c58afc" />
+
 
 
 ## 3. Trimmomatic (Cleaning Data)
