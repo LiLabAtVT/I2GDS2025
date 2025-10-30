@@ -24,58 +24,17 @@ https://doi.org/10.1016/j.cub.2024.11.029
 ## 1. Data download - SRAtools
 Retrieve raw sequencing data (SRA format) for both historical herbarium metagenomes and modern isolates. This step ensures consistent data organization for downstream analyses.
 
-### 1.1 Metagenome dataset (PRJNA1114123) and reference sequence genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI
+### 1.1 Metagenome dataset and reference sequence genome 
+The historical metagenome dataset (BioProject PRJNA1114123) and the reference genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI: https://www.ncbi.nlm.nih.gov/datasets/
 
-https://www.ncbi.nlm.nih.gov/datasets/
+These files provide the raw reads for historical samples and a reference genome for mapping and assembly.
 
-### 1.2 Modern isolates: Accession list of 44 Xf strains was retrieved from NCBI and downloaded using SRAtools. 
-Note: Make sure sra_list.txt contains one SRA accession per line (e.g., SRR12345678), "fasterq-dump" was used for transfering "sra.file" into "fastq"
+### 1.2  Converting SRA files to FASTQ
 
-<details> 
-  <summary>Click to expand script</summary>
+Downloaded metagenome files in .sra format must be converted to FASTQ format to be compatible with downstream tools such as Bowtie2 and SPAdes.
+fasterq-dump splits paired-end reads into _1.fastq and _2.fastq files, optionally compressing them with gzip for storage efficiency.
 
-```
-#!/bin/bash
-# -------------------------------------------
-# Download_SRR.sh
-#SBATCH --account=introtogds
-#SBATCH --job-name=download_SRR
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --time=48:00:00
-#SBATCH --mail-user=jingjingy@vt.edu
-#SBATCH --mail-type=ALL
-#SBATCH --mem=200GB
-#SBATCH --cpus-per-task=4
-# -------------------------------------------
-
-set -euo pipefail
-echo "Job started at $(date)"
-
-# 1. Add SRA Toolkit to PATH
-export PATH=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH
-
-# 2. set working directory 
-OUTDIR=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData
-LIST=${OUTDIR}/sra_list.tx
-cd "$OUTDIR"
-
-# 3. Batch download
-while read ACC; do
-    echo "=== Processing $ACC ==="
-    prefetch --output-directory "$OUTDIR" "$ACC"
-    fasterq-dump --threads $SLURM_CPUS_PER_TASK --outdir "$OUTDIR" "$ACC"
-    gzip "${OUTDIR}/${ACC}"*.fastq
-    echo "=== $ACC done ==="
-done < "$LIST"
-
-echo "All downloads finished at $(date)"
-```
-</details>
-
-### 1.3  Transfering metagenome SRA file to FASTQ 
-
-As directly downloaded files were in ".sra" format, command "fasterq-dump" was used
+<details> <summary>Click to expand example script</summary>
 
 <details>
   <summary>Click to expand script</summary>
@@ -120,6 +79,56 @@ gzip -f "$FASTQ_DIR"/*.fastq
 echo "Done! Compressed FASTQ files are in $FASTQ_DIR"
 ```
 </details>
+
+
+### 1.3 Modern isolates 
+An accession list of 44 modern Xf strains was retrieved from NCBI. Using SRAtools, the raw sequencing reads were downloaded.
+
+Notes: The file sra_list.txt should contain one SRA accession per line (e.g., SRR12345678).
+fasterq-dump was used to convert downloaded .sra files into paired-end FASTQ files for assembly and mapping.
+
+<details> 
+  <summary>Click to expand script</summary>
+
+```
+#!/bin/bash
+# -------------------------------------------
+# Download_SRR.sh
+#SBATCH --account=introtogds
+#SBATCH --job-name=download_SRR
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=48:00:00
+#SBATCH --mail-user=jingjingy@vt.edu
+#SBATCH --mail-type=ALL
+#SBATCH --mem=200GB
+#SBATCH --cpus-per-task=4
+# -------------------------------------------
+
+set -euo pipefail
+echo "Job started at $(date)"
+
+# 1. Add SRA Toolkit to PATH
+export PATH=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH
+
+# 2. set working directory 
+OUTDIR=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData
+LIST=${OUTDIR}/sra_list.tx
+cd "$OUTDIR"
+
+# 3. Batch download
+while read ACC; do
+    echo "=== Processing $ACC ==="
+    prefetch --output-directory "$OUTDIR" "$ACC"
+    fasterq-dump --threads $SLURM_CPUS_PER_TASK --outdir "$OUTDIR" "$ACC"
+    gzip "${OUTDIR}/${ACC}"*.fastq
+    echo "=== $ACC done ==="
+done < "$LIST"
+
+echo "All downloads finished at $(date)"
+```
+</details>
+
 
 ## 2. Mapping - Bowtie2 and SAMtools
 Mapping metagenomic reads from herbarium specimens to the Xylella fastidiosa reference genome allows selective recovery of pathogen-derived sequences from mixed plant and microbial DNA.
