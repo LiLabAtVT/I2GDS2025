@@ -16,7 +16,7 @@ Create an ARC environment to complete jobs with
 `interact -A introtogds -p normal_q -t 1:00:00`
 
 # Software Installation
-Software was downloaded via Conda. All of the required packages needed to run the pipeline are listed within the environment.yml file in the materials directory. 
+Software was downloaded via Conda. All of the required packages needed to run the pipeline are listed within the environment.yml file in the repository/ directory. 
 
 Initialize Conda on ARC:
 ```
