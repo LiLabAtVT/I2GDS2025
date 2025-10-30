@@ -69,7 +69,8 @@ while read ACC; do
     echo "=== $ACC done ==="
 done < "$LIST"
 
-echo "✅ All downloads finished at $(date)" ```
+echo "✅ All downloads finished at $(date)"
+```
 
 
 
