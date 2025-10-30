@@ -57,7 +57,7 @@ while read ACC; do
     echo "=== $ACC done ==="
 done < "$LIST"
 
-echo "✅ All downloads finished at $(date)"
+echo "All downloads finished at $(date)"
 ```
 
 1.3 As downloaded files were in ".sra" format, command "fasterq-dump" was used for transfering SRA to FASTQ 
@@ -173,11 +173,11 @@ for f1 in "$METAGENOME_DIR"/*_1.fastq.gz; do
 
     # Check for paired-end files
     if [ ! -f "$f2" ]; then
-        echo "⚠️ Paired file for $f1 not found! Skipping..."
+        echo "Paired file for $f1 not found! Skipping..."
         continue
     fi
 
-    echo "🔹 Mapping sample: $fname"
+    echo "Mapping sample: $fname"
 
     # Bowtie2 alignment (output SAM)
     bowtie2 -x "$INDEX_PREFIX" -1 "$f1" -2 "$f2" \
@@ -194,10 +194,10 @@ for f1 in "$METAGENOME_DIR"/*_1.fastq.gz; do
     # Remove SAM to save space
     rm "$OUTPUT_DIR/${fname}.sam"
 
-    echo "✅ $fname mapping complete. BAM: ${fname}.sorted.bam"
+    echo "$fname mapping complete. BAM: ${fname}.sorted.bam"
 done
 
-echo "🎯 All paired-end metagenomes successfully mapped!"
+echo "All paired-end metagenomes successfully mapped!"
 echo "Job finished at $(date)"
 
 ```
@@ -266,7 +266,9 @@ echo "======================================"
 
 
 ## 4. Quality control - CheckM
+```
 
+```
 
 ## 5. Genome annotation - Prokka
 Assembled and quality-controlled contigs were annotated using Prokka v1.14.6 (Seemann, 2014), a rapid annotation pipeline designed for prokaryotic genomes. Each assembly (scaffolds.fasta) from the quality-controlled assembly folder all_bins/ was annotated independently in parallel using 8 CPU threads. The output for each genome was written to data/annotations/, generating standard annotation files including GFF3, GenBank, and FAA (protein) files. 
