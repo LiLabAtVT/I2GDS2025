@@ -34,7 +34,9 @@ These files provide the raw reads for historical samples and a reference genome 
 Downloaded metagenome files in .sra format must be converted to FASTQ format to be compatible with downstream tools such as Bowtie2 and SPAdes.
 fasterq-dump splits paired-end reads into *_1.fastq and *_2.fastq files, optionally compressing them with gzip for storage efficiency.
 
-
+<details> 
+  <summary>Click to expand script</summary>
+	
 ```
 #!/bin/bash
 #-------------------------------------------
@@ -75,7 +77,7 @@ gzip -f "$FASTQ_DIR"/*.fastq
 echo "Done! Compressed FASTQ files are in $FASTQ_DIR"
 
 ```
-
+</details>
 
 
 
