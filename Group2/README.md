@@ -228,6 +228,7 @@ SPAdes was chosen for its balance of accuracy and computational efficiency in as
 It will be best to submit this step as a slurm job
 
 3.1 Assembling mapped historical Xf genome
+
 Historical Xf metagenomes were first mapped to the reference genome (using Bowtie2). SAMtools is then used to extract the aligned reads into paired-end FASTQ files for assembly. This step is necessary because the mapped BAM contains only the reads that align to the pathogen genome, effectively enriching for Xf sequences while removing host plant and contaminant DNA. Using these filtered reads improves the accuracy and efficiency of genome assembly with SPAdes.
 
 <details>
