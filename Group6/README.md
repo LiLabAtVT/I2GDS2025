@@ -464,6 +464,12 @@ done
 
 <ins>Code/Output Explanation</ins>: This for loop goes through each sample's forward and reverse read and merges them. Due to unequal read lengths, some of the forward and reverse reads will not be merged, so in addition to the "merged" output, there is also an "unmerged forward" and "unmerged reverse" output. The merged, unmerged forward, and unmerged reverse reads for a sample are concatenated to output a "clean merged" file. There is no longer a use for the sample's merged, unmerged forward, and unmerged reverse reads, so they are removed from the directory.
 
+If there's still some trouble with vsearch, contingency output files are located here:
+```
+/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/vsearch_output_key
+```
+
+
 # 6. DIAMOND
 ## Using DIAMOND to annotate your reads and identify ARGs
 
@@ -541,6 +547,12 @@ done
 <ins>Code Explanation</ins>: This for loop goes through each merged read and annotates it against your reference database, outputing a csv file for each sample. These files will be in your working directory.
 
 <ins>Output Explanation</ins>: Your output will be a csv file with completed annotations of each sample, including the ARGs present. For the full explanation of each column in the csv file, reference this link [https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options](url) and scroll to "Output options".
+
+If there's any trouble with DIAMOND annotation, example output files are located here:
+```
+/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/diamond_output_key
+```
+
 
 # Pipeline
 <img width="593" height="778" alt="image" src="https://github.com/user-attachments/assets/6f9dc70f-19f5-4431-bddc-5a1dc2c58afc" />
