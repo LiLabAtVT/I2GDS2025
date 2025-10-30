@@ -35,10 +35,10 @@ This command can split the SRA file into two paired-end sequencing files for sub
 
 Because the original file is very large, the `Seqtk` tool was used to extract a portion of the data for scripesting. The command for data extraction is as follows.
 ```
-seqtk sample -s77 SRR19391270_1.fastq 0.05 > sub_R1.fastq
-seqtk sample -s77 SRR19391270_2.fastq 0.05 > sub_R2.fastq
+seqtk sample -s77 SRR19391270_1.fastq 0.01 > sub_R1.fastq
+seqtk sample -s77 SRR19391270_2.fastq 0.01 > sub_R2.fastq
 ```
-The s77 represents random seed, which is used to randomly extract the reads. 0.05 means 5% of data will be extracted, and the extracted data will be output to sub_R1.fastq and sub_R2.fastq.
+The s77 represents random seed, which is used to randomly extract the reads. 0.01 means 1% of data will be extracted, and the extracted data will be output to sub_R1.fastq and sub_R2.fastq.
 
 
 ### 01 UMI extraction and whitelist creation (UMI-tools)
