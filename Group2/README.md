@@ -342,7 +342,7 @@ echo "Job finished at $(date)"
 ```
 </details>
 
-4.2 quality control of assembled modern strains
+4.2 Quality control of assembled modern strains
 
 <details>
   <summary>Click to expand script</summary>
@@ -363,7 +363,6 @@ set -o pipefail
 
 echo "==== CheckM batch job started at $(date) ===="
 
-
 # ------------------------------
 # 1️⃣ activate CheckM environment
 # ------------------------------
@@ -371,7 +370,6 @@ echo "==== CheckM batch job started at $(date) ===="
 module load Miniconda3/24.7.1-0
 source $CONDA_PREFIX/etc/profile.d/conda.sh
 conda activate checkm_env
-
 
 # ------------------------------
 # 2. set work directory and path
@@ -410,10 +408,8 @@ for strain in "$SPADES_DIR"/*; do
             "$OUTDIR" \
             --threads 16
 
-
     fi
 done
-
 
 # ------------------------------
 # 4. Summarize results
@@ -424,7 +420,6 @@ checkm qa -o 2 -f "$SUMMARY_FILE" "$CHECKM_OUT"/*/storage
 echo "✅ All done!"
 echo "Summary saved to: $SUMMARY_FILE"
 echo "Job finished at $(date)"
-
 
 echo "==== All CheckM analyses completed at $(date) ===="
 
