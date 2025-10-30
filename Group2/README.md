@@ -314,21 +314,24 @@ echo "Assembly finished. Output in $OUTDIR/"
 #SBATCH --mail-type=END,FAIL
 #SBATCH --account=introtogds
 
+# =====================================================
+# Batch genome assembly script using SPAdes
+# =====================================================
 
-# Load SPAdes module
-module load spades
-
-# Stop on first error
+# Stop if any command fails
 set -e
 
-# Directories
-READS_DIR="data/Modern_strain"
-OUT_BASE="Carter/data/assemblies"
+# Load SPAdes (try module spider if not found)
+module load SPAdes || module load spades || echo "SPAdes module not found; make sure it’s installed."
 
-# Create output + log directories
+# --- 1. Define input/output directories ---
+READS_DIR="data/Modern_strain"         # Folder with raw FASTQ files
+OUT_BASE="data/assemblies"             # Where assemblies will go
+
+# --- 2. Create output + log directories ---
 mkdir -p "${OUT_BASE}" logs
 
-# Loop over all *_1.fastq.gz files
+# --- 3. Loop through all paired-end read files ---
 for R1 in ${READS_DIR}/*_1.fastq.gz; do
     SAMPLE=$(basename "${R1}" _1.fastq.gz)
     R2="${READS_DIR}/${SAMPLE}_2.fastq.gz"
@@ -354,6 +357,7 @@ for R1 in ${READS_DIR}/*_1.fastq.gz; do
     echo "Main contigs file: ${OUT_DIR}/contigs.fasta"
 done
 
+# --- 4. Wrap up ---
 echo "======================================"
 echo "All assemblies completed!"
 echo "======================================"
