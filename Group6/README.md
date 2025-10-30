@@ -1,7 +1,7 @@
 # Classifying Antimicrobial Resistance Genes from Short-Read Metagenomic Data
-Data and required reference files are located here:
+Raw data is located here:
 ```
-/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers
+/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/Raw Sequences
 ```
 
 # 1. Data download 
@@ -299,6 +299,11 @@ Each foward and reverse file will give 2 output files:
 
 Typically, analysis only moves forward with the paired reads. However, unpaired reads can still be used for some future analysis.
 
+If you can't get it to work, the output files are located here:
+```
+/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/trimmomatic_output_key
+```
+
 # 4. bbduk (Decontaminating Data)
 ### 4.1 Introduction
 bbduk is a multifaceted tool which has the capabilities to do trimming, read quality filtering, and more; but we will only use it for decontamination. 
@@ -393,6 +398,11 @@ done
 
 ### 4.6 Output Explaination
 For each input file, there will be one output FASTQ file, and for each pair of FASTQ files there will be one txt file. This txt file shows how many of each sequence in the reference FASTA file are removed (should be ~0.5-1% of total samples).
+
+If you can't get bbduk to work, the output files are located here:
+```
+/projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/bbduk_output_key
+```
 
 # 5. vsearch
 ## Merging your trimmed and decontaminated reads
