@@ -7,6 +7,34 @@ Zhang, Q., Ma, S., Liu, Z. et al. (2023). Droplet-based bisulfite sequencing for
 Reference paper: [download here](https://www.nature.com/articles/s41467-023-40411-w)  
 These data can be downloaded [from NCBI.](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE204691)
 
+## Environment setup and tool installation
+Before running the scripts, follow these steps to create and activate the environment and install the necessary tools.
+
+*Environment creation:* create a new Conda environment and assign it any name. In this example, we name it “bisulfite” and specify Python 3.10 to ensure compatibility with the tools.
+```
+conda create -n bisulfite -c conda-forge -c bioconda python=3.10
+```
+*Environment activation*
+Activate the newly created environment so that all installed packages and tools will be available for use.
+```
+source activate bisulfite
+```
+*Tool installation*
+Install the software packages needed for the first two steps of the pipeline: UMI-tools (for UMI extraction) and Trim Galore (for adapter and quality trimming). Channel priority settings are adjusted to avoid dependency conflicts during installation.
+```
+# Install UMI-tools
+conda install -c bioconda umi_tools -y
+
+# Temporarily set flexible channel priority
+conda config --set channel_priority flexible
+
+# Install Trim Galore
+conda install -c bioconda trim-galore -y
+
+# Reset channel priority to strict
+conda config --set channel_priority strict
+```
+
 ## Pipeline description
 To replicate the analysis, we use Virginia Tech’s ARC Computing Cluster.
 The pipeline includes the following steps:
