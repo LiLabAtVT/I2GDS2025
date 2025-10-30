@@ -5,7 +5,7 @@ Raw data is located here:
 ```
 Bash scripts written throughout are also located in our "code-files" GitHub folder for download
 
-### Reviewers: Only do Steps 4-6! Input data for step 4 is the cleaned Trimmomatic data, located:** 
+### Reviewers: Only do Steps 4-6! Input data for step 4 is the cleaned Trimmomatic data, located:
 ```
 /projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers/trimmomatic_output_key
 ```
