@@ -1,4 +1,4 @@
-# Pipline for sequencing processing of plant bacterial pathogen
+# Pipline for Sequencing Processing of Plant Bacterial Pathogen (Xylella fastidiosa)
 ## Introduction
 This project replicates a bioinformatics pipeline for analyzing a collection of Xylella fastidiosa (Xf) genomes obtained from both pure cultures and century-old herbarium specimens.
 
@@ -19,6 +19,8 @@ https://doi.org/10.1016/j.cub.2024.11.029
 
 
 ## 1. Data download - SRAtools
+Retrieve raw sequencing data (SRA format) for both historical herbarium metagenomes and modern isolates. This step ensures consistent data organization for downstream analyses.
+
 1.1 Metagenome dataset (PRJNA1114123) and reference sequence genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI
 
 1.2 Modern isolates: Accession list of 44 Xf strains was retrieved from NCBI and downloaded using SRAtools. 
@@ -220,7 +222,78 @@ Raw Illumina paired-end reads were assembled de novo using SPAdes v4.1.0 (Bankev
 
 SPAdes was chosen for its balance of accuracy and computational efficiency in assembling bacterial genomes from Illumina short reads, providing robust contigs/scaffolds suitable for subsequent annotation (Prokka), ortholog detection, and phylogenetic analysis.
 
-It will be best to submit this step as a slurm job:
+It will be best to submit this step as a slurm job
+
+3.1 Assembling mapped historical Xf genome
+Historical Xf metagenomes were first mapped to the reference genome (using Bowtie2). SAMtools is then used to extract the aligned reads into paired-end FASTQ files for assembly. This step is necessary because the mapped BAM contains only the reads that align to the pathogen genome, effectively enriching for Xf sequences while removing host plant and contaminant DNA. Using these filtered reads improves the accuracy and efficiency of genome assembly with SPAdes.
+
+<details>
+  <summary>Click to expand script</summary>
+
+```
+#!/bin/bash
+# -------------------------------------------
+#bam_to_spades.sh
+#SBATCH --account=introtogds
+#SBATCH --job-name=download_SRR
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=48:00:00
+#SBATCH --mail-user=jingjingy@vt.edu
+#SBATCH --mail-type=ALL
+#SBATCH --mem=200GB
+#SBATCH --cpus-per-task=8
+# -------------------------------------------
+
+echo "Job started at $(date)"
+
+# ------------------------------
+# Set working directory
+# ------------------------------
+cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/mapping_results
+
+# ------------------------------
+# enter parameters
+# ------------------------------
+BAM="SRR29108932.sorted.bam"            # input BAM file
+OUTDIR="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/spades_output"         # SPAdes  output
+THREADS=8
+MEMORY=200
+
+# ------------------------------
+# Load modules
+# ------------------------------
+module load SAMtools
+module load SPAdes
+
+BASENAME="Historial_Xf"            # set prefix of output
+FASTQ1="${BASENAME}_1.fastq"       # paired-end reads 1
+FASTQ2="${BASENAME}_2.fastq"       # paired-end reads 2
+                                                              
+mkdir -p "$OUTDIR"
+
+# ------------------------------
+# Extract paired-end reads from BAM
+# ------------------------------
+echo "Extracting paired-end reads from $BAM ..."
+samtools fastq -1 "$FASTQ1" -2 "$FASTQ2" -0 /dev/null -s /dev/null -n "$BAM"
+
+# ------------------------------
+# Assemble with SPAdes
+# ------------------------------
+echo "Running SPAdes assembly..."
+spades.py --isolate \
+    -1 "$FASTQ1" -2 "$FASTQ2" \
+    -o "$OUTDIR" \
+    --threads $THREADS \
+    --memory $MEMORY
+
+echo "Assembly finished. Output in $OUTDIR/"
+```
+</details>
+
+3.2 Assembling modern Xf isolates
+
 <details>
   <summary>Click to expand script</summary>
 
@@ -282,9 +355,16 @@ echo "======================================"
 </details>
 
 ## 4. Quality control - CheckM
-CheckM is used to evaluate the completeness and contamination of assembled genomes from both historical metagenomes and modern isolates.
-This step ensures that only high-quality genomes are used for downstream analyses such as gene annotation, comparative genomics, and phylogenetic reconstruction.
-CheckM provides standardized metrics, enabling reproducible quality control across all samples.
+After assembly, CheckM is used to evaluate the completeness and contamination of assembled genomes from both historical metagenomes and modern isolates.
+This step ensures:
+- High-quality genomes are used in downstream analyses (annotation, comparative genomics, phylogeny).
+- Consistency across historical and modern datasets, enabling reproducible results.
+- Detection of possible contaminant sequences or incomplete assemblies, which can occur in low-quality herbarium metagenomes.
+
+CheckM’s lineage-specific workflow provides standardized metrics, reporting:
+- Completeness (%): proportion of expected single-copy marker genes detected.
+- Contamination (%): proportion of duplicated marker genes.
+- Strain heterogeneity: if multiple closely related strains may be present.
 
 4.1 Quality control of assembled historical metagenomes
 
