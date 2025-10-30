@@ -24,7 +24,7 @@ https://doi.org/10.1016/j.cub.2024.11.029
 ## 1. Data download - SRAtools
 Retrieve raw sequencing data (SRA format) for both historical herbarium metagenomes and modern isolates. This step ensures consistent data organization for downstream analyses.
 
-### 1.1 Metagenome dataset and reference sequence genome 
+### 1.1 Metagenome dataset and reference genome 
 The historical metagenome dataset (BioProject PRJNA1114123) and the reference genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI: https://www.ncbi.nlm.nih.gov/datasets/
 
 These files provide the raw reads for historical samples and a reference genome for mapping and assembly.
@@ -61,16 +61,16 @@ THREADS=8
 
 echo "Converting $SRA_FILE to FASTQ ..."
 
-#1. Add SRA Toolkit to PATH
+# 1. Add SRA Toolkit to PATH
 export PATH="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH"
 
-#2. Convert SRA to FASTQ
+# 2. Convert SRA to FASTQ
 fasterq-dump "$SRA_FILE" \
   --split-files \
   --threads "$THREADS" \
   -O "$FASTQ_DIR"
 
-#3. Compress FASTQ
+# 3. Compress FASTQ
 echo "Compressing FASTQ files ..."
 gzip -f "$FASTQ_DIR"/*.fastq
 
@@ -109,15 +109,15 @@ fasterq-dump was used to convert downloaded .sra files into paired-end FASTQ fil
 set -euo pipefail
 echo "Job started at $(date)"
 
-#1. Add SRA Toolkit to PATH
+# 1. Add SRA Toolkit to PATH
 export PATH=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH
 
-#2. set working directory 
+# 2. set working directory 
 OUTDIR=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData
 LIST=${OUTDIR}/sra_list.tx
 cd "$OUTDIR"
 
-#3. Batch download
+# 3. Batch download
 while read ACC; do
     echo "=== Processing $ACC ==="
     prefetch --output-directory "$OUTDIR" "$ACC"
