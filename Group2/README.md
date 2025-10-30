@@ -24,12 +24,12 @@ https://doi.org/10.1016/j.cub.2024.11.029
 ## 1. Data download - SRAtools
 Retrieve raw sequencing data (SRA format) for both historical herbarium metagenomes and modern isolates. This step ensures consistent data organization for downstream analyses.
 
-1.1 Metagenome dataset (PRJNA1114123) and reference sequence genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI
+### 1.1 Metagenome dataset (PRJNA1114123) and reference sequence genome (X. fastidiosa Temecula1: GCA_000007245.1) were both downloaded directly from NCBI
 
-1.2 Modern isolates: Accession list of 44 Xf strains was retrieved from NCBI and downloaded using SRAtools. 
+### 1.2 Modern isolates: Accession list of 44 Xf strains was retrieved from NCBI and downloaded using SRAtools. 
 Note: Make sure sra_list.txt contains one SRA accession per line (e.g., SRR12345678).
 
-<details>
+<details> 
   <summary>Click to expand script</summary>
 
 ```
@@ -227,7 +227,7 @@ SPAdes was chosen for its balance of accuracy and computational efficiency in as
 
 It will be best to submit this step as a slurm job
 
-3.1 Assembling mapped historical Xf genome
+### 3.1 Assembling mapped historical Xf genome
 
 Historical Xf metagenomes were first mapped to the reference genome (using Bowtie2). SAMtools is then used to extract the aligned reads into paired-end FASTQ files for assembly. This step is necessary because the mapped BAM contains only the reads that align to the pathogen genome, effectively enriching for Xf sequences while removing host plant and contaminant DNA. Using these filtered reads improves the accuracy and efficiency of genome assembly with SPAdes.
 
@@ -296,7 +296,7 @@ echo "Assembly finished. Output in $OUTDIR/"
 ```
 </details>
 
-3.2 Assembling modern Xf isolates
+### 3.2 Assembling modern Xf isolates
 
 <details>
   <summary>Click to expand script</summary>
@@ -370,7 +370,7 @@ CheckM’s lineage-specific workflow provides standardized metrics, reporting:
 - Contamination (%): proportion of duplicated marker genes.
 - Strain heterogeneity: if multiple closely related strains may be present.
 
-4.1 Quality control of assembled historical metagenomes
+### 4.1 Quality control of assembled historical metagenomes
 
 <details>
   <summary>Click to expand script</summary>
@@ -427,7 +427,7 @@ echo "Job finished at $(date)"
 ```
 </details>
 
-4.2 Quality control of assembled modern strains
+### 4.2 Quality control of assembled modern strains
 
 <details>
   <summary>Click to expand script</summary>
