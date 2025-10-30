@@ -60,7 +60,7 @@ ILLUMINACLIP:${ADAPTERS}:2:30:10
 Description from [Trimmomatic Website](http://www.usadellab.org/cms/?page=trimmomatic)
 
 **Trimmomatic parameters**\
-You can customize how stringent you want your cutting to be. The code uses the default parameters \
+You can customize how stringent you want your cutting to be. The code uses the default parameters\
 - LEADING: Cut bases off the start of a read, if below a threshold quality
 - TRAILING: Cut bases off the end of a read, if below a threshold quality
 - SLIDINGWINDOW:windowSize:requiredQuality, will cut if below threshold
