@@ -48,23 +48,23 @@ The s77 represents random seed, which is used to randomly extract the reads. 0.2
 In the experiment, we obtained many cells, but we only wanted to analyze those with the highest quality. Therefore, `UMI-tools` was used to extract the cells with the top 5,000 highest read counts based on the barcode. First, extract the whitelist from the original file. The specific command is:
 ```
 umi_tools whitelist \
-  --subset-reads=500000000 \
   --stdin "$sub_R2" \
-  --error-correct-threshold=1 \
   --extract-method=regex \
   --bc-pattern='(?P<discard_1>TAAGTAGAAGATGGTATATGAGAT){s<=4}(?P<cell_1>.{15})(?P<umi_1>.{0})' \
+  --subset-reads=10000000 \
+  --error-correct-threshold=1 \
   --set-cell-number=100 \
-  --log2stderr > whitelist_1bp_100_allreads.txt
+  --log2stderr > whitelist_top100.txt
 ```
 Here, up to 500,000,000 reads are analyzed with the threshold set to 1. The fixed sequence TAAGTAGAAGATGGTATATGAGAT is used to locate the barcode region, and the 15 bases immediately following this sequence are extracted as the barcode. Based on the read counts, the top 5,000 most frequent barcodes are selected, and a whitelist file is generated accordingly. Then, the fastq file will be extracted based on the whitelist. The script is as follows:
 ```
 umi_tools extract \
   --extract-method=regex \
   --bc-pattern='(?P<discard_1>TAAGTAGAAGATGGTATATGAGAT){s<=4}(?P<cell_1>.{15})(?P<umi_1>.{0})' \
-  --error-correct-cell 1 \
-  --stdin "$sub_R2" --stdout "${sub_R2}_extracted.fastq" \
+  --error-correct-cell --error-correct-cell-threshold=1 \
+  --stdin "$sub_R2"  --stdout "${sub_R2}_extracted.fastq" \
   --read2-in "$sub_R1" --read2-out "${sub_R1}_extracted.fastq" \
-  --filter-cell-barcode --whitelist=whitelist_1bp_100_allreads.txt
+  --filter-cell-barcode --whitelist=whitelist_top100.txt \
   ```
 Here, the barcodes are extracted again based on the fixed position and output to the extracted.fastq file. These extracted barcodes are then matched against the whitelist generated in the previous step.
 
