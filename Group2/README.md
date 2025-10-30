@@ -24,7 +24,7 @@ https://doi.org/10.1016/j.cub.2024.11.029
 Note: Make sure sra_list.txt contains one SRA accession per line (e.g., SRR12345678).
 
 <details>
-  <summary>Click to expand code</summary>
+  <summary>Click to expand script</summary>
 
 ```
 #!/bin/bash
@@ -66,6 +66,9 @@ echo "All downloads finished at $(date)"
 </details>
 
 1.3 As downloaded files were in ".sra" format, command "fasterq-dump" was used for transfering SRA to FASTQ 
+<details>
+  <summary>Click to expand script</summary>
+
 ```
 #!/bin/bash
 # -------------------------------------------
@@ -114,6 +117,9 @@ Bowtie2 is used to align metagenomic reads from herbarium specimens to the X. fa
 
 SAMtools was used to convert, sort, and manage the Bowtie2 alignment files.
 It converts large SAM files into compressed BAM format, sorts alignments by genomic coordinates, and enables generation of mapping statistics and indexing for efficient downstream analysis.
+
+<details>
+  <summary>Click to expand script</summary>
 
 ```
 #!/bin/bash
@@ -204,8 +210,8 @@ done
 
 echo "All paired-end metagenomes successfully mapped!"
 echo "Job finished at $(date)"
-
 ```
+</details>
 
 ## 3. Genome assembly - SPAdes
 Raw Illumina paired-end reads were assembled de novo using SPAdes v4.1.0 (Bankevich et al., 2012). Each isolate’s forward (*_1.fastq.gz) and reverse (*_2.fastq.gz) reads are assembled independently with the --only-assembler flag to disable read error correction. The resulting contigs output to data/assemblies/, and the primary assembly file (scaffolds.fasta) for each isolate will be used in downstream annotation.
@@ -213,6 +219,9 @@ Raw Illumina paired-end reads were assembled de novo using SPAdes v4.1.0 (Bankev
 SPAdes was chosen for its balance of accuracy and computational efficiency in assembling bacterial genomes from Illumina short reads, providing robust contigs/scaffolds suitable for subsequent annotation (Prokka), ortholog detection, and phylogenetic analysis.
 
 It will be best to submit this step as a slurm job:
+<details>
+  <summary>Click to expand script</summary>
+
 ``` 
 #!/bin/bash
 #SBATCH --job-name=spades_batch
@@ -268,7 +277,7 @@ echo "======================================"
 echo "All assemblies completed!"
 echo "======================================"
 ```
-
+</details>
 
 ## 4. Quality control - CheckM
 ```
@@ -279,6 +288,9 @@ echo "======================================"
 Assembled and quality-controlled contigs were annotated using Prokka v1.14.6 (Seemann, 2014), a rapid annotation pipeline designed for prokaryotic genomes. Each assembly (scaffolds.fasta) from the quality-controlled assembly folder all_bins/ was annotated independently in parallel using 8 CPU threads. The output for each genome was written to data/annotations/, generating standard annotation files including GFF3, GenBank, and FAA (protein) files. 
 
 Prokka was selected for its speed, consistency, and compatibility with downstream comparative genomics workflows. Prokka identifies and functionally annotates genes, rRNAs, tRNAs, and other genomic features using curated databases such as UniProt, RefSeq, and Pfam. It produces high-quality, standardized annotations that enable reliable gene-based analyses.
+
+<details>
+  <summary>Click to expand script</summary>
 
 ```
 #!/bin/bash
@@ -335,7 +347,7 @@ done
 
 echo  "All Prokka annotations completed successfully!"
 ```
-
+</details>
 
 
 
