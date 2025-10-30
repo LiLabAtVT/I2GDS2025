@@ -54,6 +54,7 @@ fasterq-dump splits paired-end reads into *_1.fastq and *_2.fastq files, optiona
 #SBATCH --cpus-per-task=8
 #-------------------------------------------
 
+# 1. set working directory 
 SRA_FILE="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData/SRR29108932"
 FASTQ_DIR="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData/fastq_historical"
 mkdir -p "$FASTQ_DIR"
@@ -61,16 +62,16 @@ THREADS=8
 
 echo "Converting $SRA_FILE to FASTQ ..."
 
-# 1. Add SRA Toolkit to PATH
+# 2. Add SRA Toolkit to PATH
 export PATH="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH"
 
-# 2. Convert SRA to FASTQ
+# 3. Convert SRA to FASTQ
 fasterq-dump "$SRA_FILE" \
   --split-files \
   --threads "$THREADS" \
   -O "$FASTQ_DIR"
 
-# 3. Compress FASTQ
+# 4. Compress FASTQ
 echo "Compressing FASTQ files ..."
 gzip -f "$FASTQ_DIR"/*.fastq
 
