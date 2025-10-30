@@ -29,7 +29,7 @@ The historical metagenome dataset (BioProject PRJNA1114123) and the reference ge
 
 These files provide the raw reads for historical samples and a reference genome for mapping and assembly.
 
-### 1.2  Converting SRA files to FASTQ
+### 1.2 Converting SRA files to FASTQ
 
 Downloaded metagenome files in .sra format must be converted to FASTQ format to be compatible with downstream tools such as Bowtie2 and SPAdes.
 fasterq-dump splits paired-end reads into *_1.fastq and *_2.fastq files, optionally compressing them with gzip for storage efficiency.
@@ -136,9 +136,9 @@ echo "All downloads finished at $(date)"
 Mapping metagenomic reads from herbarium specimens to the Xylella fastidiosa reference genome allows selective recovery of pathogen-derived sequences from mixed plant and microbial DNA.
 This step confirms the presence of X. fastidiosa in historical material, enables genome reconstruction, and provides quality metrics (e.g., alignment rate and coverage) essential for subsequent assembly and evolutionary analyses.
 
-Bowtie2 is used to align metagenomic reads from herbarium specimens to the X. fastidiosa reference genome. Since X. fastidiosa is a xylem-limited bacterial pathogen, mapping reads to its genome allows the identification of ancient pathogen sequences preserved in historical plant tissue.
+***Bowtie2*** is used to align metagenomic reads from herbarium specimens to the X. fastidiosa reference genome. Since X. fastidiosa is a xylem-limited bacterial pathogen, mapping reads to its genome allows the identification of ancient pathogen sequences preserved in historical plant tissue.
 
-SAMtools was used to convert, sort, and manage the Bowtie2 alignment files.
+***SAMtools*** was used to convert, sort, and manage the Bowtie2 alignment files.
 It converts large SAM files into compressed BAM format, sorts alignments by genomic coordinates, and enables generation of mapping statistics and indexing for efficient downstream analysis.
 
 <details>
@@ -243,7 +243,7 @@ SPAdes was chosen for its balance of accuracy and computational efficiency in as
 
 It will be best to submit this step as a slurm job
 
-### 3.1 Assembling mapped historical Xf genome
+### 3.1 Assembling mapped historical genome
 
 Historical Xf metagenomes were first mapped to the reference genome (using Bowtie2). SAMtools is then used to extract the aligned reads into paired-end FASTQ files for assembly. This step is necessary because the mapped BAM contains only the reads that align to the pathogen genome, effectively enriching for Xf sequences while removing host plant and contaminant DNA. Using these filtered reads improves the accuracy and efficiency of genome assembly with SPAdes.
 
@@ -312,7 +312,7 @@ echo "Assembly finished. Output in $OUTDIR/"
 ```
 </details>
 
-### 3.2 Assembling modern Xf isolates
+### 3.2 Assembling modern isolates
 
 <details>
   <summary>Click to expand script</summary>
@@ -447,7 +447,7 @@ echo "Job finished at $(date)"
 ```
 </details>
 
-### 4.2 Quality control of assembled modern strains
+### 4.2 Quality control of assembled modern isolates
 
 <details>
   <summary>Click to expand script</summary>
