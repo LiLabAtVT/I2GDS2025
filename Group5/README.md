@@ -31,7 +31,7 @@ The purpose of TrimGalore is to trim sequences, remove short sequences, and remo
 
 Before running the analysis, first create a directory for all TrimGalore output files.
 ```
-mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/01_Trim_Galore/ # change to your preferred directory path
+mkdir -p /insert/your/filepath/here/01_Trim_Galore/ # change to your preferred directory path
 ```
 
 TrimGalore was run using a bash script: `01_trim_galore_job.slurm`
@@ -65,7 +65,7 @@ This step ensures that downstream analyses such as assembly or host mapping are 
 
 Before running the analysis, first create a directory for all SuperDeduper output files:
 ```
-mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/02_after_deduper/  
+mkdir -p /insert/your/filepath/here/02_after_deduper/  
 ```
 
 ### 02a. Preparation of the environment
@@ -141,8 +141,8 @@ it to a usable format for BWA.
 
 1. Download reference genome
 ```
-mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref/ # change to your preferred directory path
-cd /projects/intro2gds/I2GDS2025/G5_MG_AMR/03a_Human_ref/
+mkdir -p /insert/your/filepath/here/03a_Human_ref/ # change to your preferred directory path
+cd /insert/your/filepath/here/03a_Human_ref/
 wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.2bit;
 ```
 2. Convert to fasta format
@@ -164,7 +164,7 @@ The purpose of BWA is to remove all sequences that map to the host genome (in th
 
 Before running any analysis, first create a directory for all BWA output files.
 ```
-mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/03_BWA/ # change to your preferred directory path
+mkdir -p /insert/your/filepath/here/03_BWA/ # change to your preferred directory path
 ```
 
 BWA analysis was run using a bash script: `03_BWA.sh`
@@ -204,7 +204,7 @@ FastQC as a final quality check before classification was run using a bash scrip
 
 Before running any analysis, first create a directory for all FastQC output files.
 ```
-mkdir -p /projects/intro2gds/I2GDS2025/G5_MG_AMR/04_fastqc/ # change to your preferred directory path
+mkdir -p /insert/your/filepath/here/04_fastqc/ # change to your preferred directory path
 ```
 
 **Paths in script to change for your specific setup:**
