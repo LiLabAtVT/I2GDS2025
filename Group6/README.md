@@ -67,7 +67,7 @@ vim SRR_slrum  # change to desired name
 
 ```
 Press "I" to begin writing in a vim file    
-Press "esc" button when want to exite and use ":wq" to save and exit  
+Press "esc" button to exit and use ":wq" to save and exit or ":q" to exit and NOT save 
 ```
 #!/bin/bash
 
