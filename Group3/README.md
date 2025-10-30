@@ -7,7 +7,21 @@ Zhang, Q., Ma, S., Liu, Z. et al. (2023). Droplet-based bisulfite sequencing for
 Reference paper: [download here](https://www.nature.com/articles/s41467-023-40411-w)  
 These data can be downloaded [from NCBI.](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE204691)
 
-## Environment setup and tool installation
+```
+
+## Pipeline description
+To replicate the analysis, we use Virginia Tech’s ARC Computing Cluster.
+The pipeline includes the following steps:
+
+ 1.	UMI-tools: extraction of unique molecular identifiers (UMIs) and generation of a whitelist of valid cell barcodes
+ 2.	TrimGalore: adapter removal and quality trimming of raw reads
+ 3.	idemp: demultiplexing of reads based on cell barcodes
+ 4.	Bismark: alignment of bisulfite-treated reads to the reference genome
+ 5.	BamTools: merging and format conversion of multiple BAM files
+ 6.	Picard: removal of PCR duplicates and generation of final cleaned alignment files
+<img width="3076" height="1815" alt="image" src="https://github.com/user-attachments/assets/929b9e6a-11d3-4dd9-bf86-7e735d83b8fc" />
+
+### 00 Environment setup and tool installation
 Before running the scripts, follow these steps to create and activate the environment and install the necessary tools.
 
 **Environment creation:** create a new Conda environment and assign it any name. In this example, we name it “bisulfite” and specify Python 3.10 to ensure compatibility with the tools.
@@ -31,22 +45,9 @@ conda install -c bioconda trim-galore -y
 
 # Reset channel priority to strict
 conda config --set channel_priority strict
-```
-
-## Pipeline description
-To replicate the analysis, we use Virginia Tech’s ARC Computing Cluster.
-The pipeline includes the following steps:
-
- 1.	UMI-tools: extraction of unique molecular identifiers (UMIs) and generation of a whitelist of valid cell barcodes
- 2.	TrimGalore: adapter removal and quality trimming of raw reads
- 3.	idemp: demultiplexing of reads based on cell barcodes
- 4.	Bismark: alignment of bisulfite-treated reads to the reference genome
- 5.	BamTools: merging and format conversion of multiple BAM files
- 6.	Picard: removal of PCR duplicates and generation of final cleaned alignment files
-<img width="3076" height="1815" alt="image" src="https://github.com/user-attachments/assets/929b9e6a-11d3-4dd9-bf86-7e735d83b8fc" />
 
 
-### 00 Data Download and subset extraction (SRAtools)
+### 01 Data Download and subset extraction (SRAtools)
 
 SRAtools (Sequence Read Archive Toolkit) is a set of command-line tools provided by NCBI (National Center for Biotechnology Information) for downloading, viewing, and converting sequencing data from the SRA (Sequence Read Archive) database. First, we locate the file we need on the NCBI website, and then use the `prefetch` tool to download it.
 For example, if the file we need is SRR19391270, the specific command is:
@@ -67,7 +68,7 @@ seqtk sample -s77 SRR19391270_2.fastq 0.01 > sub_R2.fastq
 The s77 represents random seed, which is used to randomly extract the reads. 0.01 means 1% of data will be extracted, and the extracted data will be output to sub_R1.fastq and sub_R2.fastq.
 
 
-### 01 UMI extraction and whitelist creation (UMI-tools)
+### 02 UMI extraction and whitelist creation (UMI-tools)
 #### Introduction
 `UMI-tools` is a software to process sequencing data containing Unique Molecular Identifiers (UMIs). It helps remove PCR duplicates and accurately count unique molecules, improving the reliability of single-cell and RNA-seq analyses.
 #### Explanation
@@ -110,7 +111,7 @@ Here, the barcodes are extracted again based on the fixed position and output to
 #### Expected Output
 This step produces two `.fastq` files and a whitelist text file that includes barcodes. A log file accompanies the text file.
 
-### 02 Adapter trimming (TrimGalore)
+### 03 Adapter trimming (TrimGalore)
 #### Introduction
 `Trim Galore` is used to remove sequencing adapter sequences, trim low-quality bases, and filter out short reads. Here, we use it to perform trimming and cleaning on the extracted FASTQ files.v
 #### Explanation
@@ -125,7 +126,7 @@ This script removes bases with a quality score below Q20, discards reads shorter
 
 This step should produce two `.fq` files with accompanying report `.txt` files. An `err` and `log` file for `Trim_Galore` should also be present.
 
-### 03 Read demultiplexing (idemp)
+### 04 Read demultiplexing (idemp)
 The purpose of idemp is to demultiplex reads based on cell barcodes. After extracting UMIs and generating a whitelist with UMI-tools, idemp uses that whitelist to assign each read to its corresponding cell, creating separate FASTQ files for each cell.
 
 **Input:**
@@ -166,7 +167,7 @@ idemp \
 Whitelist file from UMI-tools needs to be the same format expected by idemp. We need to check the quote before running as idemp can generate many small files for large datasets.
 
 
-### 04 Bisulfite alignment (Bismark)
+### 05 Bisulfite alignment (Bismark)
 The purpose of Bismark is to align bisulfite-treated reads to the reference genome. Bismark performs both alignment and methylation context reporting, ensuring that C-->T (and G-->A) conversions introduced by bisulfite treatment are properly handled during mapping.
 
 **Input:**
@@ -209,7 +210,7 @@ bismark \
 The reference genome must be bisulfite-converted and indexed before running alignment. We will need to specify one input file for single-end reads or include -1 and -2 flags with corresponding files for aligning paired-end reads.
 
 
-### 05 File merging and format conversion (BamTools)
+### 06 File merging and format conversion (BamTools)
 
 The previous step provide sorted BAM files and that must be merged. **BamTools** is a collection of tools for working with BAM files. More information about BamTools can be found in this [Toolkit Tutorial document](https://raw.githubusercontent.com/wiki/pezmaster31/bamtools/Tutorial_Toolkit_BamTools-1.0.pdf). A [repository for BamTools is also on GitHub](https://github.com/pezmaster31/bamtools/tree/master). The tool used here is _merge_. It is also possible to use additional BamTools tools for filtering and sorting if required.
 
