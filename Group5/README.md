@@ -60,7 +60,7 @@ sbatch 01_trim_galore_job.slurm
 
 ## 02. Super Deduper
 
-The purpose of SuperDeduper is to remove PCR and optical duplicate reads from paired-end FASTQ files generated after adapter trimming (in this case, from Trim Galore).
+The purpose of SuperDeduper is to remove PCR and optical duplicate reads from paired-end FASTQ files generated after adapter trimming (Trim Galore Step).
 This step ensures that downstream analyses such as assembly or host mapping are not biased by artificially duplicated reads.
 
 Before running the analysis, first create a directory for all SuperDeduper output files:
@@ -73,7 +73,7 @@ To run superdeduper, we first need to build a conda virtual environment that con
 
 First, we need to load Miniconda
 ```
-## Load Miniconda module (if available)
+## Load Miniconda module
 module load miniconda3
 
 ## check miniconda version
@@ -87,7 +87,7 @@ conda activate htstream12
 ```
 Thirdly, Install HTStream (which includes SuperDeduper). HTStream can be installed via Bioconda, which provides precompiled packages for bioinformatics tools.
 ```
-# 1. Add the proper Conda channels in the correct priority order:
+# 1. Add the proper Conda channels
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
@@ -96,7 +96,7 @@ conda config --add channels conda-forge
 conda install -y htstream
 
 # 3. Verify the correct installation of SuperDeduper
-# Check if command is recognized
+# verify installation 
 which hts_SuperDeduper
 # Check version
 hts_SuperDeduper --version
@@ -118,7 +118,7 @@ Once the conda environment was set up, SuperDeduper analysis was run using a bas
 1. Loads the conda environment (htstream12) that contains the HTStream toolkit, including SuperDeduper.
 2. Defines both the input and output directory paths.
 3. Creates the output directory if it does not already exist.
-4. Scans through all *_1_val_1.fq files in the input folder.
+4. Scans through all *_1_val_1.fq files in the input folder with a for loop. 
 5. For each detected sample, identifies its mate file (*_2_val_2.fq) and runs SuperDeduper
 6. Checks whether both deduplicated files (```_R1.fastq.gz``` and ```_R2.fastq.gz```) were successfully created.
 7. Prints progress messages such as ```[INFO]```, ```[OK]```, or ```[WARN]``` to help track pipeline execution.
