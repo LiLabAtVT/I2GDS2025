@@ -4,19 +4,19 @@ Data and required reference files are located here:
 /projects/intro2gds/I2GDS2025/G6_AMR_ARG/ForReviewers
 ```
 
-# Data download 
+# 1. Data download 
 
-## 1. Download NCBI SRA (Sequence Read Archive) Toolkit, version 3.2.1
+## 1.1. Download NCBI SRA (Sequence Read Archive) Toolkit, version 3.2.1
     https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit
 
-## 2. Copy link to preferred SRA Toolkit\
+## 1.2. Copy link to preferred SRA Toolkit\
    Link to AlmaLinux 64 bit architecture-  https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.2.1/sratoolkit.3.2.1-alma_linux64.tar.gz
 
-## 3. Paste link into ARC terminal, choose preferred location
+## 1.3. Paste link into ARC terminal, choose preferred location
 ```
    curl -O https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.2.1/sratoolkit.3.2.1-alma_linux64.tar.gz
 ```
-## 4. Unzip toolkit 
+## 1.4. Unzip toolkit 
 ```
 tar -xvf sratoolkit.3.2.1-alma_linux64.tar.gz
 ```
@@ -27,7 +27,7 @@ ls
 cd bin
 ls
 ```
-## 5. Collect data from reference paper using NCBI website 
+## 1.5. Collect data from reference paper using NCBI website 
 The National Center for Biotechnology Information (NCBI) [https://www.ncbi.nlm.nih.gov/] advances science and health by providing access to biomedical and genomic information.
 
 Reference Paper: https://doi-org.ezproxy.lib.vt.edu/10.1016/j.watres.2024.121425  
@@ -37,7 +37,7 @@ For our reference paper, the bioproject # is **PRJNA669820**
 Press "Search"  
 Then on the "Send To:" menu, click "Go"  
 
-## 6. Get SRR File #s
+## 1.6. Get SRR File #s
 There should be a new screen now, and click "Accession List"  
 This will download a txt file to your computer.  
 Create a .txt file in Linux and paste in all the SRR #s  
@@ -56,7 +56,7 @@ SRR12901038
 SRR12901047
 SRR12901048
 ```
-## 7. Create a .sh file to run a batch script with SRA Toolkit and SRR File #s 
+## 1.7. Create a .sh file to run a batch script with SRA Toolkit and SRR File #s 
 Use `prefetch` and `fasterq-dump` to obtain fastq files from the SRA run accession list.  
 A more detailed explanation can be foudnd here   
 https://github.com/ncbi/sra-tools/wiki/08.-prefetch-and-fasterq-dump  
@@ -96,16 +96,16 @@ for acc in $(cat SRR_File.txt); do
 
 done
 ```
-## 8. Submit your job 
+## 1.8. Submit your job 
 ```
 sbatch SRR_slurm.sh  # use desired name
 ```
 Fastq files should now be available in the folder created from the batch script. 
 There will be two files (_1 and _2) per SRR # which represent the forward and reverse reads. 
 
-# Fastqc and Multiqc – assess quality of raw sequencing reads 
+# 2. Fastqc and Multiqc – assess quality of raw sequencing reads 
 
-### 1. Create Miniconda environment on the ARC and add packages into your environment 
+### 2.1. Create Miniconda environment on the ARC and add packages into your environment 
 Add Miniconda 
 ```
 module load Miniconda3
@@ -122,7 +122,7 @@ To activate
 ```
 source activate fastqc
 ```
-### 2. Create a file to write in the fastqc batch script
+### 2.2. Create a file to write in the fastqc batch script
 ```
 #!/bin/bash
 #SBATCH --account=prudenlab   # change to desired account 
@@ -147,7 +147,7 @@ for file in *.fastq.gz; do       # can change to .fastq if files are not zipped
 done
 
 ```
-### 3. Check quality score with FastQC Report  
+### 2.3. Check quality score with FastQC Report  
 Each file will produce a fastqc.html and fastqc.zip  
 Download the .html file to your computer and open to evaluate the FastQC Report for EACH sample  
 Remember, each sample has a corresponding _1 and _2 file. This means you need to check the report for each _1 and _2 file. 
@@ -155,7 +155,7 @@ Remember, each sample has a corresponding _1 and _2 file. This means you need to
 Here is a table of what the Phred score (y-axis on "Per base sequence quality" graph) represents:  
 <img width="525" height="189" alt="image" src="https://github.com/user-attachments/assets/a9e8ea41-48d3-43cf-8375-53d6a9ac17d0" />
 
-### 4. Combine files using MultiQC
+### 2.4. Combine files using MultiQC
 An alternative to checking a fastqc report for each _1 and _2 file of each sample is creating a report that contains all files  
 This is done using `multiqc` 
 Multiqc will combine all fastqc files together and create a single .html file that summarizes all samples  
