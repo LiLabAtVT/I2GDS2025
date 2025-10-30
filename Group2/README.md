@@ -6,20 +6,28 @@ https://doi.org/10.1016/j.cub.2024.11.029
 
 ## Overview of workflow
 
-00. data download
-    01. Metagenomes of herbarium specimen
-    02. Raw reads of 44 modern strains of Xf
-    03. Reference genome of Xf
+1. **Data download**
+   - Metagenomic reads from herbarium specimen(s)
+   - Raw reads of 44 modern Xf strains
+   - Reference genome(s) of *X. fastidiosa*
 
-1. Bowtie2 map Xf genome in herbarium specimen sequence
-2. SPAdes
-   2.1 Assemble mapped reads from herbarium specimen
-   2.2 Assemble raw reads of modern strains       
-3. CheckM for quality control of assembled sequences
-4. Prokka for gene annotation
+2. **Mapping Xf in metagenomes**
+   - Use **Bowtie2** to map herbarium metagenomic reads to the Xf reference genome
 
+3. **Assembly**
+   - **SPAdes**
+     - 2.1 Assemble mapped reads from herbarium specimen
+     - 2.2 Assemble raw reads of modern strains
 
-## Download raw sequence and reference genome
+4. **Quality control**
+   - **CheckM** for QC of assembled genomes/scaffolds 
+
+5. **Annotation**
+   - **Prokka** for gene annotation
+
+## Environment setup
+
+## Data download
 
 
 
