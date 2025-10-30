@@ -12,7 +12,7 @@ Before running the scripts, follow these steps to create and activate the enviro
 
 **Environment creation:** create a new Conda environment and assign it any name. In this example, we name it “bisulfite” and specify Python 3.10 to ensure compatibility with the tools.
 ```
-conda create -n bisulfite -c conda-forge -c bioconda python=3.10
+conda create -n bisulfite -c conda-forge -c bioconda python=3.9
 ```
 **Environment activation:** activate the newly created environment so that all installed packages and tools will be available for use.
 ```
