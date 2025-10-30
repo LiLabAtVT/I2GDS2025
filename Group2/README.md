@@ -117,6 +117,8 @@ SPAdes was chosen for its balance of accuracy and computational efficiency in as
 It will be best to submit this step as a slurm job:
 ``` 
 
+```
+
 
 ## Quality control - CheckM
 
@@ -126,7 +128,9 @@ Assembled and quality-controlled contigs were annotated using Prokka v1.14.6 (Se
 
 Prokka was selected for its speed, consistency, and compatibility with downstream comparative genomics workflows. Prokka identifies and functionally annotates genes, rRNAs, tRNAs, and other genomic features using curated databases such as UniProt, RefSeq, and Pfam. It produces high-quality, standardized annotations that enable reliable gene-based analyses.
 
+```
 
+```
 
 
 
