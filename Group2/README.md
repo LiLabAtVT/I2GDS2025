@@ -34,13 +34,11 @@ These files provide the raw reads for historical samples and a reference genome 
 Downloaded metagenome files in .sra format must be converted to FASTQ format to be compatible with downstream tools such as Bowtie2 and SPAdes.
 fasterq-dump splits paired-end reads into *_1.fastq and *_2.fastq files, optionally compressing them with gzip for storage efficiency.
 
-<details>
-  <summary>Click to expand script</summary>
-```
 
+```
 #!/bin/bash
-# -------------------------------------------
-# sra_to_fastq.sh
+#-------------------------------------------
+#sra_to_fastq.sh
 #SBATCH --account=introtogds
 #SBATCH --output=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/script/logs/sra_to_fastq.%j.out
 #SBATCH --error=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/script/logs/sra_to_fastq.%j.err
@@ -52,7 +50,7 @@ fasterq-dump splits paired-end reads into *_1.fastq and *_2.fastq files, optiona
 #SBATCH --mail-type=ALL
 #SBATCH --mem=200GB
 #SBATCH --cpus-per-task=8
-# -------------------------------------------
+#-------------------------------------------
 
 SRA_FILE="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData/SRR29108932"
 FASTQ_DIR="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData/fastq_historical"
@@ -61,22 +59,25 @@ THREADS=8
 
 echo "Converting $SRA_FILE to FASTQ ..."
 
-# 1. Add SRA Toolkit to PATH
+#1. Add SRA Toolkit to PATH
 export PATH="/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH"
 
-# 2. Convert SRA to FASTQ
+#2. Convert SRA to FASTQ
 fasterq-dump "$SRA_FILE" \
   --split-files \
   --threads "$THREADS" \
   -O "$FASTQ_DIR"
 
-# 3. Compress FASTQ
+#3. Compress FASTQ
 echo "Compressing FASTQ files ..."
 gzip -f "$FASTQ_DIR"/*.fastq
 
 echo "Done! Compressed FASTQ files are in $FASTQ_DIR"
+
 ```
-</details>
+
+
+
 
 
 ### 1.3 Modern isolates 
@@ -90,8 +91,8 @@ fasterq-dump was used to convert downloaded .sra files into paired-end FASTQ fil
 
 ```
 #!/bin/bash
-# -------------------------------------------
-# Download_SRR.sh
+#-------------------------------------------
+#Download_SRR.sh
 #SBATCH --account=introtogds
 #SBATCH --job-name=download_SRR
 #SBATCH --nodes=1
@@ -101,20 +102,20 @@ fasterq-dump was used to convert downloaded .sra files into paired-end FASTQ fil
 #SBATCH --mail-type=ALL
 #SBATCH --mem=200GB
 #SBATCH --cpus-per-task=4
-# -------------------------------------------
+#-------------------------------------------
 
 set -euo pipefail
 echo "Job started at $(date)"
 
-# 1. Add SRA Toolkit to PATH
+#1. Add SRA Toolkit to PATH
 export PATH=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH
 
-# 2. set working directory 
+#2. set working directory 
 OUTDIR=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData
 LIST=${OUTDIR}/sra_list.tx
 cd "$OUTDIR"
 
-# 3. Batch download
+#3. Batch download
 while read ACC; do
     echo "=== Processing $ACC ==="
     prefetch --output-directory "$OUTDIR" "$ACC"
@@ -124,6 +125,7 @@ while read ACC; do
 done < "$LIST"
 
 echo "All downloads finished at $(date)"
+
 ```
 </details>
 
