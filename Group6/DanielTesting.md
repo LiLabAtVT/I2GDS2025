@@ -194,10 +194,10 @@ for one_sample in $sample; do
         minlength=51 \
         in="${one_sample}"_1_paired.fastq.gz \
         in2="${one_sample}"_2_paired.fastq.gz \
-        out=/projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/bbduk_output/"${one_sample}"_1_decontam.fastq.gz \
-        out2=/projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/bbduk_output/"${one_sample}"_2_decontam.fastq.gz \
-        stats=/projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/bbduk_output/"${one_sample}"_decontamination_stats.txt \
-        ref='/projects/apruden_lab/thomasbyrne/metagenomics_workshop/merged_ref_5081444234059102403.fa.gz'
+        out=/change/to/output/directory/"${one_sample}"_1_decontam.fastq.gz \ #Change
+        out2=/change/to/output/directory/"${one_sample}"_2_decontam.fastq.gz \ #Change
+        stats=/change/to/output/directory/"${one_sample}"_decontamination_stats.txt \ #Change
+        ref='/chnage/to/where/merged_ref_5081444234059102403.fa.gz/is/located' #Change
 
 
 done
