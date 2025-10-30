@@ -396,7 +396,7 @@ done
   
 </details>
 
-### 4.6 Output Explaination
+### 4.6 Output Explanation
 For each input file, there will be one output FASTQ file, and for each pair of FASTQ files there will be one txt file. This txt file shows how many of each sequence in the reference FASTA file are removed (should be ~0.5-1% of total samples).
 
 If you can't get bbduk to work, the output files are located here:
