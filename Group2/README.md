@@ -82,7 +82,7 @@ echo "Done! Compressed FASTQ files are in $FASTQ_DIR"
 
 
 
-### 1.3 Modern isolates 
+### 1.3 Modern strains 
 An accession list of 44 modern Xf strains was retrieved from NCBI. Using SRAtools, the raw sequencing reads were downloaded.
 
 Notes: The file sra_list.txt should contain one SRA accession per line (e.g., SRR12345678).
@@ -312,7 +312,7 @@ echo "Assembly finished. Output in $OUTDIR/"
 ```
 </details>
 
-### 3.2 Assembling modern isolates
+### 3.2 Assembling modern strains
 
 <details>
   <summary>Click to expand script</summary>
