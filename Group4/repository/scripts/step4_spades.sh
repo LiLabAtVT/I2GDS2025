@@ -15,8 +15,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set Conda Environment
 source ~/.bashrc
-#conda activate g4_viruses
-conda activate test
+conda activate g4_viruses
 
 #Create an input and output directory for SPAdes samples, set the thread count, and create a log
 INPUT_DIR="outputs/bwa_outputs"
