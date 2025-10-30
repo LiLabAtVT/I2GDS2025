@@ -395,11 +395,11 @@ done
 For each input file, there will be one output FASTQ file, and for each pair of FASTQ files there will be one txt file. This txt file shows how many of each sequence in the reference FASTA file are removed (should be ~0.5-1% of total samples).
 
 
-## vesearch
+# vesearch
 
 
-## DIAMOND
+# DIAMOND
 
 
-## Pipeline
+# Pipeline
 <img width="593" height="778" alt="image" src="https://github.com/user-attachments/assets/6f9dc70f-19f5-4431-bddc-5a1dc2c58afc" />
