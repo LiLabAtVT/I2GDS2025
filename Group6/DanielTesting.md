@@ -86,7 +86,7 @@ With the 10 input files, this should take ~1 hour to run. Called Trimmomatic_G6.
 #SBATCH --mem=16G
 #SBATCH -t 30:00:00
 #SBATCH --cpus-per-task=8
-#SBATCH --mail-type=START,END,FAIL
+#SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=username@vt.edu #Change
 
 module load Miniconda3
@@ -182,7 +182,7 @@ With 10 samples, should take ~13 hours. Called "bbduk_G6.sh" in the "code-files"
 #SBATCH --partition=normal_q
 #SBATCH --mem=200G
 #SBATCH -t 7-00:00:00
-#SBATCH --mail-type=START,END,FAIL
+#SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=username@vt.edu #Change
 
 module load Miniconda3
