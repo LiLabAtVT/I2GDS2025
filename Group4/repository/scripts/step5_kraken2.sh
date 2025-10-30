@@ -15,8 +15,7 @@ cd /projects/intro2gds/I2GDS2025/G4_Viruses/github/
 
 #Set conda environment
 source ~/.bashrc
-#conda activate g4_viruses
-conda activate test
+conda activate g4_viruses
 
 #Parameters
 DB="/projects/intro2gds/I2GDS2025/G4_Viruses/databases/kraken2/k2_db"
