@@ -140,15 +140,34 @@ source activate bbduk
 ```
 
 ### 4.3 Downloading bbduk
-Next, download trimmomatic:
+Next, download bbduk, which is part of the bbmap package:
 ```
 conda install bioconda::bbmap
 ```
 
+### 4.4 Inputs Required
+- **Input Data**: This will be the paired sequences from Trimmomatic
+- **Reference Database**: A FATSA file containing sequences known to be human, cat, dog, or mouse. This is "merged_ref_5081444234059102403.fa.gz"
 
 
+### 4.5 bbduk Script
+
+### 4.5.1 Explaination of bbduk.sh
+
+**bbduk command**\
+preallocate=t means we will preallocate memory (t = true), and we will preallocate 180G
+```
+bbduk.sh preallocate=t -Xmx180G
+```
+
+If a read is shorter than 51 after decontamination, then we will throw it out
+```
+minlength=51
+```
+
+### 4.5.2 bbduk script
 <details>
-<summary> script</summary>
+<summary> bbduk.sh</summary>
 
 ```
 #!/bin/bash
@@ -189,3 +208,6 @@ done
 
   
 </details>
+
+### 4.6 Output Explaination
+For each input file, there will be one output FASTQ file, and for each pair of FASTQ files there will be one txt file. This file shows how many of each sequence in the reference FASTA file are removed (should be ~0.5-1%)
