@@ -1,3 +1,4 @@
+# Pipline for sequencing processing of plant bacterial pathogen
 ## Introduction
 This project replicates a bioinformatics pipeline for analyzing a collection of Xylella fastidiosa (Xf) genomes obtained from both pure cultures and century-old herbarium specimens.
 
