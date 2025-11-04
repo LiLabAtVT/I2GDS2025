@@ -211,7 +211,7 @@ fi
 # 5️⃣ Map metagenomic reads
 # ------------------------------
 for f1 in "$METAGENOME_DIR"/*_1.fastq.gz; do
-    fname=$(basename "$f1" _1.fastq.gz)
+    fname=$(basename "$f1"_1.fastq.gz)
     f2="${METAGENOME_DIR}/${fname}_2.fastq.gz"
 
     # Check for paired-end files
