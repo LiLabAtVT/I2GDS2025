@@ -2,7 +2,7 @@
 Note: The scripts in this pipeline were developed by different teammates.
 Paths, input filenames, output directories, and working directories must be modified to match your own environment before running. Always double-check SLURM resource requests and file locations. 
 
-**For reviewers: please retrieve our test dataset from the TestData_LinuxPeerEval folder G2_testdata. This directory contains 5 modern Xylella strain sequences (10 total files). Please run the scripts available to download or copy in this repo in your copy of the G2 folder; they will create the needed folder systems as they run.**
+**For reviewers: please retrieve our test dataset from the TestData_LinuxPeerEval folder G2_testdata. This directory contains 5 modern Xylella strain sequences (10 total files). Please run the scripts available to download or copy in this repo in your copy of the G2 folder; they will create the needed folder systems as they run. To streamline reading this document and running the code, the portions you need to run are already expanded. Other steps in the pipeline are contained in dropdown tabs, and are not necessary to test this pipeline, although you are welcome to try them.**
 
 ## Introduction
 This project replicates a bioinformatics pipeline for analyzing a collection of Xylella fastidiosa (Xf) genomes obtained from both pure cultures and century-old herbarium specimens.
@@ -323,9 +323,6 @@ echo "Assembly finished. Output in $OUTDIR/"
 
 ### 3.2 Assembling modern strains
 
-<details>
-  <summary>Click to expand script</summary>
-
 ```
 #!/bin/bash
 #SBATCH --job-name=spades_batch
@@ -385,7 +382,6 @@ echo "======================================"
 echo "All assemblies completed!"
 echo "======================================"
 ```
-</details>
 
 ## 4. Quality control - CheckM
 After assembly, CheckM is used to evaluate the completeness and contamination of assembled genomes from both historical metagenomes and modern isolates.
@@ -458,9 +454,6 @@ echo "Job finished at $(date)"
 
 ### 4.2 Quality control of assembled modern isolates
 
-<details>
-  <summary>Click to expand script</summary>
-
 ```
 #!/bin/bash
 #SBATCH --job-name=checkm_batch
@@ -529,7 +522,6 @@ checkm qa -o 2 -f "${SUMMARY_FILE}" "${CHECKM_OUT}"/*/storage
 echo "All CheckM analyses completed at $(date)"
 echo "Summary saved to: ${SUMMARY_FILE}"
 ```
-</details>
 
 ## 5. Genome annotation - Prokka
 Assembled and quality-controlled contigs were annotated using Prokka v1.14.6 (Seemann, 2014), a rapid annotation pipeline designed for prokaryotic genomes. Each assembly (scaffolds.fasta) from the quality-controlled assembly folder all_bins/ was annotated independently in parallel using 8 CPU threads. The output for each genome was written to data/annotations/, generating standard annotation files including GFF3, GenBank, and FAA (protein) files. 
@@ -543,8 +535,6 @@ Prokka was selected for its speed, consistency, and compatibility with downstrea
 ```
 
 ### 5.2 Annotation of modern strains 
-<details>
-  <summary>Click to expand script</summary>
 
 ```
 #!/bin/bash
@@ -602,6 +592,5 @@ done
 
 echo "==== All Prokka annotations completed successfully at $(date)! ===="
 ```
-</details>
 
 **For reviewers: if the Linux portion of the pipeline ran succesfully, you should have a folder "annotations" containing five folders with titles like "SRR18209240_spades_prokka" from the Prokka output. With the annotated genomes, you are now ready for the R portion of this pipeline (next half of course).**
