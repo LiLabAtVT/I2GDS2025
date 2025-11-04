@@ -74,7 +74,7 @@ To run superdeduper, we first need to build a conda virtual environment that con
 First, we need to load Miniconda
 ```
 ## Load Miniconda module
-module load miniconda3
+module load Miniconda3
 
 ## check miniconda version
 conda --version
@@ -125,7 +125,7 @@ Once the conda environment was set up, SuperDeduper analysis was run using a bas
 
 Once all batch script parameters and filepaths are updated in the script, **navigate to the directory that your script is located** in and use the following line of code to submit the job on ARC.
 ```
-sbatch 02_run_superdeduper_cpu.slurm
+sbatch 02_run_superdeduper_new.slurm
 ```
 
 ## 03. BWA
