@@ -118,6 +118,8 @@ fasterq-dump was used to convert downloaded .sra files into paired-end FASTQ fil
 set -euo pipefail
 echo "Job started at $(date)"
 
+cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/RawData
+
 # 1. Add SRA Toolkit to PATH
 export PATH=/projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/sratoolkit.3.2.1-ubuntu64/bin:$PATH
 
