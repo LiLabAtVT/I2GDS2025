@@ -530,9 +530,11 @@ Prokka was selected for its speed, consistency, and compatibility with downstrea
 
 ### 5.1 Annotation of historical genomes
 
+<details> 
+  <summary>Click to expand script</summary>
 ```
-
 ```
+</details>
 
 ### 5.2 Annotation of modern strains 
 
