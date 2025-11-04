@@ -2,7 +2,7 @@
 Note: The scripts in this pipeline were developed by different teammates.
 Paths, input filenames, output directories, and working directories must be modified to match your own environment before running. Always double-check SLURM resource requests and file locations. 
 
-**For reviewers: please retrieve our test dataset from the TestData_LinuxPeerEval folder G2_testdata. This directory contains 5 modern Xylella strain sequences (10 total files). Please run the scripts available to download or copy in this repo in your copy of the G2 folder; they will create the needed folder systems as they run. To streamline reading this document and running the code, the portions you need to run are already expanded. Other steps in the pipeline are contained in dropdown tabs, and are not necessary to test this pipeline, although you are welcome to try them.**
+**For reviewers: please retrieve our test dataset from the TestData_LinuxPeerEval folder G2_testdata starting from step 3 to 5 (only for modern strains!). This directory contains 5 modern Xylella strain sequences (10 total files). Please run the scripts available to download or copy in this repo in your copy of the G2 folder; they will create the needed folder systems as they run. To streamline reading this document and running the code, the portions you need to run are already expanded. Other steps in the pipeline are contained in dropdown tabs, and are not necessary to test this pipeline, although you are welcome to try them.**
 
 ## Introduction
 This project replicates a bioinformatics pipeline for analyzing a collection of Xylella fastidiosa (Xf) genomes obtained from both pure cultures and century-old herbarium specimens.
