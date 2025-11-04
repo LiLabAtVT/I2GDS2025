@@ -15,6 +15,7 @@
 
 # 1. Load Module
 module load BWA/0.7.18-GCCcore-13.3.0
+module load SAMtools/1.21-GCC-13.3.0
 
 # ------------------------------
 # 2. Define directories
