@@ -24,7 +24,7 @@ module load Trim_Galore/0.6.10-GCCcore-12.3.0
 
 # ------------------------------
 
-RAW_DIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata"
+RAW_DIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G5_testdata/rawdata"
 
 OUT_DIR="insert/your/trimgalore/output/filepath/here"  #make sure you change this to your preferred directory
 
