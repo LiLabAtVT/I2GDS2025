@@ -1,6 +1,7 @@
 # Pipline for Sequencing Processing of Plant Bacterial Pathogen (Xylella fastidiosa)
 Note: The scripts in this pipeline were developed by different teammates.
 Paths, input filenames, output directories, and working directories must be modified to match your own environment before running. Always double-check SLURM resource requests and file locations. 
+
 **For reviewers: please retrieve our test dataset from the TestData_LinuxPeerEval folder G2_testdata. This directory contains 5 modern Xylella strain sequences (10 total files). Please run the scripts available to download or copy in this repo in your copy of the G2 folder; they will create the needed folder systems as they run.**
 
 ## Introduction
@@ -20,7 +21,7 @@ https://doi.org/10.1016/j.cub.2024.11.029
 | **5. Annotation**      | Annotate genes in assembled genomes.                                                                               | **Prokka**   |
 
 ## 0. Environment setup
-Some of the packages needed for this pipeline are not preinstalled on the ARC. Create an environment called "group2_env" that will install and load these requirements.
+Some of the packages needed for this pipeline are not preinstalled on the ARC. Fisrt, create an environment called "group2_env" that will install and load these requirements.
 ```
 module load Miniconda3/24.7.1-0
 
@@ -325,7 +326,7 @@ echo "Assembly finished. Output in $OUTDIR/"
 <details>
   <summary>Click to expand script</summary>
 
-``` 
+```
 #!/bin/bash
 #SBATCH --job-name=spades_batch
 #SBATCH --output=logs/spades_%x_%j.log
@@ -347,8 +348,8 @@ set -e
 module load SPAdes || module load spades || echo "SPAdes module not found; make sure it’s installed."
 
 # --- 1. Define input/output directories ---
-READS_DIR="data/Modern_strain"         # Folder with raw FASTQ files
-OUT_BASE="data/assemblies"             # Where assemblies will go
+READS_DIR="Modern_strain"         # Folder with raw FASTQ files
+OUT_BASE="assemblies"             # Where assemblies will go
 
 # --- 2. Create output + log directories ---
 mkdir -p "${OUT_BASE}" logs
@@ -463,64 +464,59 @@ echo "Job finished at $(date)"
 ```
 #!/bin/bash
 #SBATCH --job-name=checkm_batch
+#SBATCH --output=logs/checkm_%x_%j.out
+#SBATCH --error=logs/checkm_%x_%j.err
 #SBATCH --account=introtogds
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=100GB
+#SBATCH --mem=100G
 #SBATCH --time=48:00:00
-#SBATCH --mail-user=jingjingy@vt.edu
-#SBATCH --mail-type=ALL
+#SBATCH --mail-type=END,FAIL
 
-set -o pipefail
+set -euo pipefail
 
 echo "==== CheckM batch job started at $(date) ===="
 
 # ------------------------------
-# 1️⃣ activate CheckM environment
+# 1. Activate CheckM environment
 # ------------------------------
-# activate Miniconda
 module load Miniconda3/24.7.1-0
-source $CONDA_PREFIX/etc/profile.d/conda.sh
-conda activate checkm_env
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate group2_env
 
 # ------------------------------
-# 2. set work directory and path
+# 2. Set directories
 # ------------------------------
+SPADES_DIR="assemblies"                   # location of SPAdes outputs
+CHECKM_OUT="checkm_results"         # where to save CheckM outputs
+SUMMARY_FILE="${CHECKM_OUT}/checkm_summary.csv"
 
-cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing/results
-
-SPADES_DIR=./Assembled_modern   # modern strain assemble
-CHECKM_OUT=./modern_checkm_results   # CheckM output
-SUMMARY_FILE=$CHECKM_OUT/checkm_summary.csv
-mkdir -p "$CHECKM_OUT"
-
+mkdir -p "${CHECKM_OUT}" logs
 
 # ------------------------------
-# 3️⃣ loop for every strain 
+# 3. Loop through each assembly
 # ------------------------------
-for strain in "$SPADES_DIR"/*; do
-    if [ -d "$strain" ]; then
-        sample=$(basename "$strain")
-        fasta="$strain/scaffolds.fasta"
+for strain_dir in "${SPADES_DIR}"/*_spades; do
+    if [ -d "${strain_dir}" ]; then
+        sample=$(basename "${strain_dir}" _spades)
+        fasta="${strain_dir}/contigs.fasta"
 
-        # check if fasta exists 
-        if [ ! -f "$fasta" ]; then
-            echo "No scaffolds.fasta found for $sample, skipping..."
+        if [ ! -f "${fasta}" ]; then
+            echo "No contigs.fasta found for ${sample}, skipping..."
             continue
         fi
 
-        OUTDIR="$CHECKM_OUT/$sample"
-        mkdir -p "$OUTDIR"
+        OUTDIR="${CHECKM_OUT}/${sample}"
+        mkdir -p "${OUTDIR}"
 
-        echo "Running CheckM for sample: $sample ..."
+        echo "Running CheckM for sample: ${sample} ..."
         checkm lineage_wf \
             -x fasta \
-	    --reduced_tree \
-            "$strain" \
-            "$OUTDIR" \
-            --threads 16
-
+            --reduced_tree \
+            "${strain_dir}" \
+            "${OUTDIR}" \
+            --threads ${SLURM_CPUS_PER_TASK}
     fi
 done
 
@@ -528,14 +524,10 @@ done
 # 4. Summarize results
 # ------------------------------
 echo "Generating summary file ..."
-checkm qa -o 2 -f "$SUMMARY_FILE" "$CHECKM_OUT"/*/storage
+checkm qa -o 2 -f "${SUMMARY_FILE}" "${CHECKM_OUT}"/*/storage
 
-echo "✅ All done!"
-echo "Summary saved to: $SUMMARY_FILE"
-echo "Job finished at $(date)"
-
-echo "==== All CheckM analyses completed at $(date) ===="
-
+echo "All CheckM analyses completed at $(date)"
+echo "Summary saved to: ${SUMMARY_FILE}"
 ```
 </details>
 
@@ -568,13 +560,16 @@ Prokka was selected for its speed, consistency, and compatibility with downstrea
 
 set -euo pipefail
 
-# --- Load environment ---
+echo "==== Prokka batch job started at $(date) ===="
+
+# --- Load Conda environment ---
 module load Miniconda3/24.7.1-0
-source activate ~/.conda/envs/prokka_env
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate group2_env
 
 # --- Directories ---
-ASSEMBLY_DIR="data/assemblies"
-OUT_BASE="data/annotations"
+ASSEMBLY_DIR="./assemblies"
+OUT_BASE="./annotations"
 
 mkdir -p "${OUT_BASE}" logs
 
@@ -583,7 +578,8 @@ shopt -s nullglob
 
 # --- Loop over assemblies ---
 for ASSEMBLY in ${ASSEMBLY_DIR}/*/contigs.fasta; do
-    SAMPLE=$(basename "$(dirname "${ASSEMBLY}")" _spades)
+    SAMPLE=$(basename "$(dirname "${ASSEMBLY}")")
+
     OUT_DIR="${OUT_BASE}/${SAMPLE}_prokka"
 
     echo "==========================================="
@@ -604,10 +600,8 @@ for ASSEMBLY in ${ASSEMBLY_DIR}/*/contigs.fasta; do
     echo
 done
 
-echo "All Prokka annotations completed successfully!"
-
+echo "==== All Prokka annotations completed successfully at $(date)! ===="
 ```
 </details>
 
-
-## 6. Test data
+**For reviewers: if the Linux portion of the pipeline ran succesfully, you should have a folder "annotations" containing five folders with titles like "SRR18209240_spades_prokka" from the Prokka output. With the annotated genomes, you are now ready for the R portion of this pipeline (next half of course).**
