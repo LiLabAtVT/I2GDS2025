@@ -1,6 +1,7 @@
 # Pipline for Sequencing Processing of Plant Bacterial Pathogen (Xylella fastidiosa)
 Note: The scripts in this pipeline were developed by different teammates.
-Paths, input filenames, output directories, and working directories must be modified to match your own environment before running. Always double-check SLURM resource requests and file locations.
+Paths, input filenames, output directories, and working directories must be modified to match your own environment before running. Always double-check SLURM resource requests and file locations. 
+**For reviewers: please retrieve our test dataset from the TestData_LinuxPeerEval folder G2_testdata. This directory contains 5 modern Xylella strain sequences (10 total files). Please run the scripts available to download or copy in this repo in your copy of the G2 folder; they will create the needed folder systems as they run.**
 
 ## Introduction
 This project replicates a bioinformatics pipeline for analyzing a collection of Xylella fastidiosa (Xf) genomes obtained from both pure cultures and century-old herbarium specimens.
@@ -18,8 +19,14 @@ https://doi.org/10.1016/j.cub.2024.11.029
 | **4. Quality control** | Assess completeness and contamination of assembled genomes.                                                        | **CheckM**   |
 | **5. Annotation**      | Annotate genes in assembled genomes.                                                                               | **Prokka**   |
 
+## 0. Environment setup
+Some of the packages needed for this pipeline are not preinstalled on the ARC. Create an environment called "group2_env" that will install and load these requirements.
+```
+module load Miniconda3/24.7.1-0
 
-
+conda create -y -n group2_env -c conda-forge -c bioconda \
+  checkm-genome prokka mlst
+```
 
 ## 1. Data download - SRAtools
 Retrieve raw sequencing data (SRA format) for both historical herbarium metagenomes and modern isolates. This step ensures consistent data organization for downstream analyses.
