@@ -353,7 +353,7 @@ mkdir -p "${OUT_BASE}" logs
 
 # --- 3. Loop through all paired-end read files ---
 for R1 in ${READS_DIR}/*_1.fastq.gz; do
-    SAMPLE=$(basename "${R1}" _1.fastq.gz)
+    SAMPLE=$(basename "${R1}"_1.fastq.gz)
     R2="${READS_DIR}/${SAMPLE}_2.fastq.gz"
     OUT_DIR="${OUT_BASE}/${SAMPLE}_spades"
 
@@ -428,14 +428,14 @@ conda activate checkm_env
 # 2. set work directory and path
 # ------------------------------
 
-cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing
+cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing  
 
 # 3. run CheckM
 checkm lineage_wf \
     -x fasta \
     --reduced_tree \
-    ./spades_output \
-    ./results/Historical_checkm_results \
+    ./spades_output \                           # assembled historial strains directory
+    ./results/Historical_checkm_results \       # output the results in a new folder
     --threads 16
 
 # generate summary
