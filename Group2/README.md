@@ -1,4 +1,4 @@
-# Pipline for Sequencing Processing of Plant Bacterial Pathogen (Xylella fastidiosa)
+# Pipeline for Sequencing Processing of Plant Bacterial Pathogen (Xylella fastidiosa)
 Note: The scripts in this pipeline were developed by different teammates.
 Paths, input filenames, output directories, and working directories must be modified to match your own environment before running. Always double-check SLURM resource requests and file locations. 
 
@@ -352,7 +352,7 @@ OUT_BASE="assemblies"             # Where assemblies will go
 mkdir -p "${OUT_BASE}" logs
 
 # --- 3. Loop through all paired-end read files ---
-for R1 in ${READS_DIR}/*_1.fastq.gz; do
+for R1 in "${READS_DIR}"/*_1.fastq.gz; do
     SAMPLE=$(basename "${R1}" _1.fastq.gz)
     R2="${READS_DIR}/${SAMPLE}_2.fastq.gz"
     OUT_DIR="${OUT_BASE}/${SAMPLE}_spades"
@@ -368,7 +368,7 @@ for R1 in ${READS_DIR}/*_1.fastq.gz; do
         -1 "${R1}" \
         -2 "${R2}" \
         -o "${OUT_DIR}" \
-        -t ${SLURM_CPUS_PER_TASK} \
+        -t "${SLURM_CPUS_PER_TASK}" \
         -m 32 \
         --isolate \
         --cov-cutoff auto
