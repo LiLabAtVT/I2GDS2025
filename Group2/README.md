@@ -252,8 +252,6 @@ Raw Illumina paired-end reads were assembled de novo using SPAdes v4.1.0 (Bankev
 
 SPAdes was chosen for its balance of accuracy and computational efficiency in assembling bacterial genomes from Illumina short reads, providing robust contigs/scaffolds suitable for subsequent annotation (Prokka), ortholog detection, and phylogenetic analysis.
 
-It will be best to submit this step as a slurm job
-
 ### 3.1 Assembling mapped historical genome
 
 Historical Xf metagenomes were first mapped to the reference genome (using Bowtie2). SAMtools is then used to extract the aligned reads into paired-end FASTQ files for assembly. This step is necessary because the mapped BAM contains only the reads that align to the pathogen genome, effectively enriching for Xf sequences while removing host plant and contaminant DNA. Using these filtered reads improves the accuracy and efficiency of genome assembly with SPAdes.
@@ -355,7 +353,7 @@ mkdir -p "${OUT_BASE}" logs
 
 # --- 3. Loop through all paired-end read files ---
 for R1 in ${READS_DIR}/*_1.fastq.gz; do
-    SAMPLE=$(basename "${R1}"_1.fastq.gz)
+    SAMPLE=$(basename "${R1}" _1.fastq.gz)
     R2="${READS_DIR}/${SAMPLE}_2.fastq.gz"
     OUT_DIR="${OUT_BASE}/${SAMPLE}_spades"
 
@@ -378,11 +376,6 @@ for R1 in ${READS_DIR}/*_1.fastq.gz; do
     echo "SPAdes assembly finished for ${SAMPLE}"
     echo "Main contigs file: ${OUT_DIR}/contigs.fasta"
 done
-
-# --- 4. Wrap up ---
-echo "======================================"
-echo "All assemblies completed!"
-echo "======================================"
 ```
 
 ## 4. Quality control - CheckM
