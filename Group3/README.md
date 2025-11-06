@@ -137,14 +137,32 @@ The purpose of idemp is to demultiplex reads based on cell barcodes. After extra
 
 **Script:**
 ```
-echo "Running idemp..."
+OUTDIR="03_idemp"
+mkdir -p "$OUTDIR"
 
+# input
+WL="extract_trim_out/whitelist_top100.txt"
+R1="extract_trim_out/sub_R1_extracted_val_1.fq"
+R2="extract_trim_out/sub_R2_extracted_val_2.fq"
+
+# 1. barcode_r.txt
+awk '{print $1, NR}' "$WL" > "$OUTDIR/barcode_r.txt"
+
+# 2. index.fastq
+awk 'NR%4==1{
+  if (match($0, /_([ACGTN]+)_/, m)) bc=m[1]; else bc="N";
+  q=""; for(i=1;i<=length(bc);i++) q=q"F";
+  print "@idx" ++c; print bc; print "+"; print q;
+}' "$R1" > "$OUTDIR/index.fastq"
+
+# 3. run idemp
 idemp \
-    --input $RAW_DIR/ \
-    --output $DEMUX_DIR/ \
-    --barcode-file barcodes.txt \
-    --stats \
-    --threads $THREADS
+  -b "$OUTDIR/barcode_r.txt" \
+  -I1 "$OUTDIR/index.fastq" \
+  -R1 "$R1" \
+  -R2 "$R2" \
+  -m 0 \
+  -o "$OUTDIR"
 ```
 
 **What the script does:**
@@ -178,14 +196,30 @@ The purpose of Bismark is to align bisulfite-treated reads to the reference geno
 
 **Script:**
 ```
-echo "Running Bismark alignment..."
+GENOME_DIR="/projects/intro2gds/I2GDS2025/G3_SingleCell/Rui/reference/Bisulfite_Genome_human"
+INDIR="03_idemp"
+OUTDIR="04_bismark_align"
+THREADS="${SLURM_CPUS_PER_TASK:-8}"
 
-bismark \
-    --genome $REF_DIR \
-    -1 $DEMUX_DIR/sample_R1.fastq.gz \
-    -2 $DEMUX_DIR/sample_R2.fastq.gz \
-    --output_dir $ALIGN_DIR \
-    --parallel $THREADS
+
+mkdir -p "$OUTDIR"
+
+
+# ---- Align R1 reads (PBAT mode) ----
+for f in ${INDIR}/*_R1_*.fastq.gz; do
+  base=$(basename "$f" .fastq.gz)
+  echo "[$(date)] Aligning (PBAT) $base ..."
+  bismark --genome "$GENOME_DIR" --pbat -p "$THREADS" \
+          -o "$OUTDIR" "$f"
+done
+
+# ---- Align R2 reads (default mode) ----
+for f in ${INDIR}/*_R2_*.fastq.gz; do
+  base=$(basename "$f" .fastq.gz)
+  echo "[$(date)] Aligning (default) $base ..."
+  bismark --genome "$GENOME_DIR" -p "$THREADS" \
+          -o "$OUTDIR" "$f"
+done
 ```
 
 **What the script does:**
@@ -225,10 +259,30 @@ The script also includes an array in order to cycle through each of the cell's f
 
 The specific merge code is:
 ```
-bamtools merge \
-  -in "${R1_BAM}" \
-  -in "${R2_BAM}" \
-  -out "${MERGED_BAM}"
+INDIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G3_TestData/04_bismark_align"
+OUTDIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G3_TestData/05_bamtools"
+
+mkdir -p "$OUTDIR"
+
+# Merge + Sort
+for R1 in ${INDIR}/sub_R1_extracted_val_1.fq_*_bismark_bt2.bam
+do
+  ID=$(basename "$R1" | sed 's/.*\.fq_//; s/_bismark_bt2.bam//')
+  R2="${INDIR}/sub_R2_extracted_val_2.fq_${ID}_bismark_bt2.bam"
+  MERGED="${OUTDIR}/${ID}.merged.bam"
+  SORTED="${OUTDIR}/${ID}_sorted.bam"
+  
+  # Merge R1 + R2
+  bamtools merge -in "$R1" -in "$R2" -out "$MERGED"
+
+  # Sort merged BAM
+  samtools sort "$MERGED" -o "$SORTED"
+
+  # Delete unsorted intermediate file to save space
+  rm -f "$MERGED"
+
+  echo "[$(date)] Done ${ID} -> ${SORTED}"
+done
 ```
 `merge` is the command in BamTools. The two `-in` statements indicated the files to be combined into the merged file in `-out`.
 
@@ -251,12 +305,28 @@ samtools sort -@4 -o $OUT_DIR/${BASE}.sorted.bam "$BAM_FILE"
 ```
 Then `picard` is called to remove the duplicates. `I=` indicates where the inputfiles are located with `O=` providing the directory and new name of the files with duplicates removed. `M=` sets up a metric file.
 ```
-picard MarkDuplicates \
-    I=$OUT_DIR/${BASE}.sorted.bam \
-    O=$OUT_DIR/${BASE}.dedup.bam \
-    M=$OUT_DIR/${BASE}.dedup.metrics.txt \
+INDIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G3_TestData/05_bamtools"
+OUTDIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G3_TestData/06_picard"
+
+mkdir -p "$OUTDIR"
+
+for BAM in ${INDIR}/*_sorted.bam
+do
+  ID=$(basename "$BAM" _sorted.bam)
+  OUT_BAM="${OUTDIR}/${ID}_dedup.bam"
+  METRICS="${OUTDIR}/${ID}_metrics.txt"
+
+  echo "[$(date)] Processing ${ID} ..."
+
+  picard MarkDuplicates \
+    I="$BAM" \
+    O="$OUT_BAM" \
+    M="$METRICS" \
     REMOVE_DUPLICATES=true \
     VALIDATION_STRINGENCY=SILENT
+
+  echo "[$(date)] Done ${ID} -> ${OUT_BAM}"
+done
 ```
 And finally, `samtools` is used to create an index file. This index file can be used to accelerate finding specific regions of the BAM files allowing faster processing in downstream steps.
 ```
