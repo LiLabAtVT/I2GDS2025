@@ -343,7 +343,4 @@ do
   echo "[$(date)] Done ${ID} -> ${OUT_BAM}"
 done
 ```
-And finally, `samtools` is used to create an index file. This index file can be used to accelerate finding specific regions of the BAM files allowing faster processing in downstream steps.
-```
-samtools index $OUT_DIR/${BASE}.dedup.bam
-```
+
