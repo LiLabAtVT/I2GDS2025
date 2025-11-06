@@ -30,19 +30,41 @@ conda create -n bisulfite -c conda-forge -c bioconda python=3.9
 ```
 source activate bisulfite
 ```
-**Tool installation:**: install the software packages needed for the first two steps of the pipeline: UMI-tools (for UMI extraction) and Trim Galore (for adapter and quality trimming). Channel priority settings are adjusted to avoid dependency conflicts during installation.
+**Tool installation:**: install the software packages needed for the first two steps of the pipeline. Channel priority settings are adjusted to avoid dependency conflicts during installation.
 ```
-# Install UMI-tools
-python -m pip install --no- cache-dir "umi_tools==1.1.3"
+# UMI-tools
+echo "Installing UMI-tools..."
+python -m pip install --no-cache-dir "umi_tools==1.1.3"
 
-# Temporarily set flexible channel priority
+# Trim Galore
+echo "Installing Trim Galore..."
 conda config --set channel_priority flexible
-
-# Install Trim Galore
 conda install -c bioconda trim-galore -y
-
-# Reset channel priority to strict
 conda config --set channel_priority strict
+
+
+# Demultiplexing
+echo "Installing idemp..."
+conda install -c conda-forge make gcc gxx -y
+git clone https://github.com/yhwu/idemp.git
+cd idemp
+make
+cp idemp $CONDA_PREFIX/bin/
+
+
+# Alignment and BAM tools
+echo "Installing Bismark, Bowtie2, Samtools..."
+conda install -c bioconda -c conda-forge bismark bowtie2 samtools -y
+conda install -c conda-forge ncurses=6.4 -y
+ln -s $CONDA_PREFIX/lib/libncurses.so.6 $CONDA_PREFIX/lib/libncurses.so.5
+
+
+echo "Installing BAM/bed utilities..."
+conda install -c bioconda bamtools bedtools -y
+
+# Duplicate marking
+echo "Installing Picard..."
+conda install -c bioconda picard -y
 ```
 
 ### 01 Data Download and subset extraction (SRAtools)
