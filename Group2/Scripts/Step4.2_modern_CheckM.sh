@@ -69,7 +69,7 @@ done
 # 4. Summarize results
 # ------------------------------
 echo "Generating summary file ..."
-checkm qa -o 2 -f "$SUMMARY_FILE" "$CHECKM_OUT"/*/storage
+checkm qa -o 2 -f "$SUMMARY_FILE" --tab_table "$CHECKM_OUT"/*/lineage.ms "$CHECKM_OUT"
 
 echo "✅ All done!"
 echo "Summary saved to: $SUMMARY_FILE"
