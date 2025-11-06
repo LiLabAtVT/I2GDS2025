@@ -476,8 +476,8 @@ conda activate group2_env
 # ------------------------------
 # 2. Set directories
 # ------------------------------
-SPADES_DIR="assemblies"                   # location of SPAdes outputs
-CHECKM_OUT="checkm_results"         # where to save CheckM outputs
+SPADES_DIR="assemblies"          # location of SPAdes outputs
+CHECKM_OUT="checkm_results"      # where to save CheckM outputs
 SUMMARY_FILE="${CHECKM_OUT}/checkm_summary.csv"
 
 mkdir -p "${CHECKM_OUT}" logs
@@ -512,7 +512,13 @@ done
 # 4. Summarize results
 # ------------------------------
 echo "Generating summary file ..."
-checkm qa -o 2 -f "${SUMMARY_FILE}" "${CHECKM_OUT}"/*/storage
+
+checkm qa \
+    -o 2 \
+    -f "${SUMMARY_FILE}" \
+    --tab_table \
+    "${CHECKM_OUT}"/*/lineage.ms \
+    "${CHECKM_OUT}"
 
 echo "All CheckM analyses completed at $(date)"
 echo "Summary saved to: ${SUMMARY_FILE}"
