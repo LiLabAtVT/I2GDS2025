@@ -284,7 +284,7 @@ do
   echo "[$(date)] Done ${ID} -> ${SORTED}"
 done
 ```
-`merge` is the command in BamTools. The two `-in` statements indicated the files to be combined into the merged file in `-out`.
+`merge` is the command in BamTools. The two `-in` statements indicated the files to be combined into the merged file in `-out`. Subsequently, `samtools` is used to sort the the BAM files according to genomic coordinates and outputs a new sorted file.
 
 ### 06 Deduplication (Picard)
 
@@ -295,14 +295,7 @@ The script starts with loading `picard` and `samtools`. SAMTools will be used fo
 module load picard
 module load samtools
 ```
-A SLURM array is used, as in the previous step, to cycle through all 1000 cells in the single cell dataset, each with its own BAM file.
-```
-BAM_FILE=$(ls $IN_DIR/*.merged.bam | sed -n "${SLURM_ARRAY_TASK_ID}p")
-```
-Subsequently, `samtools` is used to sort the the BAM files according to genomic coordinates and outputs a new sorted file.
-```
-samtools sort -@4 -o $OUT_DIR/${BASE}.sorted.bam "$BAM_FILE"
-```
+
 Then `picard` is called to remove the duplicates. `I=` indicates where the inputfiles are located with `O=` providing the directory and new name of the files with duplicates removed. `M=` sets up a metric file.
 ```
 INDIR="/projects/intro2gds/I2GDS2025/TestData_LinuxPeerEval/G3_TestData/05_bamtools"
