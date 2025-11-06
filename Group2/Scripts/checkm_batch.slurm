@@ -57,24 +57,16 @@ for strain_dir in "${SPADES_DIR}"/*_spades; do
 done
 
 # ------------------------------
-# 4. Generate single summary table
+# 4. Summarize results
 # ------------------------------
 echo "Generating summary file ..."
-echo "Sample,Completeness,Contamination" > "${SUMMARY_FILE}"
 
-for OUTDIR in ${CHECKM_OUT}/*; do
-    if [ -f "${OUTDIR}/storage/bin_stats_ext.tsv" ]; then
-        sample=$(basename "${OUTDIR}")
-        # Extract completeness and contamination from CheckM output
-        awk -v s="${sample}" -F'\t' '/completeness/ {
-            gsub(/[^0-9.]/, "", $2); comp=$2
-        } /contamination/ {
-            gsub(/[^0-9.]/, "", $2); cont=$2
-        } END {
-            if (comp != "" && cont != "") print s","comp","cont
-        }' "${OUTDIR}/storage/bin_stats_ext.tsv" >> "${SUMMARY_FILE}"
-    fi
-done
+checkm qa \
+    -o 2 \
+    -f "${SUMMARY_FILE}" \
+    --tab_table \
+    "${CHECKM_OUT}"/*/lineage.ms \
+    "${CHECKM_OUT}"
 
 echo "All CheckM analyses completed at $(date)"
 echo "Summary saved to: ${SUMMARY_FILE}"
