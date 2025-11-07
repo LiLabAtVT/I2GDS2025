@@ -534,6 +534,44 @@ Prokka was selected for its speed, consistency, and compatibility with downstrea
 <details> 
   <summary>Click to expand script</summary>
 ```
+	#!/bin/bash
+# -------------------------------------------
+#Prokka_historical.sh
+#SBATCH --account=introtogds
+#SBATCH --job-name=Prokka_historical
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=48:00:00
+#SBATCH --mail-user=jingjingy@vt.edu
+#SBATCH --mail-type=ALL
+#SBATCH --mem=200GB
+#SBATCH --cpus-per-task=8
+# -------------------------------------------
+
+echo "Job started at $(date)"
+
+# --- Load environment ---
+module load Miniconda3/24.7.1-0
+source activate ~/.conda/envs/prokka_env
+
+# 1. Set working directory
+cd /projects/intro2gds/I2GDS2025/G2_PlantDisease/Jingjing
+
+# 2. import fasta and export directory 
+FASTA=./spades_output/scaffolds.fasta
+OUTDIR=./results/prokka_his
+
+#3. create output folder
+mkdir -p "$OUTDIR"
+
+# run Prokka
+prokka \
+    --outdir "$OUTDIR" \
+    --prefix "$FASTA" \ 
+    --force \
+    --cpus 8 \
+    "$FASTA"
+
 ```
 </details>
 
