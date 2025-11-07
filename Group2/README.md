@@ -533,6 +533,7 @@ Prokka was selected for its speed, consistency, and compatibility with downstrea
 
 <details> 
   <summary>Click to expand script</summary>
+	
 ```
 	#!/bin/bash
 # -------------------------------------------
@@ -574,6 +575,7 @@ prokka \
 
 ```
 </details>
+
 
 
 
