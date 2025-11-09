@@ -3,7 +3,7 @@
 This repository contains teaching materials and analysis scripts for processing and analyzing single-nucleus RNA-seq (snRNA-seq) data from Arabidopsis thaliana roots at 24 hours post-infection with the oomycete pathogen Phytophthora capsici.
 The workflow demonstrates how to perform sample integration, clustering, marker identification, differential expression, and visualization using Seurat.
 
-## 🌱 Project Overview##
+## 🌱 Project Overview ##
 
 Goal: Explore how Arabidopsis root cell types respond to pathogen infection.
 
