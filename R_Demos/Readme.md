@@ -9,7 +9,7 @@ Goal: Explore how Arabidopsis root cell types respond to pathogen infection.
 
 Approach: snRNA-seq profiling and Seurat-based data integration.
 
-Outcome: Identification of 12 transcriptionally distinct cell clusters and cell-type-specific immune responses.
+Outcome: Identification of 12 transcriptionally distinct cell clusters and cell-type-specific marker genes..
 
 This repository is structured as a teaching example, highlighting key steps needed to analyze snRNA-seq data and visualize biological insights.
 
