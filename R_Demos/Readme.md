@@ -28,6 +28,7 @@ BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplo
 ```
 
 📁 Repository Structure
+```bash
 ├── 1_Integration_UMAP/
 │   ├── Integration.R         # Integration, PCA, UMAP, clustering
 │   ├── UMAP_ClusterID.R      # Assign biological cluster identities
@@ -38,12 +39,12 @@ BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplo
 ├── 3_Visualization/
 │   ├── DotPlot_FunctionalGenes.R        # Hormone/defense gene dot plots
 │   ├── FeaturePlot_CellMarkers.R        # Marker gene UMAP visualization
-
+```
 
 ## 🧬 Pipeline Steps (Teaching Version)##
 # Step 1 — Data Integration & UMAP Clustering #
 
-Script: 1_Integration_UMAP/Integration_Seurat_SCT.R
+Script: 1_Integration.R
 
 Integrates infected and control datasets using SCTransform.
 
@@ -55,7 +56,7 @@ Generates UMAP visualization of root cell populations.
 
 Integrated_Seurat_Object.rds
 
-UMAP_Clusters.png
+UMAP_Clusters.pdf
 
 # Step 2 — Marker Gene Identification & DE Analysis #
 
