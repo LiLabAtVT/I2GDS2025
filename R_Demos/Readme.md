@@ -23,8 +23,11 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplot"))
+```
 
-📁 Repository Structure
+# 📁 Repository Structure #
+
+``` bash
 ├── Integration.R                      # Data integration, PCA, clustering, UMAP
 ├── UMAP_Cluster_ID_Script.R           # Assign biological cluster identities
 
