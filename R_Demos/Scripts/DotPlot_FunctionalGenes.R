@@ -9,10 +9,10 @@ suppressPackageStartupMessages({
 })
 
 # -------- Paths --------
-seurat_obj_path    <- "/projects/intro2gds/Razan_2024/scRNA_Seq_Arab/Razan_Nina_Integration_Analysis/Script/OMG_Nina_Analysis/Razan2025/OutPut_2025/07072025/Patho_Nonpatho_integration_07072025.Rds"
-deg_markers_path   <- "/projects/intro2gds/Razan_2024/scRNA_Seq_Arab/Razan_Nina_Integration_Analysis/Script/OMG_Nina_Analysis/Razan2025/OutPut_2025/07072025/deg_markers_07072025.csv"
-output_dotplot_pdf <- "/projects/intro2gds/Razan_2024/scRNA_Seq_Arab/Razan_Nina_Integration_Analysis/Script/OMG_Nina_Analysis/Razan2025/OutPut_2025/07072025/DotPlot_Cell_Type_Markers_Cluster_ID-07072025.pdf"
-output_annot_csv   <- "/projects/intro2gds/Razan_2024/scRNA_Seq_Arab/Razan_Nina_Integration_Analysis/Script/OMG_Nina_Analysis/Razan2025/OutPut_2025/07072025/DotPlot_Cell_Type_Markers_Annotations_07072025.csv"
+seurat_obj_path    <- "/projects/intro2gds/I2GDS2025/R_LectureData/Razan_SingleCell/Scripts/Patho_Nonpatho_integration.Rds" # Change the file path to your own directory before running the script.
+deg_markers_path   <- "/projects/intro2gds/I2GDS2025/R_LectureData/Razan_SingleCell/Scripts/DEG_markers.csv" # Change the file path to your own directory before running the script.
+output_dotplot_pdf <- "/projects/intro2gds/I2GDS2025/R_LectureData/Razan_SingleCell/Scripts/DotPlot_Cell_Type_Markers_Cluster_ID.pdf" # Change the file path to your own directory before running the script.
+output_annot_csv   <- "/projects/intro2gds/I2GDS2025/R_LectureData/Razan_SingleCell/Scripts/DotPlot_Cell_Type_Markers_Annotations.csv" # Change the file path to your own directory before running the script.
 
 dir.create(dirname(output_dotplot_pdf), recursive = TRUE, showWarnings = FALSE)
 
