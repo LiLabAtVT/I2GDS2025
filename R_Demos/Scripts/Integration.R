@@ -14,14 +14,6 @@ rownames(Neg2) <- gsub("Arabidopsis_thaliana_gene:", "", rownames(Neg2))
 rownames(Pos1) <- gsub("gene:", "", rownames(Pos1))
 rownames(Pos2) <- gsub("gene:", "", rownames(Pos2))
 
-# input counts (genes x cells; matrix/dgCMatrix/data.frame)
-# a label stored in the Seurat object (e.g., "Arabidopsis_24hpi")
-# QC cap for nFeature_RNA (cells above this are filtered out)
-# number of highly variable genes to pick (e.g., 2000 or 3000)
-# how many PCs to use downstream (e.g., 20 or 30)
-# graph clustering granularity (e.g., 0.2–1.2; higher = more clusters)
-
-
 process_seurat_object <- function(counts_data, project_name,
                                   feature_upper, nfeatures,
                                   pca_dims, clustering_resolution) {
@@ -39,11 +31,7 @@ seurat_obj[["percent.mt"]] <- 0
                          nFeature_RNA < feature_upper & 
                          percent.mt < 5)
                          
-  # QC violin plots
-  pdf(paste0("./", project_name, "_QC_violin.pdf"), width = 10, height = 5)
-  print(VlnPlot(seurat_obj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3))
-  dev.off()  
-  
+    
   # Normalize data
   seurat_obj <- NormalizeData(seurat_obj, normalization.method = "LogNormalize", scale.factor = 10000)
   # Identify variable features
@@ -57,7 +45,7 @@ seurat_obj[["percent.mt"]] <- 0
   seurat_obj <- RunUMAP(seurat_obj, dims = pca_dims)
   
   # Save object
-saveRDS(seurat_obj, file.path(".", paste0(project_name, ".rds")))
+  saveRDS(seurat_obj, paste0("/projects/intro2gds/I2GDS2025/R_LectureData/Razan_SingleCell/Scripts/", project_name, ".rds"))
   
   return(seurat_obj)
 }
@@ -91,13 +79,13 @@ crossSamples.combine <- RunUMAP(crossSamples.combine, reduction = "pca", dims = 
 crossSamples.combine <- FindNeighbors(crossSamples.combine, reduction = "pca", dims = 1:30)
 crossSamples.combine <- FindClusters(crossSamples.combine, resolution = 0.3) #org =0.3
 
-saveRDS(crossSamples.combine, "./Patho_Nonpatho_integration.Rds")
+saveRDS(crossSamples.combine, "./Patho_Nonpatho_integration_07072025.Rds")
 
 
 
 # Save metadata in current directory
 write.csv(crossSamples.combine@meta.data, 
-          file = "./Meta_Patho_Nonpatho_Integrated.csv", 
+          file = "./Meta_Patho_Nonpatho_Integrated_07072025.csv", 
           row.names = TRUE)
 
 # Find and save marker genes in current directory
@@ -107,22 +95,22 @@ markers_combined <- FindAllMarkers(crossSamples.combine,
                                    logfc.threshold = 0.25)
 
 write.csv(markers_combined, 
-          file = "./Markers_Patho_Nonpatho_Integrated.csv", 
+          file = "./Markers_Patho_Nonpatho_Integrated_07072025.csv", 
           row.names = FALSE)
 
-pdf("./Patho_Nonpatho.pdf", width = 8, height = 5)
+pdf("./Patho_Nonpatho_07072025.pdf", width = 8, height = 5)
 DimPlot(crossSamples.combine, reduction = "umap", group.by = "orig.ident", cols = c("lightblue","blue", "#FFC073","#FF8C00"))
 dev.off()
 
-pdf("./Patho_Nonpatho_sepColor.pdf", width = 8, height = 5)
+pdf("./Patho_Nonpatho_sepColor_07072025.pdf", width = 8, height = 5)
 DimPlot(crossSamples.combine, reduction = "umap", split.by = "orig.ident", group.by = "orig.ident", cols = c("lightblue","blue", "#FFC073","#FF8C00"))
 dev.off()
 
-pdf("./Patho_Nonpatho_lable.pdf", width = 8, height = 5)
+pdf("./Patho_Nonpatho_lable_07072025.pdf", width = 8, height = 5)
 DimPlot(crossSamples.combine, reduction = "umap", label = TRUE)
 dev.off()
 
 
-pdf("./Patho_Nonpatho_sep.pdf", width = 8, height = 5)
+pdf("./Patho_Nonpatho_sep_07072025.pdf", width = 8, height = 5)
 DimPlot(crossSamples.combine, reduction = "umap", split.by = "orig.ident")
 dev.off()
