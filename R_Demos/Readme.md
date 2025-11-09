@@ -16,7 +16,7 @@ This repository is structured as a teaching example, highlighting key steps need
 🧩 Requirements
 
 Before running the workflow, ensure R and the required packages are installed.
-
+```bash 
 # CRAN packages
 install.packages(c("ggplot2", "dplyr", "cowplot"))
 
@@ -25,11 +25,12 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplot"))
+```
 
 📁 Repository Structure
 ├── 1_Integration_UMAP/
 │   ├── Integration.R         # Integration, PCA, UMAP, clustering
-│   ├── UMAP_ClusterID.R                 # Assign biological cluster identities
+│   ├── UMAP_ClusterID.R      # Assign biological cluster identities
 │
 ├── 2_CellMarkers_DEG/
 │   ├── CellMarkers_DEG_Analysis.R       # Marker genes and differential expression
@@ -37,7 +38,7 @@ BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplo
 ├── 3_Visualization/
 │   ├── DotPlot_FunctionalGenes.R        # Hormone/defense gene dot plots
 │   ├── FeaturePlot_CellMarkers.R        # Marker gene UMAP visualization
-│   └── FeaturePlot_SelectedMarkers.R    # Additional gene-level feature plots
+
 
 ## 🧬 Pipeline Steps (Teaching Version)##
 # Step 1 — Data Integration & UMAP Clustering #
