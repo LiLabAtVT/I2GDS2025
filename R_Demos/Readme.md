@@ -41,7 +41,7 @@ BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplo
 │   ├── FeaturePlot_CellMarkers.R        # Marker gene UMAP visualization
 ```
 
-## 🧬 Pipeline Steps (Teaching Version)##
+## 🧬 Pipeline Steps (Teaching Version) ##
 # Step 1 — Data Integration & UMAP Clustering #
 
 Script: 1_Integration.R
