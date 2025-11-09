@@ -11,10 +11,11 @@ Outcome	Identification of 12 transcriptionally distinct cell clusters and cell-t
 
 This repository is designed as a teaching example, focusing on the essential analysis and visualization steps.
 
-# 🧩 Requirements #
+## 🧩 Requirements ##
 
 Before running the workflow, install the following R packages:
 ```bash
+
 # CRAN packages
 install.packages(c("ggplot2", "dplyr", "cowplot"))
 
@@ -25,7 +26,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplot"))
 ```
 
-# 📁 Repository Structure #
+## 📁 Repository Structure ##
 
 ``` bash
 ├── Integration.R                      # Data integration, PCA, clustering, UMAP
@@ -39,7 +40,7 @@ BiocManager::install(c("Seurat", "clusterProfiler", "org.At.tair.db", "enrichplo
 
 ## 🧬 Pipeline Steps (Teaching Version) ##
 
-# Step 1 — Data Integration & UMAP Clustering #
+## Step 1 — Data Integration & UMAP Clustering ##
 
 Script: Integration.R
 
@@ -53,7 +54,7 @@ Integrated_Seurat_Object.rds
 
 UMAP_Clusters.pdf (or .png depending on export)
 
-# Step 2 — Cluster Marker Genes & Differential Expression #
+## Step 2 — Cluster Marker Genes & Differential Expression ##
 
 Script: CellMarkers_DEG_Analysis.R
 
@@ -67,7 +68,7 @@ All_Markers.csv
 
 DEG_Infected_vs_Control.csv
 
-# Step 3 — Visualization of Biological Responses #
+## Step 3 — Visualization of Biological Responses ##
 
 Scripts:
 
