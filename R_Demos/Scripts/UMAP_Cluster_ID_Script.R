@@ -4,8 +4,8 @@ library(dplyr)
 library(ggplot2)
 
 # --- Define input and output paths ---
-seurat_obj_path <- "/projects/intro2gds/Razan_2024/scRNA_Seq_Arab/Razan_Nina_Integration_Analysis/Script/OMG_Nina_Analysis/Razan2025/OutPut_2025/07072025/Patho_Nonpatho_integration_07072025.Rds"
-output_dir <- "./OutPut"
+seurat_obj_path <- "/projects/intro2gds/I2GDS2025/R_LectureData/Razan_SingleCell/Scripts/Patho_Nonpatho_integration.Rds" # Change the file path to your own directory before running the script.
+output_dir <- "./OutPut" # Change the file path to your own directory before running the script.
 
 # Define output path for UMAP PDF and new Seurat object with cluster labels
 output_umap_pdf <- file.path(output_dir, "UMAP_cluster_labels_ID.pdf")
