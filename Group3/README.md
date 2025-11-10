@@ -45,6 +45,7 @@ conda config --set channel_priority strict
 
 # Demultiplexing
 echo "Installing idemp..."
+conda install -c conda-forge zlib -y
 conda install -c conda-forge make gcc gxx -y
 git clone https://github.com/yhwu/idemp.git
 cd idemp
