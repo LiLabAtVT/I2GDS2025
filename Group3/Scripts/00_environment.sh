@@ -29,6 +29,7 @@ conda config --set channel_priority strict
 
 # Demultiplexing
 echo "Installing idemp..."
+conda install -c conda-forge zlib -y
 conda install -c conda-forge make gcc gxx -y
 git clone https://github.com/yhwu/idemp.git
 cd idemp
@@ -49,3 +50,4 @@ conda install -c bioconda bamtools bedtools -y
 # Duplicate marking
 echo "Installing Picard..."
 conda install -c bioconda picard -y
+
