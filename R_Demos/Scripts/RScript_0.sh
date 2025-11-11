@@ -2,8 +2,8 @@
 #SBATCH -A introtogds
 #SBATCH -p normal_q
 #SBATCH --cpus-per-task=8
-#SBATCH -J Razan_Integration_New_Nina
-#SBATCH -o 	CellMarkers_DEG_Analysis_%j.out
+#SBATCH -J scRNA_Seq
+#SBATCH -o 	Integration_%j.out #Replace this with the name of the job name  you want to run.
 
 echo "date: `date`"
 echo "hostname: $HOSTNAME"; echo
@@ -21,4 +21,4 @@ module load R/4.4.2-gfbf-2024a
 
 
 #To run your R script
-Rscript CellMarkers_DEG_Analysis.R
+Rscript Integration.R #Replace this with the name of the script you want to run.
