@@ -88,7 +88,7 @@ set.seed(123)
 km3 <- kmeans(umap_df[, c("UMAP1","UMAP2")], centers = 3, nstart = 50)
 umap_df$cluster3 <- factor(km3$cluster)
 ```
-### 07 plot
+### 07 Plot
 ```
 p <- ggplot(umap_df, aes(UMAP1, UMAP2, color = cluster3)) +
       geom_point(size = 1.5, alpha = 0.9) +
@@ -102,3 +102,6 @@ ggsave("dropbs_kmeans3_umap.png", p, width = 7, height = 6, dpi = 300)
 
 message("Done! Output saved: dropbs_kmeans3_umap.png")
 ```
+### 08 Result
+<img width="1145" height="711" alt="f5253c39f0ccaad67402b73c2e4d5e8e" src="https://github.com/user-attachments/assets/36d2b816-2f30-4416-98c4-4876f39d1632" />
+
