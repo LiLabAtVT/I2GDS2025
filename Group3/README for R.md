@@ -1,8 +1,5 @@
 This script constructs a 1 Mb bin-level methylation feature matrix
-# from single-cell allc files, performs global-rate normalization,
-# reduces dimensionality using PCA and UMAP, and applies K-means 
-# clustering to identify major cell populations. The pipeline 
-# follows the analysis framework used in Drop-BS methylome studies.
+from single-cell allc files, performs global-rate normalization, reduces dimensionality using PCA and UMAP, and applies K-means, clustering to identify major cell populations. The pipeline follows the analysis framework used in Drop-BS methylome studies.
 ### 01 Load programs
 ```
 library(data.table) library(Matrix) library(irlba) library(FNN) library(umap) library(ggplot2)
