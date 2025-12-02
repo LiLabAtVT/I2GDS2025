@@ -569,7 +569,38 @@ If there's any trouble with DIAMOND annotation, example output files are located
 ## Turning DIAMOND outputs into a workable file
 DIAMOND outputs are a little tricky, as it does not compile the number of times a gene is seen in a sample. Therefore, we have to do it ourselves.
 
-First, put rp_abun.py in the same folder as your DIAMOND outputs
+First, run DIAMOND again, this time annotating against an rpob reference database. The necessary file (RpoB.dmnd) is located in code-files.
+
+<details>
+  <summary>diamondrpob.sh</summary>
+  
+``` 
+#!/bin/bash
+#SBATCH --account=introtogds
+#SBATCH --partition=normal_q
+#SBATCH -t 7-00:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=yourPID@vt.edu
+#SBATCH --cpus-per-task=16
+
+module load Miniconda3
+
+source activate diamond_and_vsearch
+
+RPOB_DB='/projects/ciwars/databases/RpoB.dmnd' #replace with location of your downloaded RpoB.dmnd file
+
+cd #insert path to directory where all vsearch output files are located
+
+samples=$(ls *_clean_merged.fastq | awk '{gsub(/_clean_merged.fastq/,"",$0); print}' | sort | uniq)
+
+for sample in $samples
+do
+	diamond blastx -e 1e-10 --id 40 -k 1 --threads 10 -d $RPOB_DB -q ${sample}_clean_merged.fastq -o ${sample}_rpob.csv --outfmt 6
+done
+```
+</details>
+
+Next, put rp_abun.py in the same folder as your DIAMOND outputs
 
 Then, run cal_abundances.sh. You need python and pandas installed in the environment mypy3
 
@@ -665,10 +696,15 @@ echo "Merge complete. Merged file: $output_file"
 
 ## Working in R
 Inputs: `CARD4.0.1_aro_cat.csv`, `I2GDSMetadata.csv`, `Antibiotic to Drug.csv`, and `I2GDS_G6_finalDiamond.csv`
+All inputs are provided in the code-files folder.
 
 Libraries needed: `tidyverse`, `RColorBrewer`
+To install these libraries, open RStudio and click the "Tools" drop-down menu at the top of the window. Then select "Install Packages".
+In the "Packages" box, type tidyverse and click install. Do the same for RColorBrewer.
 
-Comments are included in the code to explain
+In R, you will take the output from the previous merging step and use additional metadata, ARG annotation, and Antibiotic to Drug categorization files to created a stacked bar chart. This stacked bar chart shows which ARGs were found in different sample types, classifying the ARGs by drug resistance.
+
+To produce this stacked bar graph, run the R code below. Comments within the code explain the general workflow.
 
 <details>
 <summary> I2GDS_G6.R</summary>
