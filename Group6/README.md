@@ -954,4 +954,4 @@ The output should look like:
 The paper's figure looks like:
 <img width="720" height="548" alt="image" src="https://github.com/user-attachments/assets/86f76cf9-ff1b-4c56-8485-d64415595501" />
 
-We did not normalize to 16S gene copies, as that data was not easily accessable. We also only used 10 samples from 1 sampling event, where the paper had multiple. These could explain why the data looks slightly different.
+We did not normalize to 16S gene copies, as that data was not easily accessable. We also only used 10 samples from 1 sampling event, while the paper had multiple. These differences could explain why the data looks slightly different.
