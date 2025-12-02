@@ -255,9 +255,8 @@ The `I2GDS_stackingplot_group_final.R` script takes the bracken output files and
 
 **What the script does:**
 1. Reads all bracken files and merges them together with the columns needed for plotting
-2. Calculates relative abundances
-3. Filters to the top 20 genera based on average relative abundance and groups all other taxa into an 'other' category
-4. Orders the samples based on the abundance of the Prevotella genera like what was done in the example paper beign modeled
-5. Creates a color scheme with the same number of colors as genera in the plot (21 - 20 genera and the other category)
-6. Plots the relative abundances in a stacking bar plot using the created color scheme and ordered data
+2. Filters to the top 20 genera based on average relative abundance and groups all other taxa into an 'other' category
+3. Orders the samples based on the abundance of the Prevotella genera like what was done in the example paper beign modeled
+4. Creates a color scheme with the same number of colors as genera in the plot (21 - 20 genera and the other category)
+5. Plots the relative abundances in a stacking bar plot using the created color scheme and ordered data
 
