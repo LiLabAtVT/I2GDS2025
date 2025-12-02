@@ -664,7 +664,7 @@ echo "Merge complete. Merged file: $output_file"
 </details>
 
 ## Working in R
-Inputs: `CARD4.0.1_aro_cat.csv', `I2GDSMetadata.csv`, `Antibiotic to Drug.csv`, and `I2GDS_G6_finalDiamond.csv`
+Inputs: `CARD4.0.1_aro_cat.csv`, `I2GDSMetadata.csv`, `Antibiotic to Drug.csv`, and `I2GDS_G6_finalDiamond.csv`
 
 Libraries needed: `tidyverse`, `RColorBrewer`
 
