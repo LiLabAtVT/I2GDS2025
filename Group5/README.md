@@ -236,8 +236,7 @@ sbatch 04_fastqc.sh
 
 ## 07. Stacked Bar Plot in R
 
-**Paths in script to change for your specific setup:**
-* Working Directory: where all your input files are located
+The `I2GDS_stackingplot_group_final.R` script takes the bracken output files and creates a relative abundance bar plot of the top 20 genera across the 10 samples. For more detail, see detailed comments within the script.
 
 **Input**: Bracken output files (Should be 10 of them corresponding with the 10 samples)
 * Example: `SRR17048876.bracken`
@@ -250,5 +249,10 @@ sbatch 04_fastqc.sh
 ![Relative abundance stacked bar plot for the 10 samples at the genus level](genus_abundance_plot.pdf "Stacked Bar Plot")
 
 **What the script does:**
-1. 
+1. Reads all bracken files and merges them together with the columns needed for plotting
+2. Calculates relative abundances
+3. Filters to the top 20 genera based on average relative abundance and groups all other taxa into an 'other' category
+4. Orders the samples based on the abundance of the Prevotella genera like what was done in the example paper beign modeled
+5. Creates a color scheme with the same number of colors as genera in the plot (21 - 20 genera and the other category)
+6. Plots the relative abundances in a stacking bar plot using the created color scheme and ordered data
 
