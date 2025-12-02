@@ -240,6 +240,7 @@ The `I2GDS_stackingplot_group_final.R` script takes the bracken output files and
 
 **Input**: Bracken output files (Should be 10 of them corresponding with the 10 samples)
 * Example: `SRR17048876.bracken`
+* Is a tsv file with 7 columns, but the  columns used for creating the bar plot are: name, taxonomy_lvl, and fraction_total_reads
 
 **Paths in script to change for your specific setup:**
 * Working Directory: where all your input files are located
