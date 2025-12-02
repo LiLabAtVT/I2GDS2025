@@ -5,13 +5,13 @@ library(ggrepel)
 indir <- "PATH/TO/INPUTDIR"
 
 # List input files
-kraken_files <- list.files(indir, pattern = "_kraken_subset_1m.out$", full.names = TRUE)
-taxmap_files <- list.files(indir, pattern = "_tax-map.tsv$", full.names = TRUE)
-diamond_files <- list.files(indir, pattern = "_subset_1m_assembly.daa$", full.names = TRUE)
+kraken_files <- list.files(indir, pattern = "_kraken_subset_1m.out$", full.names = TRUE) # read kraken2 input files
+taxmap_files <- list.files(indir, pattern = "_tax-map.tsv$", full.names = TRUE) # read taxonomy file for kraken2 files
+diamond_files <- list.files(indir, pattern = "_subset_1m_assembly.daa$", full.names = TRUE) # read DIAMOND input files
 
 # Helper function to get sample name
 get_sample_name <- function(filepath) {
-  gsub("_assembly_kraken_subset_1m.out$", "", basename(filepath))
+  gsub("_assembly_kraken_subset_1m.out$", "", basename(filepath)) # extract sample name from input files
 }
 
 # Settings
@@ -44,35 +44,35 @@ for (kraken_file in kraken_files) {
   )
 
   kraken_out <- kraken %>%
-    filter(classified == "C") %>%
-    select(seq_id, taxid) %>%
-    arrange(taxid)
+    filter(classified == "C") %>% # Filter Kraken 2 file to only include classified contigs
+    select(seq_id, taxid) %>% # Select only the seq_id and taxid columns
+    arrange(taxid) # arrange table by taxid
 
   kraken_pie <- kraken_out %>%
-    count(taxid, name = "group")
+    count(taxid, name = "group") # count the number that each taxid occurs
 
   taxmap <- read.csv(
     taxmap_file,
     header = TRUE,
     sep = "\t"
   ) %>%
-    select(taxid, Tax_name)
+    select(taxid, Tax_name) # Read taxonomy input file, select only the taxid and Tax_name columns
 
   # Merge with taxmap
-  kraken_pie <- merge(kraken_pie, taxmap, by = "taxid", all.x = TRUE)
+  kraken_pie <- merge(kraken_pie, taxmap, by = "taxid", all.x = TRUE) # merge kraken_pie table with taxonomy map file based on matching taxid
 
   # Filtering
   kraken_pie <- kraken_pie %>%
     filter(group > 5) %>%
-    filter(!taxid %in% c(1, 2, 131567, 9606))
+    filter(!taxid %in% c(1, 2, 131567, 9606)) # filter out any taxid that has a group value lower than 5, and further filtering based on occurrences in all kraken files (human DNA, root, etc.)
 
   # Dynamic threshold for top slices
   kraken_pie <- kraken_pie %>% arrange(desc(group))
   if (nrow(kraken_pie) > desired_slices) {
-    threshold <- kraken_pie$group[desired_slices]
+    threshold <- kraken_pie$group[desired_slices] # decide threshold used for plotting based on the value of "desired_slices"
 
     kraken_pie <- kraken_pie %>%
-      mutate(Tax_name = ifelse(group < threshold, "Other", Tax_name)) %>%
+      mutate(Tax_name = ifelse(group < threshold, "Other", Tax_name)) %>% # Condense taxid that did not make the threshold cut into a slice labeled "Other"
       group_by(Tax_name) %>%
       summarise(group = sum(group), .groups = "drop") %>%
       arrange(desc(group))
