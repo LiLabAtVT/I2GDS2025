@@ -760,7 +760,7 @@ conda install ipykernel
 pip install plotly kaleido
 conda install pandas
 ```
-Run cal_abundances.sh to ___________.
+Run cal_abundances.sh to calculate the abundance of each ARG and RPOB gene in every sample.
 <details>
 <summary> cal_abundances.sh</summary>
 
