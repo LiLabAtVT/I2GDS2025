@@ -672,6 +672,7 @@ Comments are included in the code to explain
 
 <details>
 <summary> I2GDS_G6.R</summary>
+	
 ```
 #Loading packages
 library(tidyverse)
@@ -752,7 +753,6 @@ ggplot(df, aes(x = isolation_source, y = sum_count, fill = Drug)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   ylab("Total ARG copies") +
   xlab("")
-
 ```
 
 </details>
