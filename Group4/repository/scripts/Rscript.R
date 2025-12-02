@@ -108,10 +108,10 @@ for (kraken_file in kraken_files) {
     coord_polar("y", start = 0) +
     theme_void() +
     labs(
-      title = paste("Kraken2 Pie Chart for", sample_name),
-      fill = "Species"
+      title = paste("Kraken2 Pie Chart for", sample_name), # Set title of plot to either Kraken 2/DIAMOND Pie Chart for sample#
+      fill = "Species" # Set Legend title to Species
     ) +
-    geom_label_repel(
+    geom_label_repel( # Add percentage labels to the pie chart overlapping the chart itself
       aes(label = pct_label),
       position = position_stack(vjust = 0.5),
       show.legend = FALSE,
@@ -124,7 +124,7 @@ for (kraken_file in kraken_files) {
 
   # Save Kraken plot
   ggsave(
-    filename = file.path(indir, paste0("KrakenPie_", sample_name, ".png")),
+    filename = file.path(indir, paste0("KrakenPie_", sample_name, ".png")), # Save Kraken 2 plot to a .PNG can be changed to .PDF if needed
     plot = kraken_plot,
     width = 7, height = 7, dpi = 300,
     bg = "white"
@@ -134,7 +134,7 @@ for (kraken_file in kraken_files) {
   #############################################
   #### ---------- DIAMOND PROCESS ---------- ###
   #############################################
-
+## Comments for Kraken process are the same as DIAMOND process
   diamond <- fread(
     diamond_file,
     col.names = c(
