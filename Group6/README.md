@@ -571,7 +571,7 @@ DIAMOND outputs are a little tricky, as it does not compile the number of times 
 
 First, put rp_abun.py in the same folder as your DIAMOND outputs
 
-Then, run cal_abundances.sh
+Then, run cal_abundances.sh. You need python and pandas installed in the environment mypy3
 
 <details>
 <summary> cal_abundances.sh</summary>
