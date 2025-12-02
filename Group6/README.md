@@ -619,6 +619,7 @@ done
 
 Finally, run merging_my_noramlized.sh
 
+The final output, I2GDS_G6_AMR_Diamond.txt, is what the R script will use.
 <details>
 <summary> merging_my_noramlized.sh</summary>
 
