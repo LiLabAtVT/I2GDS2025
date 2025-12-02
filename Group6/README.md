@@ -571,3 +571,93 @@ DIAMOND outputs are a little tricky, as it does not compile the number of times 
 
 First, put rp_abun.py in the same folder as your DIAMOND outputs
 
+Then, run cal_abundances.sh
+
+<details>
+<summary> cal_abundances.sh</summary>
+
+```
+#!/usr/bin/sh
+
+#SBATCH --account=prudenlab
+#SBATCH --partition=normal_q
+#SBATCH --mem=20G
+#SBATCH -t 1:00:00
+#SBATCH -n 50
+#SBATCH -N 1
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=dceglio@vt.edu
+
+module load Miniconda3
+
+eval "$(conda shell.bash hook)"
+
+conda activate mypy3
+
+#REF_arg='/projects/ciwars/ChezLiz/CARD4.0.1.dmnd'
+REF_arg='/projects/ciwars/ChezLiz/protein_fasta_protein_homolog_model.len.txt' ##comment either this out or the deeparg length file depending on what you used. 
+#REFA='/projects/ciwars/databases/bacmet_len.txt'
+
+#REF_16s='/projects/ciwars/databases/gg_13_5.len'
+REF_rpob='/projects/ciwars/databases/RpoB.ref.len'
+
+#samples=$(ls $src/projects/ciwars/avdarling/mergedreadsfinal/fastp/S2* | awk '{split($_,x,"_fastp.fastq.gz"); print x[1]}') #change path to where your files are located and awk line depending on how you named your files
+#samples=$(ls /projects/ciwars/thomasbyrne/*_clean_merged.fastq | awk '{split($_,x,"_clean_merged.fastq"); print x[1]}') #for my subset
+cd /projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/diamond_output
+samples=$(ls S*_arg_full.csv | awk -F/ '{gsub(/_arg_full.csv/, "", $NF); print $NF}' | sort | uniq)
+
+for sample in $samples; do
+    #sample=$(basename "$sample")
+    #echo $sample
+    printf "%s \n" ${sample}
+    file=$(basename -- ${sample})
+    printf "%s \n" ${file}
+    python rp_abun.py -a ${sample}_arg_full.csv -r ${sample}_rpob.csv -la $REF_arg -lr $REF_rpob --rpob_identity 40 --db card -o /projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/diamond_output/${sample}_abundance_new.csv
+done
+```
+</details>
+
+Finally, run merging_my_noramlized.sh
+
+<details>
+<summary> merging_my_noramlized.sh</summary>
+
+```
+#!/bin/bash
+
+#SBATCH --account=prudenlab
+#SBATCH --partition=normal_q
+#SBATCH --mem=1G
+#SBATCH -t 1:00:00
+#SBATCH -n 50
+#SBATCH -N 1
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=dceglio@vt.edu
+# Output file name
+
+output_file="I2GDS_G6_AMR_Diamond.txt"
+
+cd /projects/intro2gds/I2GDS2025/G6_AMR_ARG/Daniel/Subset/diamond_output
+
+# Find and merge files
+
+for file in *_abundance_new.csv; do
+    # Skip the output file to avoid self-merging
+    if [ "$file" != "$output_file" ]; then
+
+        # Print filename as a comment in the merged file. nope i made it a column so that i can just treat it as a csv directly
+        #echo "# $file" >> "$output_file"
+
+        # Append contents to the merged file, skipping the header line
+        #tail -n +2 "$file" >> "$output_file"
+
+        #so i think i just make it 1 instead of 2 but we'll see ig
+        tail -n +1 "$file" >> "$output_file"
+    fi
+done
+
+
+echo "Merge complete. Merged file: $output_file"
+```
+
+</details>
