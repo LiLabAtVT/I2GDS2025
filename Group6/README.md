@@ -767,7 +767,7 @@ Run cal_abundances.sh to ___________.
 ```
 #!/usr/bin/sh
 
-#SBATCH --account=prudenlab
+#SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH --mem=20G
 #SBATCH -t 1:00:00
@@ -805,14 +805,14 @@ done
 ```
 </details>
 
-Finally, run merging_my_noramlized.sh. This script merges _______________ into a final output, I2GDS_G6_AMR_Diamond.txt. This output will be one of the inputs for the R script.
+Finally, run merging_my_noramlized.sh. This script merges the previous abundance_new.csv files for each sample into a single, final output: I2GDS_G6_AMR_Diamond.txt. This output will be one of the inputs for the R script.
 <details>
 <summary> merging_my_noramlized.sh</summary>
 
 ```
 #!/bin/bash
 
-#SBATCH --account=prudenlab
+#SBATCH --account=introtogds
 #SBATCH --partition=normal_q
 #SBATCH --mem=1G
 #SBATCH -t 1:00:00
