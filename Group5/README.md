@@ -230,3 +230,11 @@ sbatch 04_fastqc.sh
 ***Notes**:*
 *This step was completed to assure that quality of sequences stayed high after the super deduper and BWA analyses.*
 
+## 05. Kraken2
+
+## 06. Bracken
+
+## 07. Stacked Bar Plot in R
+
+
+
