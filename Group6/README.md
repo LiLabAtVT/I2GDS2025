@@ -562,3 +562,12 @@ If there's any trouble with DIAMOND annotation, example output files are located
 
 # Pipeline
 <img width="593" height="778" alt="image" src="https://github.com/user-attachments/assets/6f9dc70f-19f5-4431-bddc-5a1dc2c58afc" />
+
+
+# Working with data in R to create a stacked bar plot
+
+## Turning DIAMOND outputs into a workable file
+DIAMOND outputs are a little tricky, as it does not compile the number of times a gene is seen in a sample. Therefore, we have to do it ourselves.
+
+First, put rp_abun.py in the same folder as your DIAMOND outputs
+
