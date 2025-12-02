@@ -232,7 +232,11 @@ sbatch 04_fastqc.sh
 
 ## 05. Kraken2
 
+All final Kraken2 output files can be found at: `/projects/intro2gds/I2GDS2025/G5_MG_AMR/05_Kraken2`
+
 ## 06. Bracken
+
+All final bracken output files can be found at: `/projects/intro2gds/I2GDS2025/G5_MG_AMR/06_Bracken`
 
 ## 07. Stacked Bar Plot in R
 
