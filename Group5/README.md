@@ -236,5 +236,19 @@ sbatch 04_fastqc.sh
 
 ## 07. Stacked Bar Plot in R
 
+**Paths in script to change for your specific setup:**
+* Working Directory: where all your input files are located
 
+**Input**: Bracken output files (Should be 10 of them corresponding with the 10 samples)
+* Example: `SRR17048876.bracken`
+
+**Paths in script to change for your specific setup:**
+* Working Directory: where all your input files are located
+
+**Output**: Relative abundance stacked bar plot for top 20 genera in the 10 samples
+* Example:
+![Relative abundance stacked bar plot for the 10 samples at the genus level](genus_abundance_plot.pdf "Stacked Bar Plot")
+
+**What the script does:**
+1. 
 
