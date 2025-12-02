@@ -851,13 +851,13 @@ echo "Merge complete. Merged file: $output_file"
 
 ### 7.2 Working in R
 Inputs: `CARD4.0.1_aro_cat.csv`, `I2GDSMetadata.csv`, `Antibiotic to Drug.csv`, and `I2GDS_G6_finalDiamond.csv`
-All inputs are provided in the code-files folder.
+All inputs are provided in the code-files folder. I2GDS_G6_finalDiamond.csv is the exact same as the txt file output from the previous merging step, just converted to a csv file using Excel and renamed.
 
 Libraries needed: `tidyverse`, `RColorBrewer`
 To install these libraries, open RStudio and click the "Tools" drop-down menu at the top of the window. Then select "Install Packages".
 In the "Packages" box, type tidyverse and click install. Do the same for RColorBrewer.
 
-In R, you will take the output from the previous merging step and use additional metadata, ARG annotation, and Antibiotic to Drug categorization files to created a stacked bar chart. This stacked bar chart shows which ARGs were found in different sample types, classifying the ARGs by drug resistance.
+In R, you will take the output from the previous merging step (converted from txt to csv file) and use additional metadata, ARG annotation, and Antibiotic to Drug categorization files to created a stacked bar chart. This stacked bar chart shows which ARGs were found in different sample types, classifying the ARGs by drug resistance.
 
 To produce this stacked bar graph, run the R code below. Comments within the code explain the general workflow.
 
