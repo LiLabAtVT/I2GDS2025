@@ -242,7 +242,7 @@ All final bracken output files can be found at: `/projects/intro2gds/I2GDS2025/G
 
 The `I2GDS_stackingplot_group_final.R` script takes the bracken output files and creates a relative abundance bar plot of the top 20 genera across the 10 samples. For more detail, see detailed comments within the script.
 
-**Input**: Bracken output files (Should be 10 of them corresponding with the 10 samples)
+**Input**: Bracken output files from step 06 (Should be 10 of them corresponding with the 10 samples found at `/projects/intro2gds/I2GDS2025/G5_MG_AMR/06_Bracken`)
 * Example: `SRR17048876.bracken`
 * Is a tsv file with 7 columns, but the  columns used for creating the bar plot are: name, taxonomy_lvl, and fraction_total_reads
 
