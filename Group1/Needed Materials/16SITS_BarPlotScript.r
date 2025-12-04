@@ -52,7 +52,7 @@ library(ggplot2)
 setwd("~/2025/I2GDS2025.git/Group1/Needed Materials")
 
 # change filepath
-fungi_phylum <- read.csv("~/2025/I2GDS2025.git/Group1/Needed Materials/level2-table.tsv", sep = "\t") 
+fungi_phylum <- read.csv("~/2025/I2GDS2025.git/Group1/Needed Materials/fungilevel2-table.tsv", sep = "\t") 
 
 # renames all cloumn ncol(fungi_phylum)-1 -> num of column -1 (because first column is taxonomy) "1:" -> creates a column from 1: to the number of column(ncol(fungi_phylum)-1)
 colnames(fungi_phylum) <- c("OTU_ID", paste0("fsample", 1:(ncol(fungi_phylum)-1)))
