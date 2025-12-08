@@ -639,3 +639,10 @@ echo "==== All Prokka annotations completed successfully at $(date)! ===="
 ```
 
 **For reviewers: if the Linux portion of the pipeline ran succesfully, you should have a folder "annotations" containing five folders with titles like "SRR18209240_spades_prokka" from the Prokka output. With the annotated genomes, you are now ready for the R portion of this pipeline (next half of course).**
+
+
+## R script
+
+Input file "core_gene_alignment_filtered.aln" can be downloaded from "/projects/intro2gds/I2GDS2025/G2_PlantDisease/panaroo_results"
+other files can be found in "Rscript"
+
